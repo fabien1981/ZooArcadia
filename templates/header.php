@@ -2,7 +2,7 @@
      <!--Ajout de la navbar bootstrap responsive lg est le breakpoint -->
      <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
             <div class="container-fluid">
-                <img src="/assets/photos/logo zoo.png" width="80" height="80" alt="logo Arcadia"> 
+                <img src="../photos/logo zoo.png" width="80" height="80" alt="logo Arcadia"> 
               <a class="navbar-brand" href="#">Arcadia</a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>

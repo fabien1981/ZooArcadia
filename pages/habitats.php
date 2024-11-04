@@ -1,7 +1,7 @@
 <?php
 
-require_once '../config/session.php';
-require_once '../config/DbConnection.php';
+require_once '../config/config.php';
+
 
 $query = DbConnection::getPdo()->query('select * FROM animal');
 

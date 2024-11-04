@@ -1,6 +1,6 @@
 <?php
-require_once '../config/session.php';
-require_once '../config/DbConnection.php';
+require_once '../config/config.php';
+
 
 
 $title='inscription';
@@ -53,6 +53,8 @@ require_once '../templates/header.php';
             <?php echo $error; ?>
         </div>
     <?php endif; ?>
+
+   
 
     <form action="" method="post">
         <div class="mb-3">

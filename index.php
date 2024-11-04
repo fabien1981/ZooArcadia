@@ -1,6 +1,6 @@
 
 <?php require_once 'templates/head.php'?>
-<?php require_once 'config/session.php'; ?>
+<?php require_once 'config/config.php'; ?>
 
 
 <body>

@@ -1,6 +1,6 @@
 <?php
 
-require_once '../config/session.php';
+require_once '../config/config.php';
 
 if(isset($_SESSION['email'])){
     unset($_SESSION['email']);

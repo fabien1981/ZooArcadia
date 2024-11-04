@@ -1,7 +1,7 @@
 <?php
 
-require_once '../config/session.php';
-require_once '../config/DbConnection.php';
+require_once '../config/config.php';
+
 
 $animal_id = $_GET['animal_id'];
 $query = DbConnection::getPdo()->query('select * FROM animal where animal_id = '.$animal_id);

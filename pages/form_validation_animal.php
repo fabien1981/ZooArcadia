@@ -1,6 +1,6 @@
 <?php
-    require_once '../config/session.php';
-    require_once '../config/DbConnection.php';
+    require_once '../config/config.php';
+   
 
 //verification de la méthod d'accés à la page que par la méthode POST
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST)){

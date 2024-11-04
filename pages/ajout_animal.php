@@ -1,5 +1,5 @@
 <?php
-require_once '../config/session.php';
+require_once '../config/config.php';
  $title = 'Ajouter un animal' ;
 ?>
 
