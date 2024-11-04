@@ -1,5 +1,5 @@
 <?php
-
+    require_once '../config/session.php';
     require_once '../config/DbConnection.php';
 
 //verification de la méthod d'accés à la page que par la méthode POST

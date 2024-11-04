@@ -1,6 +1,6 @@
 <?php
 
-
+require_once '../config/session.php';
 require_once '../config/DbConnection.php';
 
 $animal_id = $_GET['animal_id'];

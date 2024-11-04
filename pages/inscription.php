@@ -1,5 +1,5 @@
 <?php
-
+require_once '../config/session.php';
 require_once '../config/DbConnection.php';
 
 
@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // ajout du message de succes en session pour pouvoir l'afficher sur la page de connection
             $_SESSION['success_message'] = 'Votre compte a bien été créé';
 
-            header('Location:admin.php');
+            header('Location:connexion.php');
         }
     }
 }

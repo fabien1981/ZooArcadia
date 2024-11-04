@@ -31,12 +31,21 @@
                   <li class="nav-item" data-show="veterinaire">
                     <a class="nav-link" href="/veterinaire">Espace vétérinaire</a>
                   </li>
-                  <li class="nav-item" data-show="disconnected">
+
+                  <?php if (isset($_SESSION['email'])): ?>
+
+                    <li class="nav-item" >
+                  <a class="nav-link" href="../pages/logout.php">Déconnexion</a>
+                  </li>
+
+                  <?php else: ?>
+
+                  <li class="nav-item" >
                     <a class="nav-link" href="../pages/connexion.php">Connexion</a>
                   </li>
-                  <li class="nav-item" data-show="connected">
-                  <button class="nav-link" id="signout-btn">Déconnexion</button>
-                  </li>
+
+                  <?php endif; ?>
+                 
                 </ul>
                
               </div>

@@ -1,5 +1,5 @@
 <?php
-
+require_once '../config/session.php';
 require_once '../config/DbConnection.php';
 
 
@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                 //save l'utilisateur en session
                 unset($user['password']);
-                $_SESSION['user'] = $user;
+                $_SESSION['email'] = $user;
 
                 header('Location:../index.php');
             }
