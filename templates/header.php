@@ -26,13 +26,13 @@
                     <a class="nav-link" href="/employe">Espace employé</a>
                   </li>
                   <li class="nav-item" data-show="admin">
-                    <a class="nav-link" href="../pages/ajout_animal.php">Espace administrateur</a>
+                    <a class="nav-link" href="../pages/admin.php">Espace administrateur</a>
                   </li>
                   <li class="nav-item" data-show="veterinaire">
                     <a class="nav-link" href="/veterinaire">Espace vétérinaire</a>
                   </li>
                   <li class="nav-item" data-show="disconnected">
-                    <a class="nav-link" href="/signin">Connexion</a>
+                    <a class="nav-link" href="../pages/connexion.php">Connexion</a>
                   </li>
                   <li class="nav-item" data-show="connected">
                   <button class="nav-link" id="signout-btn">Déconnexion</button>
