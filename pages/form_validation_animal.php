@@ -21,10 +21,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST)){
     )
     ');
 //securisation de l'insertion des données 
-    $query->bindParam('prenom',$_POST['prenom']);
-    $query->bindParam('etat',$_POST['etat']);
-    $query->bindParam('race',$_POST['race']);
-    $query->bindParam('image_animal',$_POST['image_animal']);
+    $query->bindValue('prenom',DbConnection::protectDbData($_POST['prenom']));
+    $query->bindValue('etat',DbConnection::protectDbData($_POST['etat']));
+    $query->bindValue('race',DbConnection::protectDbData($_POST['race']));
+    $query->bindValue('image_animal',DbConnection::protectDbData($_POST['image_animal']));
 
     $query->execute();
 

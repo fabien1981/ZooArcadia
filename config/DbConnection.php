@@ -18,5 +18,13 @@ class DbConnection
         self::$pdo = new PDO(self::DSN, self::USER, self::PASSWORD);
         return self::$pdo;
     } 
+   // centralisattion des sécurités pour la protection des données
+    public static function protectDbData($value){
+    
+        $value = htmlspecialchars($value);
+        $value = strip_tags($value);
+
+        return $value;
+    }
 }
 
