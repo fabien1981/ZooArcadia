@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 unset($user['password']);
                 $_SESSION['user'] = $user;
 
-                header('Location: index.php');
+                header('Location:../index.php');
             }
         }
     }
