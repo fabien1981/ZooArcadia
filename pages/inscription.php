@@ -3,7 +3,7 @@
 require_once '../config/DbConnection.php';
 
 
-$title='Connexion';
+$title='inscription';
 
 
 
