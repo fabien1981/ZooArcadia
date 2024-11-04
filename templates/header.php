@@ -26,7 +26,7 @@
                     <a class="nav-link" href="/employe">Espace employé</a>
                   </li>
                   <li class="nav-item" data-show="admin">
-                    <a class="nav-link" href="/admin">Espace administrateur</a>
+                    <a class="nav-link" href="../pages/ajout_animal.php">Espace administrateur</a>
                   </li>
                   <li class="nav-item" data-show="veterinaire">
                     <a class="nav-link" href="/veterinaire">Espace vétérinaire</a>

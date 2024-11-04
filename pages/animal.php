@@ -1,9 +1,10 @@
 <?php
 
-require_once '../config/pdo.php';
+
+require_once '../config/DbConnection.php';
 
 $animal_id = $_GET['animal_id'];
-$query = $pdo->query('select * FROM animal where animal_id = '.$animal_id);
+$query = DbConnection::getPdo()->query('select * FROM animal where animal_id = '.$animal_id);
 
 $animal =$query->fetch(PDO::FETCH_ASSOC);
   

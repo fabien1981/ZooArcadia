@@ -1,8 +1,9 @@
 <?php
 
-require_once '../config/pdo.php';
 
-$query = $pdo->query('select * FROM animal');
+require_once '../config/DbConnection.php';
+
+$query = DbConnection::getPdo()->query('select * FROM animal');
 
 $animaux =$query->fetchAll(PDO::FETCH_ASSOC);
   
@@ -17,6 +18,10 @@ $animaux =$query->fetchAll(PDO::FETCH_ASSOC);
 <body>
 <?php require_once '../templates/header.php'?>
 <main>
+ 
+    <div class="alert alert-success" role="alert">
+      <?php if (isset($_GET['message'])); ?>
+    </div>
 
 <p>Bienvenue dans l'habitat de la savane ! Ici, vous découvrirez l'incroyable diversité de la savane africaine,
   un vaste écosystème où cohabitent de nombreuses espèces emblématiques.
