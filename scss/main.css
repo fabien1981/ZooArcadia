@@ -1,5 +1,5 @@
 @charset "UTF-8";
-@import url("/node_modules/bootstrap-icons/font/bootstrap-icons.css");
+@import url("../ZooArcadia/node_modules/bootstrap-icons/font/bootstrap-icons.css");
 /*!
  * Bootstrap  v5.3.3 (https://getbootstrap.com/)
  * Copyright 2011-2024 The Bootstrap Authors
@@ -11966,75 +11966,172 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
-html {
-  position: relative;
-  min-height: 100%;
-}
-
-main {
-  margin-bottom: 200px;
-}
-
-footer.footer {
-  padding: 20px;
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-}
-
-p {
-  font-family: "EB Garamond", serif;
-  font-size: 18px;
-}
-
-.vitrine {
-  top: 0;
-  left: 0;
-  width: 100%;
+html, body {
   height: 100%;
-  background-size: cover;
+  font-family: "Arial", sans-serif;
+  color: #333;
+  margin: 0;
+  padding: 0;
 }
 
-.image-card {
-  position: relative;
+main.container {
+  min-height: calc(100vh - 150px);
+  padding-bottom: 50px;
 }
-.image-card:hover .titre-image {
-  opacity: 1;
+
+.animal-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
 }
-.image-card:hover img {
-  filter: brightness(0.3);
+.animal-gallery .animal-item {
+  width: 60px;
+  text-align: center;
+  padding: 8px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-.image-card img {
-  transition: all 0.3s;
+.animal-gallery .animal-item img {
+  width: 100%;
+  height: auto;
+  border-radius: 50%;
+  transition: transform 0.3s;
 }
-.image-card .titre-image {
+.animal-gallery .animal-item:hover img {
+  transform: scale(1.1);
+}
+.animal-gallery .animal-item .animal-title {
+  margin-top: 5px;
+  font-size: 12px;
+  font-weight: bold;
+  color: black;
+}
+
+.habitat-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+.habitat-gallery .habitat-item {
+  width: 80px;
+  text-align: center;
+  padding: 8px;
+  background-color: #f3f3f3;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.habitat-gallery .habitat-item img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  transition: transform 0.3s;
+}
+.habitat-gallery .habitat-item:hover img {
+  transform: scale(1.05);
+}
+.habitat-gallery .habitat-item .habitat-image {
+  width: 100%;
+  height: 200px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 8px;
+}
+
+@media (min-width: 576px) {
+  .animal-gallery .animal-item,
+  .habitat-gallery .habitat-item {
+    width: 90px;
+  }
+}
+@media (min-width: 768px) {
+  .animal-gallery .animal-item,
+  .habitat-gallery .habitat-item {
+    width: 100px;
+  }
+}
+@media (min-width: 992px) {
+  .animal-gallery .animal-item,
+  .habitat-gallery .habitat-item {
+    width: 120px;
+  }
+}
+.intro-text h2, .intro-text .h2 {
+  color: #D2B48C;
+  font-family: "Georgia", serif;
+  font-size: 24px;
+}
+.intro-text p {
+  font-size: 16px;
+}
+
+.carousel {
+  max-height: 100vh;
+  overflow: hidden;
+  max-width: 800px;
+  margin: 20px auto;
+}
+.carousel .carousel-item img {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+.carousel .carousel-item img .carousel-caption {
+  background: rgba(0, 0, 0, 0.5);
+  padding: 10px;
+  border-radius: 5px;
   position: absolute;
-  top: 50%;
+  bottom: 10px;
   left: 50%;
-  transform: translate(-50%, -50%);
-  opacity: 0;
-  transition: all 0.3s;
+  transform: translateX(-50%);
+  max-width: 80%;
+  text-align: center;
 }
-
-.form-label {
-  color: #228b22;
-}
-
-.hero-scene {
-  height: 9em;
-  position: relative;
-}
-.hero-scene::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
+.carousel .carousel-item img img {
   width: 100%;
   height: 100%;
-  background-image: url(../assets/photos/tigre2.png);
-  background-size: cover;
-  filter: brightness(0.5);
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 10px;
 }
-.hero-scene * {
-  position: relative;
+.carousel .visitor-feedback {
+  margin-top: 50px;
+}
+.carousel .visitor-feedback h2, .carousel .visitor-feedback .h2 {
+  font-size: 22px;
+  color: #D2B48C;
+}
+.carousel .visitor-feedback form .form-label {
+  color: #D2B48C;
+}
+.carousel .visitor-feedback form button {
+  background-color: #D2B48C;
+  color: white;
+}
+.carousel .visitor-feedback form button:hover {
+  background-color: #c49c67;
+}
+.carousel footer.footer {
+  background-color: #D2B48C;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  width: 100%;
+}
+
+.habitat-card {
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.habitat-card:hover {
+  transform: scale(1.05);
+}
+
+.habitat-details {
+  display: none;
 }/*# sourceMappingURL=main.css.map */

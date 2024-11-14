@@ -1,83 +1,208 @@
-@import url("/node_modules/bootstrap-icons/font/bootstrap-icons.css");
+// Import des icônes Bootstrap et styles personnalisés
+@import url("../ZooArcadia/node_modules/bootstrap-icons/font/bootstrap-icons.css");
 @import 'custom';
-//style du html//
-html{
-    position: relative;
-    min-height: 100%;
 
+// Variables de couleurs et de polices
+$primary: #D2B48C;
+$secondary: #FFD700;
+$font-family-serif: 'Georgia', serif;
+$font-family-sans-serif: 'Arial', sans-serif;
+
+// Style global pour le HTML et le body
+html, body {
+    height: 100%; // Assure que la page occupe tout l'espace vertical
+    font-family: $font-family-sans-serif;
+    color: #333;
+    margin: 0;
+    padding: 0;
 }
 
-//style du main//
-main{
-    margin-bottom:200px ;
+// Structure de la section principale
+main.container {
+    min-height: calc(100vh - 150px); // Ajuste la hauteur pour le footer
+    padding-bottom: 50px; // Espace pour éviter le chevauchement du footer
 }
 
-//style du footer//
-footer.footer{
- padding: 20px;
- position:absolute;
- bottom: 0; 
- width:100%;  
-}
+// Section "Nos Animaux" pour mobile-first
+.animal-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
 
-//attribution des polices//
-p{
-    font-family: $font-family-serif;
-    font-size: 18px;
-}
+    .animal-item {
+        width: 60px; // Taille de base pour mobile
+        text-align: center;
+        padding: 8px;
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
-.vitrine{
-    top:0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-}
-
-.image-card{
-    position: relative;
-    &:hover{
-        .titre-image{
-            opacity: 1;
+        img {
+            width: 100%;
+            height: auto;
+            border-radius: 50%;
+            transition: transform 0.3s;
         }
-        img{
-            filter: brightness(0.3);
+
+        &:hover img {
+            transform: scale(1.1);
+        }
+
+        .animal-title {
+            margin-top: 5px;
+            font-size: 12px;
+            font-weight: bold;
+            color: black;
         }
     }
+}
 
-    img{
-        transition: all 0.3s;
+// Section "Nos Habitats" pour mobile-first
+.habitat-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+
+    .habitat-item {
+        width: 80px;
+        text-align: center;
+        padding: 8px;
+        background-color: #f3f3f3;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+        img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            transition: transform 0.3s;
+        }
+
+        &:hover img {
+            transform: scale(1.05);
+        }
+
+        .habitat-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
     }
-    .titre-image{
+}
+
+// Media queries pour les écrans plus larges
+@media (min-width: 576px) {
+    .animal-gallery .animal-item,
+    .habitat-gallery .habitat-item {
+        width: 90px;
+    }
+}
+
+@media (min-width: 768px) {
+    .animal-gallery .animal-item,
+    .habitat-gallery .habitat-item {
+        width: 100px;
+    }
+}
+
+@media (min-width: 992px) {
+    .animal-gallery .animal-item,
+    .habitat-gallery .habitat-item {
+        width: 120px;
+    }
+}
+
+// Style pour la section de bienvenue
+.intro-text {
+    h2 {
+        color: $primary;
+        font-family: $font-family-serif;
+        font-size: 24px;
+    }
+
+    p {
+        font-size: 16px;
+    }
+}
+
+// Style du carrousel
+.carousel {
+    max-height: 100vh;
+    overflow: hidden;
+    max-width: 800px;
+    margin: 20px auto;
+
+    .carousel-item img {
+        height: 100%; // Assure que chaque élément occupe la hauteur du carrousel
+        display: flex; // Centre l'image verticalement si elle ne remplit pas tout l'espace
+        align-items: center;
+
+    .carousel-caption {
+        background: rgba(0, 0, 0, 0.5);
+        padding: 10px;
+        border-radius: 5px;
         position: absolute;
-        top: 50%;
-        left:50%;
-        transform:translate(-50%, -50%) ;
-        opacity:0;
-        transition: all 0.3s;
+        bottom: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        max-width: 80%;
+        text-align: center;
+    }
+
+    img {
+        width: 100%;
+        height: 100%; // Force l'image à remplir la hauteur de l'élément
+        object-fit: cover; // Ajuste l'image pour qu'elle occupe tout l'espace sans déformation
+        border-radius: 10px;
     }
 }
 
-.form-label{
-    color: $primary;
+// Style pour la section "Avis des visiteurs"
+.visitor-feedback {
+    margin-top: 50px;
+
+    h2 {
+        font-size: 22px;
+        color: $primary;
+    }
+
+    form {
+        .form-label {
+            color: $primary;
+        }
+
+        button {
+            background-color: $primary;
+            color: white;
+            &:hover {
+                background-color: darken($primary, 10%);
+            }
+        }
+    }
 }
 
+// Style du footer
+footer.footer {
+    background-color: $primary;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    width: 100%;
+}
+}
 
-.hero-scene{
-    height: 9em;
-    position: relative;
-    &::before{
-        content:"";
-       position: absolute;
-       top: 0;
-       left: 0;
-       width: 100%;
-       height: 100%;
-       background-image: url(../assets/photos/tigre2.png);
-       background-size: cover;
-       filter:brightness(0.5)
-    }
-    *{
-        position: relative;
-    }
+.habitat-card {
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+.habitat-card:hover {
+    transform: scale(1.05);
+}
+.habitat-details {
+    display: none;
 }

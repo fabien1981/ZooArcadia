@@ -21,6 +21,13 @@ class Router
             return;
         }
 
+        // Vérifiez si l'URI est "habitats"
+if ($uri === 'habitats') {
+    $this->controllerName .= 'Habitats';
+    $this->method = 'display';
+    return;
+}
+
         // Supprime le préfixe "ZooArcadia" de l'URI si présent
         if (strpos($uri, 'ZooArcadia') === 0) {
             $uri = substr($uri, strlen('ZooArcadia') + 1); // Décale de la longueur de 'ZooArcadia'
@@ -176,6 +183,19 @@ class Router
         }
     }
 
+    public function get($route, $action)
+{
+    // Vérifiez si la route actuelle correspond à celle définie ici
+    $currentRoute = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
+    $route = trim($route, '/');
+
+    if ($this->requestMethod === 'GET' && $currentRoute === $route) {
+        $this->controllerName = $action[0];
+        $this->method = $action[1];
+    }
+}
+
+
     public function doAction(): array|string
     {
         $controllerName = $this->controllerName;
@@ -228,3 +248,4 @@ class Router
         return $this->returnJson;
     }
 }
+

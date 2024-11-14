@@ -1,19 +1,15 @@
 <?php
-
 use App\Routing\Router;
+use App\Controller\Habitats;
 
-require_once __DIR__ . '/config/session.php'; // Charger la session dès le début
+require_once __DIR__ . '/config/session.php';
 require_once __DIR__ . '/vendor/autoload.php';
 
-$path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-$file = __DIR__ . $path;
-
-if (file_exists($file) && is_file($file)) {
-    return false; // Sert directement le fichier statique sans passer par le router
-}
-
-$error = null;
 $router = new Router($_SERVER['REQUEST_METHOD'], $_SERVER['REQUEST_URI']);
+
+// Enregistrer la route /ZooArcadia/habitats
+$router->get('ZooArcadia/habitats', [Habitats::class, 'display']);
+
 $data = $router->doAction();
 
 if ($router->isReturnJson()) {
@@ -32,9 +28,17 @@ if ($router->isReturnJson()) {
 
     if (is_array($data)) {
         $error = $data['message'] ?? null;
-        $page = 'templates/' . ($data['template'] ?? 'default') . '.php';
-        if (file_exists('templates/base_template.php')) {
-            require_once 'templates/base_template.php';
+        $template = $data['template'] ?? 'default';
+        $page = __DIR__ . '/templates/' . $template . '.php';
+
+        if (file_exists(__DIR__ . '/templates/base_template.php')) {
+            // Vérifiez que 'data' est un tableau avant d'utiliser extract
+            if (isset($data['data']) && is_array($data['data'])) {
+                extract($data['data']);
+            } else {
+                $data['data'] = []; // Assurez-vous que $data['data'] est un tableau vide si non défini
+            }
+            require_once __DIR__ . '/templates/base_template.php';
         } else {
             echo "Erreur : le fichier de base du template est introuvable.";
         }
