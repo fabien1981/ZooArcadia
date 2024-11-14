@@ -8,7 +8,7 @@ class CreerCompte
 {
     public function creerCompte($formulaire)
 {
-    require_once __DIR__ . '/../config/session.php';
+    require_once __DIR__ . '/../../config/session.php';
 
     // Vérification initiale des données du formulaire
     if (!$formulaire || empty($formulaire['email']) || empty($formulaire['password']) || empty($formulaire['nom']) || empty($formulaire['prenom']) || empty($formulaire['role'])) {

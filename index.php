@@ -2,9 +2,8 @@
 
 use App\Routing\Router;
 
+require_once __DIR__ . '/config/session.php'; // Charger la session dès le début
 require_once __DIR__ . '/vendor/autoload.php';
-
-
 
 $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 $file = __DIR__ . $path;

@@ -51,15 +51,15 @@ class Horaires
     public function create(array $data): array
     {
         // Validation des données
-        if (empty($data['period']) || empty($data['closing_cashier']) || empty($data['closing_car_park']) || empty($data['closing_foot_park'])) {
+        if (empty($data['period']) || empty($data['closing_cashier']) || empty($data['closing_foot_park'])) {
             return ['success' => false, 'message' => 'Tous les champs sont requis pour créer un horaire.'];
         }
 
         try {
-            $query = Dbutils::getPdo()->prepare('INSERT INTO horaires (period, closing_cashier, closing_car_park, closing_foot_park) VALUES (:period, :closing_cashier, :closing_car_park, :closing_foot_park)');
+            $query = Dbutils::getPdo()->prepare('INSERT INTO horaires (period, closing_cashier, closing_foot_park) VALUES (:period, :closing_cashier, :closing_car_park, :closing_foot_park)');
             $query->bindParam(':period', $data['period']);
             $query->bindParam(':closing_cashier', $data['closing_cashier']);
-            $query->bindParam(':closing_car_park', $data['closing_car_park']);
+           
             $query->bindParam(':closing_foot_park', $data['closing_foot_park']);
             $query->execute();
 

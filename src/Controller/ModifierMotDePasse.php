@@ -9,7 +9,7 @@ class ModifierMotDePasse
 {
     public function afficherFormulaire()
     {
-        require_once __DIR__ . '/../config/session.php';
+        require_once __DIR__ . '/../../config/session.php';
         $messages = ['erreur' => null, 'succes' => null];
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {

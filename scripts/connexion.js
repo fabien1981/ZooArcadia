@@ -8,7 +8,6 @@ if (inputEmail && inputPassword && btnValidation) {
     // Activation des événements sur les champs pour validation en temps réel
     inputEmail.addEventListener("keyup", validateForm);
     inputPassword.addEventListener("keyup", validateForm);
-    btnValidation.addEventListener("click", handleSubmit);
 
     // Fonction principale de validation du formulaire
     function validateForm() {
@@ -50,17 +49,4 @@ if (inputEmail && inputPassword && btnValidation) {
         input.classList.toggle("is-invalid", !isValid);
         if (!input.nextElementSibling) input.after(feedback); // Ajoute le feedback si inexistant
     }
-
-    // Fonction de gestion de la soumission
-    function handleSubmit(event) {
-        event.preventDefault(); // Empêche l'envoi si le formulaire est invalide
-        if (!btnValidation.disabled) {
-            alert("Connexion réussie !");
-            // Ici, ajoutez le code de soumission du formulaire ou redirection vers la page suivante
-        } else {
-            alert("Veuillez corriger les erreurs dans le formulaire.");
-        }
-    }
-} else {
-    console.warn("Les éléments du formulaire de connexion sont introuvables sur cette page.");
 }

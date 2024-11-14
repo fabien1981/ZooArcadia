@@ -3,7 +3,7 @@
 
     <!-- Affichage du message de confirmation de création de compte -->
     <?php
-    require_once __DIR__ . '/../config/session.php';
+    require_once __DIR__ . '/../../config/session.php';
      if (isset($_SESSION['success_message'])): ?>
         <div class="alert alert-success" role="alert">
             <?= $_SESSION['success_message']; ?>

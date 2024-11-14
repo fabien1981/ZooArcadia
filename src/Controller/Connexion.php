@@ -9,11 +9,13 @@ class Connexion
 {
     public function display()
     {
+        require_once __DIR__ . '/../../config/session.php'; // S'assurer que la session est démarrée
+
         $error = null;
         $message = 'Se connecter';
 
         // Vérifie si la requête est une méthode POST (soumission du formulaire)
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (empty($_POST['email']) || empty($_POST['password'])) {
                 $error = 'Identifiants invalides';
             } else {
@@ -29,38 +31,40 @@ class Connexion
 
                 $user = $query->fetch(PDO::FETCH_ASSOC);
 
+                // Vérifie l'existence de l'utilisateur et la validité du mot de passe
                 if (!$user || !password_verify($_POST['password'], $user['password'])) {
                     $error = 'Identifiants invalides';
                 } else {
-                    // Sauvegarde de l'utilisateur en session, avec le label de rôle
+                    // Sauvegarde de l'utilisateur en session
                     unset($user['password']);
                     $_SESSION['email'] = [
                         'email' => $user['email'],
-                        'role' => $user['role_label'],  // Stocke le label du rôle
+                        'role' => $user['role_label'],
                         'nom' => $user['nom'],
                         'prenom' => $user['prenom']
                     ];
 
-                   // Redirection en fonction du rôle
-                   switch ($_SESSION['email']['role']) {
-                    case 'Admin':
-                        header('Location: /ZooArcadia/admin/display');
-                        break;
-                    case 'Vétérinaire':
-                        header('Location: /ZooArcadia/veterinaire/display');
-                        break;
-                    case 'Employé':
-                        header('Location: /ZooArcadia/employe/display');
-                        break;
-                    default:
-                        header('Location: /ZooArcadia/homepage/home');
-                        break;
-                }
-                exit;
+                    // Redirection en fonction du rôle
+                    switch ($_SESSION['email']['role']) {
+                        case 'Admin':
+                            header('Location: /ZooArcadia/admin/display');
+                            break;
+                        case 'Vétérinaire':
+                            header('Location: /ZooArcadia/veterinaire/display');
+                            break;
+                        case 'Employé':
+                            header('Location: /ZooArcadia/employe/display');
+                            break;
+                        default:
+                            header('Location: /ZooArcadia/homepage/home');
+                            break;
+                    }
+                    exit;
                 }
             }
         }
 
+        // Retourne les informations nécessaires pour l'affichage du formulaire de connexion
         return [
             'template' => 'connexion',
             'error' => $error,

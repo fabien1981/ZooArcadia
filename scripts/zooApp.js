@@ -20,13 +20,10 @@ function fetchAnimals() {
                 animalList.innerText = 'Aucun animal trouvé';
             }
         })
-        .catch(error => {
-            console.error('Erreur de réseau ou de parsing :', error);
-            alert('Erreur de réseau. Veuillez réessayer.');
-        });
+        .catch(error => console.error('Erreur de réseau ou de parsing :', error));
 }
 
-// Fonction pour afficher le formulaire pour ajouter un nouvel animal
+// Fonction pour ouvrir le formulaire d'ajout d'un nouvel animal
 function openAnimalForm() {
     document.getElementById('form-title').textContent = 'Ajouter un animal';
     document.getElementById('animal-form').style.display = 'block';
@@ -56,10 +53,7 @@ function editAnimal(id) {
                 alert(data.message);
             }
         })
-        .catch(error => {
-            console.error('Erreur de réseau:', error);
-            alert('Erreur de réseau. Veuillez réessayer.');
-        });
+        .catch(error => console.error('Erreur de réseau:', error));
 }
 
 // Fonction pour supprimer un animal
@@ -69,7 +63,6 @@ function deleteAnimal(id) {
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    alert('Animal supprimé');
                     fetchAnimals(); // Rafraîchit la liste des animaux
                 } else {
                     alert(data.message);
@@ -129,7 +122,6 @@ function handleAnimalFormSubmit(event) {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            alert(id ? 'Animal modifié avec succès' : 'Animal ajouté avec succès');
             closeAnimalForm();
             fetchAnimals();
         } else {
