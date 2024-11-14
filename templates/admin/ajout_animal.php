@@ -43,7 +43,7 @@
 </div>
 
 <!-- Inclusion de api.js pour la gestion des requêtes API -->
-<script src="/811/scripts/api.js"></script>
+<script src="/ZooArcadia/scripts/api.js"></script>
 
 <!-- Script pour gérer la soumission du formulaire via JavaScript -->
 <script>
@@ -63,4 +63,4 @@
         createAnimal(animalData);
     });
 </script>
-<script src="/811/scripts/connexion.js"></script>
+<script src="/ZooArcadia/scripts/connexion.js"></script>

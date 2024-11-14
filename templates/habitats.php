@@ -3,100 +3,80 @@
 
 use App\Database\Dbutils;
 
-$query = Dbutils::getPdo()->query('select * FROM animal');
+$query = Dbutils::getPdo()->query('SELECT habitat.nom AS habitat_nom, animal.race, animal.prenom, animal.image_animal, animal.habitat AS habitat_id 
+                                    FROM animal 
+                                    INNER JOIN habitat ON animal.habitat = habitat.habitat_id');
 
-$animaux =$query->fetchAll(PDO::FETCH_ASSOC);
+$animauxParHabitat = [];
+while ($animal = $query->fetch(PDO::FETCH_ASSOC)) {
+    $animauxParHabitat[$animal['habitat_nom']][] = $animal;
+}
+
+// Descriptions des habitats
+$descriptions = [
+    'Savane' => "Découvrez l'incroyable diversité de la savane africaine, un vaste écosystème où cohabitent lions majestueux, éléphants puissants et zèbres rayés. Cet habitat vous sensibilisera à la préservation de la faune et de la flore de ces paysages uniques.",
+    'Jungle' => "La jungle est un monde de mystères et de biodiversité, où les bruits de la nature se mêlent aux chants des oiseaux tropicaux et aux appels des singes. Explorez cet habitat luxuriant pour découvrir la magie des forêts tropicales.",
+    'Marais' => "Les marais sont des écosystèmes humides uniques, abritant une multitude d'espèces aquatiques et terrestres. Plongez dans cet environnement fascinant pour en apprendre davantage sur ces zones naturelles vitales.",
+];
 
 ?>
-
-
-
-
-
-
-
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Zoo Arcadia - Nos Habitats</title>
+    <link rel="stylesheet" href="path/to/bootstrap.min.css">
+    <style>
+        .habitat-card {
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .habitat-card:hover {
+            transform: scale(1.05);
+        }
+        .habitat-details {
+            display: none;
+        }
+    </style>
+</head>
 <body>
 
-<main>
- 
-    <div class="alert alert-success" role="alert">
-      <?php if (isset($_GET['message'])); ?>
-    </div>
-
-<p>Bienvenue dans l'habitat de la savane ! Ici, vous découvrirez l'incroyable diversité de la savane africaine,
-  un vaste écosystème où cohabitent de nombreuses espèces emblématiques.
-   Avec ses grandes étendues herbeuses parsemées d’acacias et de baobabs,
-    la savane est un lieu de vie dynamique, rythmé par la chaleur et les saisons.
-
-Dans cet espace, observez de près des animaux fascinants comme les lions majestueux,
- les éléphants puissants, les girafes élancées et les zèbres rayés.
-  Chaque espèce joue un rôle essentiel dans cet équilibre naturel,
-   et cet habitat recréé vise à sensibiliser les visiteurs à la préservation de la faune et de la flore de ces paysages uniques.
-    Profitez de cette immersion au cœur de la savane pour mieux comprendre et apprécier la beauté sauvage de l'Afrique.</p>
 <div class="container">
-                <div class="row">
-                  <?php foreach ($animaux as $prenom =>$animal){  ?>
-                    <div class="col-sm-6 mb-3 mb-sm-0">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="card-title">Animal :  <?php echo $animal['race']; ?></h5>
-                                    <p class="card-text">Prénom : <?php echo $animal['prenom']; ?></p>
-                  <!-- ajout du paramétre animal_id dans l'url pour pouvoir récupérer les animaux  un par un-->
-                                    <a href="animal.php?animal_id=<?php echo $animal['animal_id'] ?>" class="btn btn-primary">Voir en détail</a>
-                                    <img width="100" height="100" src="<?php echo $animal['image_animal']?>" alt="">
-                                </div>
-                            </div>
-                        </div>
-
-                    <?php } ?>
-                        
-                 
+    <h1 class="text-center mt-5">Nos Habitats</h1>
+    <div class="row row-cols-1 row-cols-md-3 g-4 mt-4">
+        <?php foreach ($animauxParHabitat as $habitat => $animaux): ?>
+            <div class="col">
+                <div class="card habitat-card" onclick="toggleDetails('<?php echo $habitat; ?>')">
+                    <img src="../assets/photos/<?php echo strtolower($habitat); ?>.jpeg" class="card-img-top" alt="<?php echo $habitat; ?>">
+                    <div class="card-body text-center">
+                        <h5 class="card-title"><?php echo $habitat; ?></h5>
+                    </div>
                 </div>
 
+                <!-- Détails de l'habitat affichés au clic -->
+                <div class="habitat-details mt-3" id="details-<?php echo $habitat; ?>">
+                    <p><?php echo $descriptions[$habitat]; ?></p>
+                    <h6>Animaux présents :</h6>
+                    <ul>
+                        <?php foreach ($animaux as $animal): ?>
+                            <li><?php echo $animal['race']; ?> - Prénom : <?php echo $animal['prenom']; ?></li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
             </div>
-</main>
-
-<h1>Zoo arcadia</h1>
-
-
-<div class="hero-scene text-center text-white ">
-    <div class="hero-scene-content  ">
-        <p>Nos habitats</p>
+        <?php endforeach; ?>
     </div>
-    </div>
-
-<div class="container">
-    <div class="row row-cols-1 row-cols-lg-3">
-        <div class="col p-3">
-            <div class="image-card text-white">
-              <img src="../assets/photos/savane.jpeg" class="rounded w-100"/>
-              <p class="titre-image">Savane</p>  
-            </div>
-        </div>
-        <div class="col p-3 w-30 " >
-            <div class="image-card text-dark ">
-                <p>Notre zoo est composé de 3 principaux  habitats:
-                    Les marais, la jungle ainsi que la savane.</p>
-            </div>
-        </div>
-        <div class="col p-3"></div>
-            <div class="image-card text-white">
-              <img src="../assets/photos/marais.jpeg" class="rounded w-100"/>
-              <p class="titre-image">Marais</p>  
-            </div>
-        </div>
-        <div class="col p-3"></div>
-            <div class="image-card text-white">
-              <img src="../assets/photos/jungle.jpg" class="rounded w-100"/>
-              <p class="titre-image">titre</p>  
-            </div>
-        </div>
-        
-        
-    </div>
-
-
 </div>
+
+<script>
+    // Fonction pour afficher/masquer les détails de l'habitat au clic
+    function toggleDetails(habitat) {
+        const detailsDiv = document.getElementById('details-' + habitat);
+        const isVisible = detailsDiv.style.display === 'block';
+        document.querySelectorAll('.habitat-details').forEach(div => div.style.display = 'none');
+        detailsDiv.style.display = isVisible ? 'none' : 'block';
+    }
+</script>
 
 </body>
 </html>

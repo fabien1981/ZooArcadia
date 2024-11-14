@@ -21,9 +21,9 @@ class Router
             return;
         }
 
-        // Supprime le préfixe "811" de l'URI si présent
-        if (strpos($uri, '811') === 0) {
-            $uri = substr($uri, 4);
+        // Supprime le préfixe "ZooArcadia" de l'URI si présent
+        if (strpos($uri, 'ZooArcadia') === 0) {
+            $uri = substr($uri, strlen('ZooArcadia') + 1); // Décale de la longueur de 'ZooArcadia'
         }
 
         // Routes spécifiques pour la déconnexion
@@ -43,70 +43,101 @@ class Router
         // Gestion des routes d'API
         if ('api' === $uriExplode[0]) {
             $this->returnJson = true;
-            array_shift($uriExplode);
+            array_shift($uriExplode); // Supprime "api"
 
+            // Routes pour les animaux
             if ($uriExplode[0] === 'animal') {
                 $this->controllerName .= 'Api\\Animal';
-                array_shift($uriExplode);
-
-                if ($uriExplode[0] === 'list') {
-                    $this->method = 'list';
-                    return;
+                array_shift($uriExplode); // Supprime "animal"
+                
+                switch ($uriExplode[0]) {
+                    case 'list':
+                        $this->method = 'list';
+                        break;
+                    case 'create':
+                        $this->method = 'create';
+                        break;
+                    case 'edit':
+                        $this->method = 'edit';
+                        $this->parameter = isset($uriExplode[1]) ? (int)$uriExplode[1] : null;
+                        break;
+                    case 'delete':
+                        $this->method = 'delete';
+                        $this->parameter = isset($uriExplode[1]) ? (int)$uriExplode[1] : null;
+                        break;
+                    case 'show':
+                        $this->method = 'show';
+                        $this->parameter = isset($uriExplode[1]) ? (int)$uriExplode[1] : null;
+                        break;
+                    case 'habitats':
+                        $this->method = 'getHabitats';
+                        break;
+                    default:
+                        throw new Exception("Route non reconnue pour 'animal'");
                 }
+                return;
+            }
 
-                if ($uriExplode[0] === 'create') {
-                    $this->method = 'create';
-                    return;
+            // Routes pour les horaires
+            if ($uriExplode[0] === 'hours') {
+                $this->controllerName .= 'Api\\Horaires';
+                array_shift($uriExplode); // Supprime "hours"
+                
+                switch ($uriExplode[0]) {
+                    case 'list':
+                        $this->method = 'list';
+                        break;
+                    case 'create':
+                        $this->method = 'create';
+                        break;
+                    case 'edit':
+                        $this->method = 'edit';
+                        $this->parameter = isset($uriExplode[1]) ? (int)$uriExplode[1] : null;
+                        break;
+                    case 'delete':
+                        $this->method = 'delete';
+                        $this->parameter = isset($uriExplode[1]) ? (int)$uriExplode[1] : null;
+                        break;
+                    default:
+                        throw new Exception("Route non reconnue pour 'hours'");
                 }
-
-                if ($uriExplode[0] === 'edit' && isset($uriExplode[1])) {
-                    $this->method = 'edit';
-                    $this->parameter = (int)$uriExplode[1];
-                    return;
-                }
-
-                if ($uriExplode[0] === 'delete' && isset($uriExplode[1])) {
-                    $this->method = 'delete';
-                    $this->parameter = (int)$uriExplode[1];
-                    return;
-                }
-
-                if ($uriExplode[0] === 'show' && isset($uriExplode[1])) {
-                    $this->method = 'show';
-                    $this->parameter = (int)$uriExplode[1];
-                    return;
-                }
+                return;
             }
         }
 
+        // Route pour afficher le formulaire de modification de mot de passe
+        if ($uri === 'modifier_mot_de_passe/display') {
+            $this->controllerName .= 'ModifierMotDePasse';
+            $this->method = 'afficherFormulaire';
+            return;
+        }
+
         // Route pour afficher le formulaire de création de compte
-        if ($uri === 'admin/creation-compte') {
+        if ($uri === 'admin/creation_compte') {
             $this->controllerName .= 'Admin';
             $this->method = 'afficherFormulaireCreationCompte';
             return;
         }
 
         // Route pour traiter la création de compte utilisateur
-        if ($uri === 'admin/creer-compte') {
+        if ($uri === 'admin/creer_compte') {
             $this->controllerName .= 'CreerCompte';
             $this->method = 'creerCompte';
             $this->returnJson = true;
             return;
         }
 
-        // Route pour accéder aux habitats
-        if ($uri === 'api/animal/habitats') {
-            $this->controllerName .= 'Api\\Animal';
-            $this->method = 'getHabitats';
-            $this->returnJson = true;
-            return;
-        }
-        
-
-        // Route pour accéder à la gestion des animaux
-        if ($uri === 'admin/gestion-animaux') {
+        // Route pour accéder à la gestion des animaux dans l'interface admin
+        if ($uri === 'admin/gestion_animaux') {
             $this->controllerName .= 'Admin';
             $this->method = 'gestionAnimaux';
+            return;
+        }
+
+        // Route pour afficher la page de gestion des horaires dans l'admin
+        if ($uri === 'admin/gestion_horaires') {
+            $this->controllerName .= 'Admin';
+            $this->method = 'gestionHoraires';
             return;
         }
 

@@ -1,4 +1,4 @@
-// Sélectionne les éléments du formulaire
+// Sélection des éléments du formulaire
 const inputEmail = document.getElementById("EmailInput");
 const inputPassword = document.getElementById("PasswordInput");
 const btnValidation = document.getElementById("btn-validation-connexion");
@@ -8,6 +8,7 @@ if (inputEmail && inputPassword && btnValidation) {
     // Activation des événements sur les champs pour validation en temps réel
     inputEmail.addEventListener("keyup", validateForm);
     inputPassword.addEventListener("keyup", validateForm);
+    btnValidation.addEventListener("click", handleSubmit);
 
     // Fonction principale de validation du formulaire
     function validateForm() {
@@ -20,12 +21,10 @@ if (inputEmail && inputPassword && btnValidation) {
     function validateMail(input) {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (input.value.match(emailRegex)) {
-            input.classList.add("is-valid");
-            input.classList.remove("is-invalid");
+            setValidationState(input, true, "Email valide");
             return true;
         } else {
-            input.classList.remove("is-valid");
-            input.classList.add("is-invalid");
+            setValidationState(input, false, "Veuillez entrer un email valide.");
             return false;
         }
     }
@@ -34,13 +33,32 @@ if (inputEmail && inputPassword && btnValidation) {
     function validatePassword(input) {
         const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])[A-Za-z\d\W_]{8,}$/;
         if (input.value.match(passwordRegex)) {
-            input.classList.add("is-valid");
-            input.classList.remove("is-invalid");
+            setValidationState(input, true, "Mot de passe valide");
             return true;
         } else {
-            input.classList.remove("is-valid");
-            input.classList.add("is-invalid");
+            setValidationState(input, false, "Le mot de passe doit contenir au moins 8 caractères, une majuscule, un chiffre et un caractère spécial.");
             return false;
+        }
+    }
+
+    // Fonction pour définir l'état de validation et afficher les messages d'aide
+    function setValidationState(input, isValid, message) {
+        const feedback = input.nextElementSibling || document.createElement("div");
+        feedback.className = isValid ? "valid-feedback" : "invalid-feedback";
+        feedback.innerText = message;
+        input.classList.toggle("is-valid", isValid);
+        input.classList.toggle("is-invalid", !isValid);
+        if (!input.nextElementSibling) input.after(feedback); // Ajoute le feedback si inexistant
+    }
+
+    // Fonction de gestion de la soumission
+    function handleSubmit(event) {
+        event.preventDefault(); // Empêche l'envoi si le formulaire est invalide
+        if (!btnValidation.disabled) {
+            alert("Connexion réussie !");
+            // Ici, ajoutez le code de soumission du formulaire ou redirection vers la page suivante
+        } else {
+            alert("Veuillez corriger les erreurs dans le formulaire.");
         }
     }
 } else {

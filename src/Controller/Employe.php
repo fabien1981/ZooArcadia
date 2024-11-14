@@ -7,7 +7,7 @@ class Employe
     public function display()
     {
         if (!isset($_SESSION['email']) || $_SESSION['email']['role'] !== 'Employé') {
-            header('Location: /811/connexion/display');
+            header('Location: /ZooArcadia/connexion/display');
             exit;
         }
         // Logique pour afficher la page des habitats

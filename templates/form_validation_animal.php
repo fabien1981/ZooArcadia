@@ -1,39 +1,29 @@
 <?php
-    require_once '../config/config.php';
-   
 
-//verification de la méthod d'accés à la page que par la méthode POST
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST)){
-    if (!$_POST['prenom'] ||
-        !$_POST['etat'] ||
-        !$_POST['race'] ||
-        !$_POST['image_animal']
-    ){
-        echo 'Un des champs est vide. Insertion impossible';
-    } else {
-        $query = DbConnection::getPdo()->prepare('INSERT INTO animal 
-    (prenom, etat, race, image_animal)
-    VALUES (
-    :prenom,
-    :etat,
-    :race,
-    :image_animal
-    )
-    ');
-//securisation de l'insertion des données 
-    $query->bindValue('prenom',DbConnection::protectDbData($_POST['prenom']));
-    $query->bindValue('etat',DbConnection::protectDbData($_POST['etat']));
-    $query->bindValue('race',DbConnection::protectDbData($_POST['race']));
-    $query->bindValue('image_animal',DbConnection::protectDbData($_POST['image_animal']));
+use App\Database\Dbutils;
 
-    $query->execute();
+ require_once __DIR__ . '/../src/Database/Dbutils.php';
 
-    header('location:habitats.php?message=animal ajouté avec succés');
-    }
+ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST)){
+     if (!$_POST['prenom'] || !$_POST['etat'] || !$_POST['race'] || !$_POST['image_animal']) {
+         echo 'Un des champs est vide. Insertion impossible';
+     } else {
+         $pdo = Dbutils::getPdo();
+         $query = $pdo->prepare('INSERT INTO animal (prenom, etat, race, image_animal, habitat) VALUES (:prenom, :etat, :race, :image_animal, :habitat)');
+         
+         // Sécurisation des données (si nécessaire)
+         $query->bindValue(':prenom', $_POST['prenom']);
+         $query->bindValue(':etat', $_POST['etat']);
+         $query->bindValue(':race', $_POST['race']);
+         $query->bindValue(':image_animal', $_POST['image_animal']);
+         $query->bindValue(':habitat', $_POST['habitat']);
+         
+         $query->execute();
+         header('Location: habitats.php?message=animal ajouté avec succès');
+     }
+ } else {
+     echo 'Impossible d\'arriver sur cette page en GET';
+ }
 
-    
-} else {
-    echo 'Impossible d\'arriver sur cette page en GET';
-}
 
 ?>

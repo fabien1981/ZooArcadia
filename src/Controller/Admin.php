@@ -2,59 +2,80 @@
 
 namespace App\Controller;
 
+use App\Controller\CreerCompte;
+
 class Admin
 {
-    public function display()
+    // Vérifie les droits d'accès Admin
+    private function checkAdminAccess()
     {
-        // Vérifie si l'utilisateur est connecté en tant qu'Admin
         if (!isset($_SESSION['email']) || $_SESSION['email']['role'] !== 'Admin') {
-            header('Location: /811/connexion/display');
+            header('Location: /ZooArcadia/connexion/display');
             exit;
         }
+    }
 
-        // Retourne le chemin correct pour le tableau de bord admin
+    // Affiche le tableau de bord Admin
+    public function display()
+    {
+        $this->checkAdminAccess();
+
         return [
-            'template' => 'admin/admin', // Doit pointer vers templates/admin/admin.php
+            'template' => 'admin/admin', // Chemin vers templates/admin/admin.php
             'message' => 'Tableau de bord administrateur'
         ];
     }
 
+    // Créer un compte utilisateur
+    public function creerCompte($formData)
+    {
+        $this->checkAdminAccess();
+        
+        $controller = new CreerCompte();
+        return $controller->creerCompte($formData);
+    }
+
+    // Affiche le formulaire pour créer un compte utilisateur
     public function afficherFormulaireCreationCompte()
     {
-        // Retourne le formulaire de création de compte
+        $this->checkAdminAccess();
+
         return [
-            'template' => 'admin/creation_compte', // Doit pointer vers templates/admin/creation_compte.php
+            'template' => 'admin/creation_compte', // Chemin vers templates/admin/creation_compte.php
             'message' => 'Créer un compte utilisateur'
         ];
     }
 
+    // Affiche le formulaire pour ajouter un animal
     public function ajouterAnimal()
     {
-        // Vérifie si l'utilisateur est connecté en tant qu'Admin
-        if (!isset($_SESSION['email']) || $_SESSION['email']['role'] !== 'Admin') {
-            header('Location: /811/connexion/display');
-            exit;
-        }
+        $this->checkAdminAccess();
 
-        // Retourne le chemin correct pour le formulaire d'ajout d'animal
         return [
-            'template' => 'admin/ajout_animal', // Doit pointer vers templates/admin/ajout_animal.php
+            'template' => 'admin/ajout_animal', // Chemin vers templates/admin/ajout_animal.php
             'message' => 'Ajouter un nouvel animal'
         ];
     }
 
+    // Affiche la page de gestion des animaux
     public function gestionAnimaux()
     {
-        if (!isset($_SESSION['email']) || $_SESSION['email']['role'] !== 'Admin') {
-            header('Location: /811/connexion/display');
-            exit;
-        }
-    
+        $this->checkAdminAccess();
+
         return [
-            'template' => 'admin/gestion_animaux',
+            'template' => 'admin/gestion_animaux', // Chemin vers templates/admin/gestion_animaux.php
             'message' => 'Gestion des animaux'
         ];
     }
-    
 
+    // Affiche la page de gestion des horaires
+    public function gestionHoraires()
+    {
+        $this->checkAdminAccess();
+
+        return [
+            'template' => 'admin/gestion_horaires', // Chemin vers templates/admin/gestion_horaires.php
+            'message' => 'Gestion des horaires'
+        ];
+    }
 }

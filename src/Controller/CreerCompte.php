@@ -8,19 +8,19 @@ class CreerCompte
 {
     public function creerCompte($formulaire)
 {
-    session_start(); // Démarre la session pour stocker les messages
+    require_once __DIR__ . '/../config/session.php';
 
     // Vérification initiale des données du formulaire
     if (!$formulaire || empty($formulaire['email']) || empty($formulaire['password']) || empty($formulaire['nom']) || empty($formulaire['prenom']) || empty($formulaire['role'])) {
         $_SESSION['success_message'] = 'Tous les champs sont obligatoires.';
-        header('Location: /811/admin/display');
+        header('Location: /ZooArcadia/admin/display');
         exit;
     }
 
     // Validation du mot de passe
     if (!$this->validerMotDePasse($formulaire['password'])) {
         $_SESSION['success_message'] = 'Le mot de passe doit contenir au moins 8 caractères, une majuscule, un chiffre et un caractère spécial.';
-        header('Location: /811/admin/display');
+        header('Location: /ZooArcadia/admin/display');
         exit;
     }
 
@@ -33,7 +33,7 @@ class CreerCompte
 
     if ($emailExists) {
         $_SESSION['success_message'] = "L'email existe déjà.";
-        header('Location: /811/admin/display');
+        header('Location: /ZooArcadia/admin/display');
         exit;
     }
 
@@ -49,7 +49,7 @@ class CreerCompte
     $role_id = $this->getRoleId($formulaire['role']);
     if ($role_id === null) {
         $_SESSION['success_message'] = "Le rôle spécifié n'est pas valide.";
-        header('Location: /811/admin/display');
+        header('Location: /ZooArcadia/admin/display');
         exit;
     }
     $query->bindParam(':role_id', $role_id);
@@ -62,7 +62,7 @@ class CreerCompte
     }
 
     // Redirection vers l'espace admin avec message de confirmation
-    header('Location: /811/admin/display');
+    header('Location: /ZooArcadia/admin/display');
     exit;
 }
 

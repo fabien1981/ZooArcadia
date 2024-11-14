@@ -7,49 +7,60 @@ use PDO;
 
 class ModifierMotDePasse
 {
-    public function display()
+    public function afficherFormulaire()
     {
-        $error = null;
-        $success = null;
+        require_once __DIR__ . '/../config/session.php';
+        $messages = ['erreur' => null, 'succes' => null];
 
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            // Vérifiez si tous les champs sont remplis
-            if (empty($_POST['current_password']) || empty($_POST['new_password']) || empty($_POST['confirm_password'])) {
-                $error = 'Tous les champs sont requis.';
-            } elseif ($_POST['new_password'] !== $_POST['confirm_password']) {
-                $error = 'Le nouveau mot de passe et la confirmation ne correspondent pas.';
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Récupération et filtrage des données du formulaire
+            $motDePasseActuel = trim($_POST['mot_de_passe_actuel'] ?? '');
+            $nouveauMotDePasse = trim($_POST['nouveau_mot_de_passe'] ?? '');
+            $confirmationMotDePasse = trim($_POST['confirmation_mot_de_passe'] ?? '');
+
+            // Validation des champs
+            if (!$motDePasseActuel || !$nouveauMotDePasse || !$confirmationMotDePasse) {
+                $messages['erreur'] = 'Tous les champs sont requis.';
+            } elseif ($nouveauMotDePasse !== $confirmationMotDePasse) {
+                $messages['erreur'] = 'Le nouveau mot de passe et la confirmation ne correspondent pas.';
             } else {
-                $userEmail = $_SESSION['email']['email'];
+                $emailUtilisateur = $_SESSION['email']['email'] ?? null;
 
-                // Récupérez l'utilisateur actuel
-                $query = Dbutils::getPdo()->prepare('SELECT * FROM utilisateur WHERE email = :email');
-                $query->bindParam('email', $userEmail);
-                $query->execute();
-
-                $user = $query->fetch(PDO::FETCH_ASSOC);
-
-                if (!$user || !password_verify($_POST['current_password'], $user['password'])) {
-                    $error = 'Le mot de passe actuel est incorrect.';
+                if (!$emailUtilisateur) {
+                    $messages['erreur'] = 'Utilisateur non identifié.';
                 } else {
-                    // Hachez le nouveau mot de passe et mettez-le à jour en base de données
-                    $newPasswordHashed = password_hash($_POST['new_password'], PASSWORD_DEFAULT);
-                    $updateQuery = Dbutils::getPdo()->prepare('UPDATE utilisateur SET password = :password WHERE email = :email');
-                    $updateQuery->bindParam('password', $newPasswordHashed);
-                    $updateQuery->bindParam('email', $userEmail);
+                    // Récupère l'utilisateur actuel
+                    $pdo = Dbutils::getPdo();
+                    $requete = $pdo->prepare('SELECT * FROM utilisateur WHERE email = :email');
+                    $requete->bindParam(':email', $emailUtilisateur);
+                    $requete->execute();
 
-                    if ($updateQuery->execute()) {
-                        $success = 'Votre mot de passe a été modifié avec succès.';
+                    $utilisateur = $requete->fetch(PDO::FETCH_ASSOC);
+
+                    if (!$utilisateur || !password_verify($motDePasseActuel, $utilisateur['password'])) {
+                        $messages['erreur'] = 'Le mot de passe actuel est incorrect.';
                     } else {
-                        $error = 'Une erreur est survenue lors de la mise à jour du mot de passe.';
+                        // Hache le nouveau mot de passe et met à jour en base de données
+                        $nouveauMotDePasseHache = password_hash($nouveauMotDePasse, PASSWORD_DEFAULT);
+                        $miseAJour = $pdo->prepare('UPDATE utilisateur SET password = :password WHERE email = :email');
+                        $miseAJour->bindParam(':password', $nouveauMotDePasseHache);
+                        $miseAJour->bindParam(':email', $emailUtilisateur);
+
+                        if ($miseAJour->execute()) {
+                            $messages['succes'] = 'Votre mot de passe a été modifié avec succès.';
+                        } else {
+                            $messages['erreur'] = 'Une erreur est survenue lors de la mise à jour du mot de passe.';
+                        }
                     }
                 }
             }
         }
 
+        // Retourne le template et les messages d'erreur ou de succès
         return [
             'template' => 'modifier_mot_de_passe',
-            'error' => $error,
-            'success' => $success
+            'erreur' => $messages['erreur'],
+            'succes' => $messages['succes']
         ];
     }
 }

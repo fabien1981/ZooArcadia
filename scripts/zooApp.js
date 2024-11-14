@@ -1,6 +1,6 @@
 // Fonction pour afficher la liste des animaux
 function fetchAnimals() {
-    fetch('/811/api/animal/list')
+    fetch('/ZooArcadia/api/animal/list')
         .then(response => response.json())
         .then(data => {
             const animalList = document.getElementById('animal-list');
@@ -8,11 +8,11 @@ function fetchAnimals() {
             if (data.success) {
                 data.data.forEach(animal => {
                     const animalRow = document.createElement('div');
-                    animalRow.classList.add('animal-row');
+                    animalRow.classList.add('animal-row', 'mb-3', 'p-2', 'border', 'rounded');
                     animalRow.innerHTML = `
-                        <p>${animal.prenom} (${animal.race}) - État: ${animal.etat}</p>
-                        <button class="btn btn-secondary" onclick="editAnimal(${animal.id})">Modifier</button>
-                        <button class="btn btn-danger" onclick="deleteAnimal(${animal.id})">Supprimer</button>
+                        <p>${animal.prenom} (${animal.race}) - État: ${animal.etat} - Habitat: ${animal.habitat_nom}</p>
+                        <button class="btn btn-secondary me-2" onclick="editAnimal(${animal.animal_id})">Modifier</button>
+                        <button class="btn btn-danger" onclick="deleteAnimal(${animal.animal_id})">Supprimer</button>
                     `;
                     animalList.appendChild(animalRow);
                 });
@@ -41,7 +41,7 @@ function closeAnimalForm() {
 
 // Fonction pour afficher le formulaire de modification d'un animal
 function editAnimal(id) {
-    fetch(`/811/api/animal/show/${id}`)
+    fetch(`/ZooArcadia/api/animal/show/${id}`)
         .then(response => response.json())
         .then(data => {
             if (data.success) {
@@ -49,7 +49,6 @@ function editAnimal(id) {
                 document.getElementById('prenom').value = data.data.prenom;
                 document.getElementById('etat').value = data.data.etat;
                 document.getElementById('race').value = data.data.race;
-                document.getElementById('image_animal').value = data.data.image_animal;
                 document.getElementById('habitat').value = data.data.habitat;
                 document.getElementById('animal-form').style.display = 'block';
                 document.getElementById('form-title').textContent = 'Modifier un animal';
@@ -66,7 +65,7 @@ function editAnimal(id) {
 // Fonction pour supprimer un animal
 function deleteAnimal(id) {
     if (confirm('Voulez-vous vraiment supprimer cet animal ?')) {
-        fetch(`/811/api/animal/delete/${id}`, { method: 'DELETE' })
+        fetch(`/ZooArcadia/api/animal/delete/${id}`, { method: 'DELETE' })
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
@@ -82,26 +81,17 @@ function deleteAnimal(id) {
 
 // Fonction pour charger les habitats disponibles depuis l'API
 function loadHabitats() {
-    fetch('/811/api/habitat/list')
+    fetch('/ZooArcadia/api/animal/habitats')
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                // Ajouter les options dans la barre de recherche et le formulaire d'ajout/modification
-                const habitatSelectForm = document.getElementById('habitatSelectForm');
-                const habitatSelectSearch = document.getElementById('habitatSelectSearch');
-                
-                habitatSelectForm.innerHTML = '';
-                habitatSelectSearch.innerHTML = '<option value="">Tous les habitats</option>';
-
+                const habitatSelect = document.getElementById('habitat');
+                habitatSelect.innerHTML = '<option value="">Sélectionnez un habitat</option>';
                 data.data.forEach(habitat => {
-                    const optionForm = document.createElement('option');
-                    optionForm.value = habitat.habitat_id;
-                    optionForm.textContent = habitat.nom;
-
-                    const optionSearch = optionForm.cloneNode(true);
-                    
-                    habitatSelectForm.appendChild(optionForm);
-                    habitatSelectSearch.appendChild(optionSearch);
+                    const option = document.createElement('option');
+                    option.value = habitat.habitat_id;
+                    option.textContent = habitat.nom;
+                    habitatSelect.appendChild(option);
                 });
             } else {
                 console.error('Erreur lors du chargement des habitats :', data.message);
@@ -110,6 +100,11 @@ function loadHabitats() {
         .catch(error => console.error('Erreur de réseau:', error));
 }
 
+// Chargement des habitats et des animaux lors du chargement de la page
+document.addEventListener('DOMContentLoaded', function() {
+    loadHabitats();
+    fetchAnimals();
+});
 
 // Fonction pour gérer la soumission du formulaire pour ajout/modification
 function handleAnimalFormSubmit(event) {
@@ -123,7 +118,7 @@ function handleAnimalFormSubmit(event) {
         habitat: document.getElementById('habitat').value
     };
 
-    const url = id ? `/811/api/animal/edit/${id}` : '/811/api/animal/create';
+    const url = id ? `/ZooArcadia/api/animal/edit/${id}` : '/ZooArcadia/api/animal/create';
     const method = id ? 'PUT' : 'POST';
 
     fetch(url, {
@@ -143,3 +138,6 @@ function handleAnimalFormSubmit(event) {
     })
     .catch(error => console.error('Erreur de réseau:', error));
 }
+
+// Associer le formulaire au gestionnaire de soumission
+document.getElementById('animalForm').addEventListener('submit', handleAnimalFormSubmit);
