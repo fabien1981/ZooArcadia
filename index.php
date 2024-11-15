@@ -9,7 +9,7 @@ $router = new Router($_SERVER['REQUEST_METHOD'], $_SERVER['REQUEST_URI']);
 
 // Enregistrer la route /ZooArcadia/habitats
 $router->get('ZooArcadia/habitats', [Habitats::class, 'display']);
-
+$router->post('add-nourriture', [\App\Controller\NourritureController::class, 'addNourriture']);
 $data = $router->doAction();
 
 if ($router->isReturnJson()) {
