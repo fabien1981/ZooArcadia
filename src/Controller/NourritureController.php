@@ -8,19 +8,24 @@ class NourritureController
 {
     public function addNourriture()
     {
-        // Connexion à la base de données via Dbutils
         $pdo = Dbutils::getPdo();
 
-        // Récupération des données du formulaire avec une protection supplémentaire
+        // Vérification et récupération des données
         $animal_id = Dbutils::protectDbData($_POST['animal_id']);
         $date_time = Dbutils::protectDbData($_POST['date_time']);
         $type_nourriture = Dbutils::protectDbData($_POST['type_nourriture']);
         $quantite = Dbutils::protectDbData($_POST['quantite']);
+        $redirect_to = $_POST['redirect_to'] ?? '/ZooArcadia/employe';
 
-        // Préparation de la requête SQL
+        // Vérification si l'animal existe
+        $stmt = $pdo->prepare("SELECT * FROM animal WHERE animal_id = ?");
+        $stmt->execute([$animal_id]);
+        if (!$stmt->fetch()) {
+            header("Location: /employe?status=error&message=Animal introuvable");
+            exit();
+        }
+        // Insertion des données
         $stmt = $pdo->prepare("INSERT INTO nourriture (animal_id, date_time, type_nourriture, quantite) VALUES (:animal_id, :date_time, :type_nourriture, :quantite)");
-
-        // Exécution de la requête
         $stmt->execute([
             ':animal_id' => $animal_id,
             ':date_time' => $date_time,
@@ -28,8 +33,8 @@ class NourritureController
             ':quantite' => $quantite,
         ]);
 
-        // Redirection avec message de confirmation
-        header("Location: /employe.php?status=success");
+        // Redirection vers la page spécifiée
+        header("Location: $redirect_to");
         exit();
     }
 }

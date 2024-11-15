@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Database\Dbutils;
-
+use Exception;
 class Habitats
 {
     public function display()
@@ -41,4 +41,25 @@ class Habitats
             ]
         ];
     }
+
+    public function create(array $data): array
+{
+    if (empty($data['nom']) || empty($data['description']) || empty($data['commentaire_habitat'])) {
+        return ['success' => false, 'message' => 'Tous les champs sont requis.'];
+    }
+
+    try {
+        $query = Dbutils::getPdo()->prepare('INSERT INTO habitat (nom, description, commentaire_habitat, nom_image) VALUES (:nom, :description, :commentaire_habitat, :nom_image)');
+        $query->bindParam(':nom', $data['nom']);
+        $query->bindParam(':description', $data['description']);
+        $query->bindParam(':commentaire_habitat', $data['commentaire_habitat']);
+        $query->bindParam(':nom_image', $data['nom_image']);
+        $query->execute();
+
+        return ['success' => true];
+    } catch (Exception $e) {
+        return ['success' => false, 'message' => 'Erreur lors de l\'ajout de l\'habitat : ' . $e->getMessage()];
+    }
+}
+
 }

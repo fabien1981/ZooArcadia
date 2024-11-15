@@ -15,7 +15,8 @@
 <body>
 <header>
      <!-- Navbar Bootstrap -->
-     <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
+     <nav class="navbar navbar-expand-lg bg-primary navbar-dark " data-bs-theme="dark">
+
         <div class="container-fluid">
             <img src="/ZooArcadia/photos/logo zoo.png" width="80" height="80" alt="logo Arcadia"> 
             <a class="navbar-brand" href="#">Arcadia</a>

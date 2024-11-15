@@ -206,3 +206,22 @@ footer.footer {
 .habitat-details {
     display: none;
 }
+
+.navbar {
+    height: 100px;
+    position: fixed !important; /* Fixe la navbar */
+    top: 0; /* Place la navbar en haut de l'écran */
+    width: 100%; /* Occupe toute la largeur */
+    z-index: 1050; /* Assure que la navbar est toujours au-dessus des autres éléments */
+  
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+body {
+    padding-top: 90px; /* Ajoute un espace sous la navbar pour éviter que le contenu soit masqué */
+}
+
+main {
+    margin-top: 90px; // Ajustez en fonction de la hauteur de votre navbar
+}
+
