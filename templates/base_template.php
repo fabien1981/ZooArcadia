@@ -4,19 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zoo Arcadia</title>
+    
+    <!-- Fonts Google -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">   
-    <link rel="stylesheet" href="/ZooArcadia/scss/main.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap-grid.min.css">
 
+    <!-- Bootstrap CSS (via CDN) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
+   
+
+
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="/ZooArcadia/node_modules/bootstrap-icons/font/bootstrap-icons.css">
+
+
+    
+    <!-- CSS compilé -->
+    <link rel="stylesheet" href="/ZooArcadia/scss/main.css">
+
+    <!-- Favicon -->
+    <link rel="icon" href="/ZooArcadia/favicon.ico" type="image/x-icon">
 </head>
+
 <body>
 <header>
      <!-- Navbar Bootstrap -->
-     <nav class="navbar navbar-expand-lg bg-primary navbar-dark " data-bs-theme="dark">
-
+     <nav class="navbar navbar-expand-lg bg-primary navbar-dark" data-bs-theme="dark">
         <div class="container-fluid">
             <img src="/ZooArcadia/photos/logo zoo.png" width="80" height="80" alt="logo Arcadia"> 
             <a class="navbar-brand" href="#">Arcadia</a>
@@ -98,7 +113,6 @@
                         <tr>
                             <th>Période</th>
                             <th>Fermeture des caisses</th>
-                            <th>Fermeture du parc (voiture)</th>
                             <th>Fermeture du parc (à pied)</th>
                         </tr>
                     </thead>
@@ -122,6 +136,7 @@
         </div>
     </div>
 </footer>
-<script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<!-- JavaScript Bootstrap (via CDN) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

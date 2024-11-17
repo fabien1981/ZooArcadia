@@ -1,5 +1,5 @@
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
 
 
 <h1 style="padding: 20px 0; text-align: center;">Bienvenue à ARCADIA</h1>
@@ -8,6 +8,10 @@
     <div class="row align-items-center text-center">
         <div class="col-md-6">
             <div class="intro-text">
+                
+ 
+
+
                
                 <p>Situé en Bretagne, non loin de la légendaire forêt de Brocéliande, notre zoo accueille depuis 1960
                     tout un panel d’animaux répartis en différents habitats.

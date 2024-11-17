@@ -10,8 +10,8 @@ class Homepage
         $query = Dbutils::getPdo()->query('SELECT * FROM animal');
         $animaux = $query->fetchAll(PDO::FETCH_ASSOC);
         return [
-            'template' =>'home/homepage',
-            'animaux' =>'$animaux',
+            'template' => 'home/homepage', 
+            'data' => ['animaux' => $animaux],
         ];
     }
 }

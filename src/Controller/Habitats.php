@@ -4,62 +4,65 @@ namespace App\Controller;
 
 use App\Database\Dbutils;
 use Exception;
+use PDO;
+
 class Habitats
 {
-    public function display()
+    public function display(): array
     {
-        // Récupération des données des habitats et des animaux associés
-        $pdo = Dbutils::getPdo();
-        $query = $pdo->query('
-            SELECT habitat.nom AS habitat_nom, 
-                   animal.race, 
-                   animal.prenom, 
-                   animal.image_animal, 
-                   animal.habitat AS habitat_id 
-            FROM animal 
-            INNER JOIN habitat ON animal.habitat = habitat.habitat_id
-        ');
+        try {
+            $query = Dbutils::getPdo()->prepare('SELECT * FROM habitat');
+            $query->execute();
+            $habitats = $query->fetchAll(PDO::FETCH_ASSOC);
 
-        $animauxParHabitat = [];
-        while ($animal = $query->fetch(\PDO::FETCH_ASSOC)) {
-            $animauxParHabitat[$animal['habitat_nom']][] = $animal;
+            return [
+                'template' => 'home/habitats', // Vue pour la liste des habitats
+                'habitats' => $habitats // Données à transmettre à la vue
+            ];
+        } catch (Exception $e) {
+            return [
+                'template' => 'error', // Page d'erreur
+                'message' => 'Erreur lors de la récupération des habitats : ' . $e->getMessage()
+            ];
         }
-
-        // Descriptions des habitats
-        $descriptions = [
-            'Savane' => "Découvrez l'incroyable diversité de la savane africaine, un vaste écosystème où cohabitent lions majestueux, éléphants puissants et zèbres rayés. Cet habitat vous sensibilisera à la préservation de la faune et de la flore de ces paysages uniques.",
-            'Jungle' => "La jungle est un monde de mystères et de biodiversité, où les bruits de la nature se mêlent aux chants des oiseaux tropicaux et aux appels des singes. Explorez cet habitat luxuriant pour découvrir la magie des forêts tropicales.",
-            'Marais' => "Les marais sont des écosystèmes humides uniques, abritant une multitude d'espèces aquatiques et terrestres. Plongez dans cet environnement fascinant pour en apprendre davantage sur ces zones naturelles vitales.",
-        ];
-
-        // Préparation des données à transmettre à la vue
-        return [
-            'template' => 'habitats', // Nom du template (habitats.php)
-            'data' => [
-                'animauxParHabitat' => $animauxParHabitat,
-                'descriptions' => $descriptions,
-            ]
-        ];
     }
 
-    public function create(array $data): array
-{
-    if (empty($data['nom']) || empty($data['description']) || empty($data['commentaire_habitat'])) {
-        return ['success' => false, 'message' => 'Tous les champs sont requis.'];
+    public function show(int $id): array
+    {
+        try {
+            // Récupérer les détails de l'habitat
+            $query = Dbutils::getPdo()->prepare('SELECT * FROM habitat WHERE habitat_id = :id');
+            $query->bindParam(':id', $id, PDO::PARAM_INT);
+            $query->execute();
+            $habitat = $query->fetch(PDO::FETCH_ASSOC);
+
+            if (!$habitat) {
+                return [
+                    'template' => 'error',
+                    'message' => 'Habitat introuvable.'
+                ];
+            }
+
+            // Récupérer les animaux associés à l'habitat
+            $query = Dbutils::getPdo()->prepare('
+                SELECT animal_id, prenom, race, etat 
+                FROM animal 
+                WHERE habitat = :id
+            ');
+            $query->bindParam(':id', $id, PDO::PARAM_INT);
+            $query->execute();
+            $animaux = $query->fetchAll(PDO::FETCH_ASSOC);
+
+            return [
+                'template' => 'habitat_detail', // Vue pour les détails de l'habitat
+                'habitat' => $habitat, // Détails de l'habitat
+                'animaux' => $animaux // Animaux de l'habitat
+            ];
+        } catch (Exception $e) {
+            return [
+                'template' => 'error',
+                'message' => 'Erreur lors de la récupération des détails de l\'habitat : ' . $e->getMessage()
+            ];
+        }
     }
-
-    try {
-        $query = Dbutils::getPdo()->prepare('INSERT INTO habitat (nom, description, commentaire_habitat, nom_image) VALUES (:nom, :description, :commentaire_habitat, :nom_image)');
-        $query->bindParam(':nom', $data['nom']);
-        $query->bindParam(':description', $data['description']);
-        $query->bindParam(':commentaire_habitat', $data['commentaire_habitat']);
-        $query->bindParam(':nom_image', $data['nom_image']);
-        $query->execute();
-
-        return ['success' => true];
-    } catch (Exception $e) {
-        return ['success' => false, 'message' => 'Erreur lors de l\'ajout de l\'habitat : ' . $e->getMessage()];
-    }
-}
-
 }
