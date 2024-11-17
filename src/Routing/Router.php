@@ -21,12 +21,14 @@ class Router
             return;
         }
 
-        // Vérifiez si l'URI est "habitats"
-if ($uri === 'habitats') {
-    $this->controllerName .= 'Habitats';
-    $this->method = 'display';
-    return;
-}
+        // Route pour 'add-nourriture'
+        if ($uri === 'add-nourriture' && $this->requestMethod === 'POST') {
+            $this->controllerName .= 'NourritureController';
+            $this->method = 'addNourriture';
+            return;
+        }
+
+       
 
         // Supprime le préfixe "ZooArcadia" de l'URI si présent
         if (strpos($uri, 'ZooArcadia') === 0) {
@@ -84,6 +86,35 @@ if ($uri === 'habitats') {
                 }
                 return;
             }
+
+            // Route pour afficher la liste des habitats
+if ($uri === 'habitats/display') {
+    $this->controllerName .= 'Habitats';
+    $this->method = 'display';
+    return;
+}
+
+
+
+// Route pour afficher les détails d'un habitat
+if (preg_match('/^habitats\/show\/(\d+)$/', $uri, $matches)) {
+    $this->controllerName .= 'Habitats';
+    $this->method = 'show';
+    $this->parameter = (int)$matches[1];
+    return;
+}
+
+
+
+// Route pour afficher les détails d'un animal
+if (preg_match('/^animals\/details\/(\d+)$/', $uri, $matches)) {
+    $this->controllerName .= 'Animals';
+    $this->method = 'show';
+    $this->parameter = (int)$matches[1];
+    return;
+}
+
+
 
             // Routes pour les horaires
             if ($uriExplode[0] === 'hours') {
@@ -184,17 +215,26 @@ if ($uri === 'habitats') {
     }
 
     public function get($route, $action)
-{
-    // Vérifiez si la route actuelle correspond à celle définie ici
-    $currentRoute = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
-    $route = trim($route, '/');
+    {
+        $currentRoute = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
+        $route = trim($route, '/');
 
-    if ($this->requestMethod === 'GET' && $currentRoute === $route) {
-        $this->controllerName = $action[0];
-        $this->method = $action[1];
+        if ($this->requestMethod === 'GET' && $currentRoute === $route) {
+            $this->controllerName = $action[0];
+            $this->method = $action[1];
+        }
     }
-}
 
+    public function post($route, $action)
+    {
+        $currentRoute = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
+        $route = trim($route, '/');
+
+        if ($this->requestMethod === 'POST' && $currentRoute === $route) {
+            $this->controllerName = $action[0];
+            $this->method = $action[1];
+        }
+    }
 
     public function doAction(): array|string
     {
@@ -222,10 +262,8 @@ if ($uri === 'habitats') {
             $contentType = $_SERVER['CONTENT_TYPE'] ?? '';
 
             if (strpos($contentType, 'application/json') !== false) {
-                // Requête JSON
                 $data = json_decode(file_get_contents('php://input'), true);
             } else {
-                // Formulaire HTML
                 $data = $_POST;
             }
         }
@@ -248,4 +286,3 @@ if ($uri === 'habitats') {
         return $this->returnJson;
     }
 }
-

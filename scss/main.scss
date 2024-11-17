@@ -1,7 +1,12 @@
+@use 'custom';
+@use '../node_modules/bootstrap/scss/bootstrap';
+
+
+
 // Import des icônes Bootstrap et styles personnalisés
 @import url("../ZooArcadia/node_modules/bootstrap-icons/font/bootstrap-icons.css");
 @import 'custom';
-
+$primary-color:#228b22;
 // Variables de couleurs et de polices
 $primary: #D2B48C;
 $secondary: #FFD700;
@@ -205,4 +210,148 @@ footer.footer {
 }
 .habitat-details {
     display: none;
+}
+
+.navbar {
+    height: 100px;
+    position: fixed !important; /* Fixe la navbar */
+    top: 0; /* Place la navbar en haut de l'écran */
+    width: 100%; /* Occupe toute la largeur */
+    z-index: 1050; /* Assure que la navbar est toujours au-dessus des autres éléments */
+  
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+body {
+    padding-top: 90px; /* Ajoute un espace sous la navbar pour éviter que le contenu soit masqué */
+}
+
+main {
+    margin-top: 90px; // Ajustez en fonction de la hauteur de votre navbar
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: rgba(0, 0, 0, 0.5); /* Fond semi-transparent pour les flèches */
+    border-radius: 50%; /* Rendre les flèches circulaires */
+    width: 50px;
+    height: 50px;
+}
+
+.carousel-control-prev-icon:hover,
+.carousel-control-next-icon:hover {
+    background-color: rgba(0, 0, 0, 0.8); /* Fond plus sombre au survol */
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    opacity: 1; /* Rendre les flèches toujours visibles */
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    top: 50%; /* Positionner les flèches au milieu verticalement */
+    transform: translateY(-50%);
+    width: 60px;
+    height: 60px;
+}
+
+.carousel-control-prev span,
+.carousel-control-next span {
+    filter: invert(1); /* Rendre les icônes blanches pour plus de contraste */
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.carousel-control-prev-icon:hover,
+.carousel-control-next-icon:hover {
+    transform: scale(1.2); /* Agrandir légèrement les flèches au survol */
+}
+
+// Mobile-first styles
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: white;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    color: $primary-color;
+    text-align: center;
+}
+/* Couleurs des liens dans le menu burger */
+.navbar-collapse .nav-link {
+    color: $primary-color !important; /* Couleur par défaut */
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+.navbar-collapse .nav-link:hover {
+    color: #FFD700 !important; /* Couleur au survol */
+}
+
+/* Style pour le menu déroulant (menu burger) */
+/* Style pour le menu déroulant (menu burger) */
+.navbar-collapse {
+    background-image: url('/ZooArcadia/photos/motifzebre2.png'); /* Image de fond */
+    background-size: cover; /* L'image couvre le fond */
+    background-repeat: no-repeat; /* Évite la répétition */
+    background-position: center; /* Centrer l'image */
+    padding: 20px; /* Ajoute de l'espace interne */
+    width: fit-content; /* Ajuste la largeur à celle du contenu */
+    max-width: 100%; /* Empêche le débordement */
+    height: auto; /* Ajuste la hauteur au contenu */
+    margin: 0 auto; /* Centre le menu horizontalement */
+    border-radius: 8px; /* Ajoute des coins arrondis pour un effet stylé */
+}
+
+/* Aligner les liens du menu burger à droite */
+.navbar-nav {
+    margin-left: auto; /* Pousse les liens vers la droite */
+}
+
+/* Style des liens dans le menu burger */
+.navbar-nav .nav-link {
+    color: white !important; /* Couleur du texte */
+    font-size: 18px; /* Taille du texte */
+    margin: 5px 0; /* Espacement entre les liens */
+    display: block; /* Chaque lien occupe toute la largeur */
+    text-align: left; /* Aligne le texte à gauche pour une meilleure lisibilité */
+    padding: 10px; /* Ajoute de l'espace autour du texte */
+    background-color: rgba(0, 0, 0, 0.5); /* Fond semi-transparent sous le texte */
+    border-radius: 5px; /* Ajoute des coins arrondis */
+}
+
+
+/* Change la couleur des liens au survol */
+.navbar-nav .nav-link:hover {
+    color: #ff5722 !important; /* Couleur au survol */
+    background-color: rgba(255, 255, 255, 0.2); /* Change le fond au survol */
+}
+/* Assurez-vous que l'image de fond est visible uniquement dans le menu burger */
+.navbar-collapse.collapse:not(.show) {
+    background: none; /* Pas de fond si le menu est fermé */
+    width: auto; /* Réinitialise la largeur */
+    height: auto; /* Réinitialise la hauteur */
+}
+
+.container .row.align-items-center img {
+    max-width: 100%; /* L'image occupe toute la largeur de sa colonne */
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.container .row.align-items-center h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: $primary-color; 
+}
+
+
+body {
+    padding-top: 110px; 
 }

@@ -31,6 +31,20 @@ class Animal
         }
     }
 
+    public function delete(int $id): array
+{
+    try {
+        $query = Dbutils::getPdo()->prepare('DELETE FROM animal WHERE animal_id = :id');
+        $query->bindParam(':id', $id, PDO::PARAM_INT);
+        $query->execute();
+
+        return ['success' => true];
+    } catch (Exception $e) {
+        return ['success' => false, 'message' => 'Erreur lors de la suppression de l\'animal : ' . $e->getMessage()];
+    }
+}
+
+
     public function getHabitats(): array
     {
         try {
@@ -94,4 +108,28 @@ class Animal
             return ['success' => false, 'message' => 'Erreur lors de la mise à jour de l\'animal : ' . $e->getMessage()];
         }
     }
+
+    public function show(int $id): array
+{
+    try {
+        $query = Dbutils::getPdo()->prepare('
+            SELECT animal.*, habitat.nom AS habitat_nom
+            FROM animal
+            JOIN habitat ON animal.habitat = habitat.habitat_id
+            WHERE animal_id = :id
+        ');
+        $query->bindParam(':id', $id, PDO::PARAM_INT);
+        $query->execute();
+        $animal = $query->fetch(PDO::FETCH_ASSOC);
+
+        if (!$animal) {
+            return ['success' => false, 'message' => 'Animal introuvable.'];
+        }
+
+        return ['success' => true, 'data' => $animal];
+    } catch (Exception $e) {
+        return ['success' => false, 'message' => 'Erreur : ' . $e->getMessage()];
+    }
+}
+
 }

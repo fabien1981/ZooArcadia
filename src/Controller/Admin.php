@@ -26,34 +26,31 @@ class Admin
         ];
     }
 
-    // Créer un compte utilisateur
-    public function creerCompte($formData)
+    // Traiter le formulaire de création de compte utilisateur
+    public function creerCompte()
     {
         $this->checkAdminAccess();
-        
+
+        // Récupère les données du formulaire POST
+        $formData = $_POST;
+
         $controller = new CreerCompte();
-        return $controller->creerCompte($formData);
+        $controller->creerCompte($formData); // Exécute la logique de création de compte
+
+        // Redirection après la création
+        $_SESSION['success_message'] = 'Le compte a été créé avec succès.';
+        header('Location: /ZooArcadia/admin/display');
+        exit;
     }
 
     // Affiche le formulaire pour créer un compte utilisateur
-    public function afficherFormulaireCreationCompte()
+    public function creationCompte()
     {
         $this->checkAdminAccess();
 
         return [
             'template' => 'admin/creation_compte', // Chemin vers templates/admin/creation_compte.php
             'message' => 'Créer un compte utilisateur'
-        ];
-    }
-
-    // Affiche le formulaire pour ajouter un animal
-    public function ajouterAnimal()
-    {
-        $this->checkAdminAccess();
-
-        return [
-            'template' => 'admin/ajout_animal', // Chemin vers templates/admin/ajout_animal.php
-            'message' => 'Ajouter un nouvel animal'
         ];
     }
 
