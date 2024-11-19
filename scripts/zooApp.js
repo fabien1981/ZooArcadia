@@ -72,6 +72,35 @@ function deleteAnimal(id) {
     }
 }
 
+function chargerAnimauxParHabitat(habitatId) {
+    const url = habitatId ? `/ZooArcadia/api/animal/habitat/${habitatId}` : '/ZooArcadia/api/animal/list';
+
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            const listeAnimaux = document.getElementById('liste-animaux');
+            listeAnimaux.innerHTML = ''; // Réinitialise la liste
+
+            if (data.success) {
+                data.data.forEach(animal => {
+                    // Crée une ligne pour chaque animal
+                    const ligneAnimal = document.createElement('div');
+                    ligneAnimal.classList.add('animal-row', 'mb-3', 'p-2', 'border', 'rounded');
+                    ligneAnimal.innerHTML = `
+                        <p>${animal.prenom} (${animal.race}) - État: ${animal.etat}</p>
+                        <button class="btn btn-info me-2" onclick="selectionnerAnimal(${animal.animal_id})">Sélectionner</button>
+                        <button class="btn btn-secondary me-2" onclick="modifierAnimal(${animal.animal_id})">Modifier</button>
+                        <button class="btn btn-danger" onclick="supprimerAnimal(${animal.animal_id})">Supprimer</button>
+                    `;
+                    listeAnimaux.appendChild(ligneAnimal);
+                });
+            } else {
+                listeAnimaux.innerHTML = '<p>Aucun animal trouvé pour cet habitat.</p>';
+            }
+        })
+        .catch(error => console.error('Erreur de réseau:', error));
+}
+
 // Fonction pour charger les habitats disponibles depuis l'API
 function loadHabitats() {
     fetch('/ZooArcadia/api/animal/habitats')

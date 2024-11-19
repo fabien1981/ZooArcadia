@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Routing;
+use App\Database\DbConnectionNoSQL;
+
 
 use Exception;
 
@@ -15,11 +17,86 @@ class Router
     {
         $uri = parse_url($uri, PHP_URL_PATH);
         $uri = trim($uri, '/');
-
+    
         // Ignore les fichiers statiques
         if (preg_match('/\.(css|js|png|jpg|jpeg|gif|svg|ico)$/i', $uri)) {
             return;
         }
+
+        // Supprime le préfixe "ZooArcadia" de l'URI si présent
+        if (strpos($uri, 'ZooArcadia/') === 0) { // Vérifie si le chemin commence par "ZooArcadia/"
+            $uri = substr($uri, strlen('ZooArcadia/') ); // Supprime "ZooArcadia/" du chemin
+        }
+
+        // Route pour la page des services
+
+if ($uri === 'services') {
+    $this->controllerName = 'App\Controller\Services';
+    $this->method = 'display';
+    return;
+}
+
+// Route pour afficher le formulaire d'avis
+if ($uri === 'avis/display') {
+    $this->controllerName = 'App\\Controller\\Api\\Avis';
+    $this->method = 'displayForm';
+    return;
+}
+
+// Route pour afficher la liste des avis
+if ($uri === 'avis' && $this->requestMethod === 'GET') {
+    $this->controllerName = 'App\\Controller\\Api\\Avis';
+    $this->method = 'listAvis';
+    return;
+}
+
+// Route API pour créer un avis
+if ($uri === 'api/avis/create' && $this->requestMethod === 'POST') {
+    $this->controllerName = 'App\\Controller\\Api\\Avis';
+    $this->method = 'create';
+    return;
+}
+
+// Route API pour lister les avis
+if ($uri === 'api/avis/list' && $this->requestMethod === 'GET') {
+    $this->controllerName = 'App\\Controller\\Api\\Avis';
+    $this->method = 'list';
+    return;
+}
+
+        // Route pour afficher la gestion des services
+        if ($uri === 'admin/gestion_services') {
+            $this->controllerName = 'App\Controller\Admin'; // Assurez-vous que c'est bien défini une seule fois
+            $this->method = 'gestionServices';
+            return;
+        }
+
+        // Route pour ajouter une service
+if ($uri === 'admin/add_service') {
+    $this->controllerName = 'App\Controller\Admin';
+    $this->method = 'addService';
+    return;
+}
+
+// Route pour modifier un service
+if (preg_match('/^admin\/edit_service\/(\d+)$/', $uri, $matches)) {
+    $this->controllerName = 'App\Controller\Admin';
+    $this->method = 'editService';
+    $this->parameter = (int)$matches[1];
+    return;
+}
+
+// Route pour supprimer un service
+if (preg_match('/^admin\/delete_service\/(\d+)$/', $uri, $matches)) {
+    $this->controllerName = 'App\Controller\Admin';
+    $this->method = 'deleteService';
+    $this->parameter = (int)$matches[1];
+    return;
+}
+
+        
+       
+        
 
         // Route pour 'add-nourriture'
         if ($uri === 'add-nourriture' && $this->requestMethod === 'POST') {
@@ -30,10 +107,7 @@ class Router
 
        
 
-        // Supprime le préfixe "ZooArcadia" de l'URI si présent
-        if (strpos($uri, 'ZooArcadia') === 0) {
-            $uri = substr($uri, strlen('ZooArcadia') + 1); // Décale de la longueur de 'ZooArcadia'
-        }
+        
 
         // Routes spécifiques pour la déconnexion
         if ($uri === 'logout') {
@@ -104,6 +178,16 @@ if (preg_match('/^habitats\/show\/(\d+)$/', $uri, $matches)) {
     return;
 }
 
+// Route pour récupérer les animaux par habitat
+if (preg_match('/^api\/animal\/habitat\/(\d+)$/', $uri, $matches)) {
+    $this->controllerName = 'App\Controller\Api\Animal';
+    $this->method = 'getAnimalsByHabitat';
+    $this->parameter = (int)$matches[1]; // ID de l'habitat
+    return;
+}
+
+
+
 
 
 // Route pour afficher les détails d'un animal
@@ -114,8 +198,13 @@ if (preg_match('/^animals\/details\/(\d+)$/', $uri, $matches)) {
     return;
 }
 
-
-
+// Route pour ajouter une service
+if ($uri === 'admin/add_service') {
+    $this->controllerName = 'App\Controller\Admin';
+    $this->method = 'addService';
+    var_dump($this->controllerName, $this->method);
+    exit;
+}
             // Routes pour les horaires
             if ($uriExplode[0] === 'hours') {
                 $this->controllerName .= 'Api\\Horaires';

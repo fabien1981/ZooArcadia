@@ -66,6 +66,33 @@ class Animal
         }
     }
 
+    public function getAnimalsByHabitat(int $habitatId): array
+    {
+        try {
+            $query = Dbutils::getPdo()->prepare('
+                SELECT animal.*, habitat.nom AS habitat_nom
+                FROM animal
+                JOIN habitat ON animal.habitat = habitat.habitat_id
+                WHERE animal.habitat = :habitatId
+            ');
+            $query->bindParam(':habitatId', $habitatId, PDO::PARAM_INT);
+            $query->execute();
+            $animaux = $query->fetchAll(PDO::FETCH_ASSOC);
+    
+            return [
+                'success' => true,
+                'data' => $animaux
+            ];
+        } catch (Exception $e) {
+            return [
+                'success' => false,
+                'message' => 'Erreur lors de la récupération des animaux : ' . $e->getMessage()
+            ];
+        }
+    }
+    
+
+
     public function create(array $data): array
     {
         if (empty($data['prenom']) || empty($data['race']) || empty($data['etat']) || empty($data['habitat'])) {

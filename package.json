@@ -8,11 +8,16 @@
   "description": "Ce site est un site vitrine pour le zoo ARCADIA.",
   "main": "index.js",
   "devDependencies": {
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.49",
+    "postcss-cli": "^11.0.0",
     "sass": "^1.81.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "sass": "sass --watch scss/main.scss css/main.css"
+    "sass": "sass --watch scss/main.scss css/main.css",
+    "build:css": "postcss scss/main.css -o dist/css/main.css"
+    
   },
   "keywords": [],
   "author": "",

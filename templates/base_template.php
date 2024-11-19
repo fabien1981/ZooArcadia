@@ -17,7 +17,9 @@
 
     
     <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="/ZooArcadia/node_modules/bootstrap-icons/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="../node_modules/bootstrap-icons/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="../node_modules/bootstrap-icons/font/bootstrap-icons.css">
+
 
 
     
@@ -47,7 +49,7 @@
                         <a class="nav-link" href="/ZooArcadia/habitats/display">Habitats</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/ZooArcadia/services/display">Services</a>
+                        <a class="nav-link" href="/ZooArcadia/services">Services</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/ZooArcadia/contact/display">Contact</a>

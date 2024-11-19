@@ -12,5 +12,7 @@
             "email": "166442156+fabien1981@users.noreply.github.com"
         }
     ],
-    "require": {}
+    "require": {
+        "mongodb/mongodb": "^1.20"
+    }
 }

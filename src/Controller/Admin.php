@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Controller\CreerCompte;
+use App\Database\Dbutils;
+use PDO;
 
 class Admin
 {
@@ -43,6 +45,47 @@ class Admin
         exit;
     }
 
+    public function editService(int $id): array
+{
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        try {
+            $image = $_POST['image']; // Nom du fichier sélectionné
+
+            $query = Dbutils::getPdo()->prepare('UPDATE service SET nom = :nom, description = :description, image = :image WHERE service_id = :id');
+            $query->bindParam(':nom', $_POST['nom']);
+            $query->bindParam(':description', $_POST['description']);
+            $query->bindParam(':image', $image);
+            $query->bindParam(':id', $id, PDO::PARAM_INT);
+            $query->execute();
+
+            header('Location: /ZooArcadia/admin/gestion_services');
+            exit;
+        } catch (\Exception $e) {
+            return [
+                'template' => 'error',
+                'message' => 'Erreur lors de la modification du service : ' . $e->getMessage(),
+            ];
+        }
+    }
+
+    // Récupération du service existant pour affichage
+    $query = Dbutils::getPdo()->prepare('SELECT * FROM service WHERE service_id = :id');
+    $query->bindParam(':id', $id, PDO::PARAM_INT);
+    $query->execute();
+    $service = $query->fetch(\PDO::FETCH_ASSOC);
+
+    // Liste des fichiers dans le dossier `photos`
+    $photosDir = $_SERVER['DOCUMENT_ROOT'] . '/ZooArcadia/photos/';
+    $photos = array_diff(scandir($photosDir), ['.', '..']); // Exclut `.` et `..`
+
+    return [
+        'template' => 'admin/edit_service',
+        'service' => $service,
+        'photos' => $photos, // Liste des photos disponibles
+    ];
+}
+
+
     // Affiche le formulaire pour créer un compte utilisateur
     public function creationCompte()
     {
@@ -75,4 +118,92 @@ class Admin
             'message' => 'Gestion des horaires'
         ];
     }
+
+    public function gestionServices(): array
+{
+    try {
+        $query = Dbutils::getPdo()->prepare('SELECT * FROM service');
+        $query->execute();
+        $services = $query->fetchAll(\PDO::FETCH_ASSOC);
+
+        return [
+            'template' => 'admin/gestion_services',
+            'services' => $services,
+        ];
+    } catch (\Exception $e) {
+        return [
+            'template' => 'error',
+            'message' => 'Erreur lors de la récupération des services : ' . $e->getMessage(),
+        ];
+    }
+}
+
+
+public function addService(): array
+{
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        try {
+            // Initialisation du chemin de l'image
+            $imagePath = null;
+
+            // Vérification si une image est téléchargée
+            if (!empty($_FILES['image']['name'])) {
+                // Vérification de la taille de l'image (max 2 Mo)
+                if ($_FILES['image']['size'] > 2000000) {
+                    throw new \Exception('La taille de l\'image ne doit pas dépasser 2 Mo.');
+                }
+
+                // Vérification du type de fichier
+                $allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+                if (!in_array($_FILES['image']['type'], $allowedTypes)) {
+                    throw new \Exception('Seuls les fichiers JPEG, PNG et GIF sont autorisés.');
+                }
+
+                // Déplacement de l'image vers le dossier des photos
+                $targetDir = $_SERVER['DOCUMENT_ROOT'] . '/ZooArcadia/photos/';
+                $imagePath = basename($_FILES['image']['name']);
+                $targetFile = $targetDir . $imagePath;
+
+                if (!move_uploaded_file($_FILES['image']['tmp_name'], $targetFile)) {
+                    throw new \Exception('Erreur lors du téléchargement de l\'image.');
+                }
+            }
+
+            // Insertion dans la base de données
+            $query = Dbutils::getPdo()->prepare(
+                'INSERT INTO service (nom, description, image) VALUES (:nom, :description, :image)'
+            );
+            $query->bindParam(':nom', $_POST['nom']);
+            $query->bindParam(':description', $_POST['description']);
+            $query->bindParam(':image', $imagePath);
+            $query->execute();
+
+            // Redirection après ajout
+            header('Location: /ZooArcadia/admin/gestion_services');
+            exit;
+        } catch (\Exception $e) {
+            return [
+                'template' => 'error',
+                'message' => 'Erreur lors de l\'ajout du service : ' . $e->getMessage(),
+            ];
+        }
+    }
+    return ['template' => 'admin/add_service'];
+}
+
+
+public function deleteService(int $id): void
+{
+    try {
+        $query = Dbutils::getPdo()->prepare('DELETE FROM service WHERE service_id = :id');
+        $query->bindParam(':id', $id);
+        $query->execute();
+        header('Location: /ZooArcadia/admin/gestion_services');
+        exit;
+    } catch (\Exception $e) {
+        header('Location: /ZooArcadia/admin/gestion_services?error=delete');
+        exit;
+    }
+}
+
 }

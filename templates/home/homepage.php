@@ -25,6 +25,52 @@
         </div>
     </div>
 
+
+     <!-- Section Carrousel zoo  -->
+     <div class="container mt-4">
+    <div class="section-title" style="background-color: #228b22; padding: 10px;">
+        <h2>Zoo Arcadia</h2>
+    </div>
+    <div id="carouselExampleFade" class="carousel slide carousel-fade">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="/ZooArcadia/photos/vueaerienne.jpeg" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="/ZooArcadia/photos/vuezoo.jpeg" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="/ZooArcadia/photos/toucan.jpeg" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="/ZooArcadia/photos/elephantzoo.jpg" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="/ZooArcadia/photos/guide.jpeg" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="/ZooArcadia/photos/eolienne.png" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="/ZooArcadia/photos/veto.jpeg" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="/ZooArcadia/photos/zoo3.jpeg" class="d-block w-100" alt="...">
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+</div>
+
+
+
     <!-- Section Nos Animaux -->
     <div class="container mt-4">
         <div class="section-title" style="background-color: #228b22; padding: 10px;">
@@ -73,45 +119,50 @@
 </div>
 
 
-    <!-- Section Carrousel -->
+    <!-- Section Carrousel services  -->
     <div class="container mt-4">
     <div class="section-title" style="background-color: #228b22; padding: 10px;">
         <h2>Nos Services</h2>
     </div>
-    <div id="carouselExampleFade" class="carousel slide carousel-fade">
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img src="/ZooArcadia/photos/restaurant.jpeg" class="d-block w-100" alt="...">
+    <div id="carouselServices" class="carousel slide carousel-fade">
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="/ZooArcadia/photos/restaurant.jpeg" class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item">
+            <img src="/ZooArcadia/photos/train.png" class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item">
+            <img src="/ZooArcadia/photos/guide.jpeg" class="d-block w-100" alt="...">
+        </div>
     </div>
-    <div class="carousel-item">
-      <img src="/ZooArcadia/photos/train.png" class="d-block w-100" alt="...">
-    </div>
-    <div class="carousel-item">
-      <img src="/ZooArcadia/photos/guide.jpeg" class="d-block w-100" alt="...">
-    </div>
-  </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselServices" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselServices" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
 </div>
+
 </div>
     
-
-    <!-- Section Avis des visiteurs -->
-
-    <div class="container mt-4">
-    <div class="section-title" style="background-color: #228b22; padding: 10px;">
-        <h2>Avis</h2>
+<!-- Section Avis des visiteurs -->
+<div class="container mt-5">
+    <div class="text-center">
+        <h3>Partagez votre expérience</h3>
+        <p>Nous serions ravis de connaître votre avis !</p>
+        <a href="../avis/display" class="btn btn-primary">Avis des visiteurs</a>
     </div>
-    <div class="container-fluid text-end">
-    <h2>Avis clients</h2>
-    <button class="btn" onclick="window.location.href ='/comment/display';">Donnez votre avis</button>
 </div>
+
+<div class="container mt-5 text-center">
+    <h2>Partagez votre expérience</h2>
+    <a href="/ZooArcadia/api/avis/list" class="btn btn-primary">Voir les avis des visiteurs</a>
 </div>
+
+
+
 
     

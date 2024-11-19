@@ -8,10 +8,7 @@
     <!-- Barre de recherche par nom -->
     <input type="text" id="barre-recherche" placeholder="Rechercher un animal par nom" onkeyup="filtrerAnimaux()" class="form-control mb-3">
     
-    <!-- Filtre par habitat -->
-    <select id="filtre-habitat" onchange="filtrerParHabitat()" class="form-select mb-3">
-        <option value="">Tous les habitats</option>
-    </select>
+
 
     <div class="d-flex">
         <!-- Liste des animaux -->
@@ -102,27 +99,38 @@
     }
 
     function chargerHabitats() {
-        fetch('/ZooArcadia/api/animal/habitats')
-            .then(response => response.json())
-            .then(data => {
-                const selectHabitat = document.getElementById('habitat');
-                const filterHabitat = document.getElementById('filtre-habitat');
-                selectHabitat.innerHTML = '<option value="">Sélectionner un habitat</option>';
-                filterHabitat.innerHTML = '<option value="">Tous les habitats</option>';
+    fetch('/ZooArcadia/api/animal/habitats')
+        .then(response => response.json())
+        .then(data => {
+            const filterHabitat = document.getElementById('filtre-habitat');
 
-                if (data.success) {
-                    data.data.forEach(habitat => {
-                        const optionForm = document.createElement('option');
-                        const optionFilter = document.createElement('option');
-                        optionForm.value = optionFilter.value = habitat.habitat_id;
-                        optionForm.textContent = optionFilter.textContent = habitat.nom;
-                        selectHabitat.appendChild(optionForm);
+            // Réinitialisation des options
+            if (filterHabitat) {
+                filterHabitat.innerHTML = '<option value="">Tous les habitats</option>';
+            }
+
+            if (data.success) {
+                data.data.forEach(habitat => {
+                    const optionFilter = document.createElement('option');
+                    optionFilter.value = habitat.habitat_id;
+                    optionFilter.textContent = habitat.nom;
+                    if (filterHabitat) {
                         filterHabitat.appendChild(optionFilter);
+                    }
+                });
+
+                // Ajoute un gestionnaire d'événements pour filtrer par habitat
+                if (filterHabitat) {
+                    filterHabitat.addEventListener('change', () => {
+                        const habitatId = filterHabitat.value;
+                        chargerAnimauxParHabitat(habitatId);
                     });
                 }
-            })
-            .catch(error => console.error('Erreur de réseau:', error));
-    }
+            }
+        })
+        .catch(error => console.error('Erreur de réseau:', error));
+}
+
 
     function filtrerAnimaux() {
         const recherche = document.getElementById('barre-recherche').value.toLowerCase();
@@ -134,11 +142,11 @@
     }
 
     function filtrerParHabitat() {
-        const habitatSelectionne = document.getElementById('filtre-habitat').value;
+        const recherche = document.getElementById('barre-recherche').value.toLowerCase();
         const animaux = document.querySelectorAll('.animal-row');
         animaux.forEach(animal => {
             const habitat = animal.getAttribute('data-habitat');
-            animal.style.display = habitatSelectionne === '' || habitatSelectionne === habitat ? '' : 'none';
+            animal.style.display = habitat.includes(recherche) ? '' : 'none';
         });
     }
 

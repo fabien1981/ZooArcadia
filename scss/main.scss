@@ -4,8 +4,8 @@
 
 
 // Import des icônes Bootstrap et styles personnalisés
-@import url("../ZooArcadia/node_modules/bootstrap-icons/font/bootstrap-icons.css");
-@import 'custom';
+@use "../node_modules/bootstrap-icons/font/bootstrap-icons.css";
+@use 'custom';
 $primary-color:#228b22;
 // Variables de couleurs et de polices
 $primary: #D2B48C;
@@ -351,7 +351,34 @@ h1 {
     color: $primary-color; 
 }
 
-
 body {
     padding-top: 110px; 
+}
+
+.card {
+    max-width: 500px; /* Largeur maximale des cartes */
+    margin: 0 auto; /* Centre les cartes horizontalement */
+}
+
+.card-img-top {
+    width: 100%; 
+    height: 300px; 
+    object-fit: cover; 
+    border-radius: 5px; 
+}
+
+.card {
+    max-width: 500px; /* Largeur maximale des cartes */
+    margin: 0 auto; /* Centre les cartes */
+}
+
+.card-img-top {
+    width: 100%; /* L'image occupe toute la largeur de la carte */
+    height: 300px; /* Hauteur augmentée pour une meilleure visibilité */
+    object-fit: cover; /* Remplit le cadre tout en conservant les proportions */
+    border-radius: 5px; /* Coins arrondis (optionnel) */
+}
+
+.card-body {
+    text-align: center; /* Centrer le texte dans la carte */
 }
