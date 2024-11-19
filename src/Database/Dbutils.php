@@ -1,31 +1,39 @@
 <?php
 
 namespace App\Database;
-//utilisation d'un singleton pour instancier une variable une seule fois sans avoir besoin de la redéfinir
+
 use PDO;
+use Dotenv\Dotenv;
+
 class Dbutils
 {
-    const DSN = "mysql:host=mysql-fabien31.alwaysdata.net;dbname=fabien31_arcadia";
-    const USER = "fabien31_jose";
-    const PASSWORD = "NA3092bb@1";
-
-    static ?PDO $pdo = null;
+    private static ?PDO $pdo = null;
 
     public static function getPdo(): PDO
     {
-        if (self::$pdo !==null) {
+        if (self::$pdo !== null) {
             return self::$pdo;
         }
-        self::$pdo = new PDO(self::DSN, self::USER, self::PASSWORD);
-        return self::$pdo;
-    } 
-   // centralisattion des sécurités pour la protection des données
-    public static function protectDbData($value){
-    
-        $value = htmlspecialchars($value);
-        $value = strip_tags($value);
 
-        return $value;
+        // Charge les variables d'environnement
+        $dotenv = Dotenv::createImmutable(__DIR__ . '/../../');
+        $dotenv->load();
+
+        $dsn = $_ENV['DB_DSN'];
+        $user = $_ENV['DB_USER'];
+        $password = $_ENV['DB_PASSWORD'];
+
+        // Active les exceptions PDO
+        self::$pdo = new PDO($dsn, $user, $password, [
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+        ]);
+
+        return self::$pdo;
+    }
+
+    public static function protectDbData($value)
+    {
+        return htmlspecialchars(strip_tags($value), ENT_QUOTES, 'UTF-8');
     }
 }
-

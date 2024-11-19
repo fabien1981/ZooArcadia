@@ -105,24 +105,10 @@
     ?>
 </main>
 <!-- Footer -->
-<footer class="bg-dark text-white text-center footer">
+<footer class="bg-primary text-white text-center footer">
     <div class="row">
         <div class="col-6 col-lg-4">
-            <h3 class="text-secondary">Nos horaires</h3>
-            <div id="horaires">
-                <table class="table table-dark table-striped">
-                    <thead>
-                        <tr>
-                            <th>Période</th>
-                            <th>Fermeture des caisses</th>
-                            <th>Fermeture du parc (à pied)</th>
-                        </tr>
-                    </thead>
-                    <tbody id="horaires-table-body">
-                        <!-- Les horaires seront chargés ici par JavaScript -->
-                    </tbody>
-                </table>
-            </div>
+            
         </div>
         <div class="col-6 col-lg-4">
             <p>Eco Zoo Arcadia<br/>

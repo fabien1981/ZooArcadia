@@ -50,8 +50,9 @@
                                 alt="Image de <?= htmlspecialchars($habitat['nom']) ?>" 
                                 style="height: 300px; object-fit: cover;"
                             >
-                            <div class="card-body text-center">
-                                <h5 class="card-title">
+                            <div class="card-body text-center" >
+    
+    <h5 class="card-title text-primary" style="color: #228b22; ">
                                     <a href="/ZooArcadia/habitats/show/<?= htmlspecialchars($habitat['habitat_id']) ?>">
                                         <?= htmlspecialchars($habitat['nom']) ?>
                                     </a>

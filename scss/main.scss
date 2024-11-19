@@ -5,7 +5,7 @@
 
 // Import des icônes Bootstrap et styles personnalisés
 @use "../node_modules/bootstrap-icons/font/bootstrap-icons.css";
-@use 'custom';
+
 $primary-color:#228b22;
 // Variables de couleurs et de polices
 $primary: #D2B48C;
@@ -382,3 +382,23 @@ body {
 .card-body {
     text-align: center; /* Centrer le texte dans la carte */
 }
+
+
+.bg-primary {
+    background-color: #228b22 !important;
+    color: #fff; // Optionnel : pour garantir un bon contraste
+  }
+
+  .btn-primary{
+    background-color: #228b22 !important;
+    color: #fff; // Optionnel : pour garantir un bon contraste
+  }
+
+  .text-primary{
+    color: #228b22 !important;
+  }
+
+  .a{
+    color: #228b22 !important;
+  }
+  
