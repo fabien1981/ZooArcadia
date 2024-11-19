@@ -37,7 +37,7 @@
       <img src="/ZooArcadia/photos/vueaerienne.jpeg" class="d-block w-100" alt="...">
     </div>
     <div class="carousel-item">
-      <img src="/ZooArcadia/photos/vuezoo.jpeg" class="d-block w-100" alt="...">
+      <img src="/ZooArcadia/photos/Designer.jpeg" class="d-block w-100" alt="...">
     </div>
     <div class="carousel-item">
       <img src="/ZooArcadia/photos/toucan.jpeg" class="d-block w-100" alt="...">
