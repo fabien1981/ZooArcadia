@@ -118,7 +118,7 @@ class Avis
 
     public function displayForm(): void
 {
-    // Chemin vers votre fichier de formulaire
+    // Chemin vers le fichier du formulaire
     include __DIR__ . '/../../../templates/avis.php';
 
 }

@@ -12,7 +12,7 @@ class ConsultationController
     public function incrementConsultation()
 {
     try {
-        $input = file_get_contents('php://input'); // Lire les données brutes
+        $input = file_get_contents('php://input'); // 
         $data = json_decode($input, true); // Décoder les données JSON
 
         error_log("Données JSON reçues : " . json_encode($data)); // Journaliser les données reçues
@@ -86,10 +86,10 @@ public function getStatistics()
 private function ajouterChampConsultations($collection)
 {
     try {
-        // Journaliser le début de la vérification
+       
         error_log("Vérification et mise à jour des documents sans la clé 'consultations'...");
 
-        // Mise à jour des documents manquants la clé `consultations`
+       
         $result = $collection->updateMany(
             ['consultations' => ['$exists' => false]], // Condition : champ `consultations` inexistant
             ['$set' => ['consultations' => 0]]        // Ajoute la clé `consultations` avec une valeur par défaut de 0

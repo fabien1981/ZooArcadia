@@ -1,6 +1,7 @@
 <?php
 use App\Routing\Router;
 use Dotenv\Dotenv;
+use MongoDB\Client;
 
 
 require_once __DIR__ . '/config/session.php';
@@ -8,6 +9,7 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 $dotenv = Dotenv::createImmutable(__DIR__);
 $dotenv->load();
+
 
 $router = new Router($_SERVER['REQUEST_METHOD'], $_SERVER['REQUEST_URI']);
 

@@ -12,7 +12,7 @@ class Veterinaire
         }
         // Logique pour afficher la page des habitats
         return [
-            'template' => 'veterinaire', // ou autre nom selon votre template
+            'template' => 'veterinaire', 
             'message' => 'Espace vétérinaire'
         ];
     }

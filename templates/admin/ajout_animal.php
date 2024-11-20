@@ -45,7 +45,7 @@
 <!-- Inclusion de api.js pour la gestion des requêtes API -->
 <script src="/ZooArcadia/scripts/api.js"></script>
 
-<!-- Script pour gérer la soumission du formulaire via JavaScript -->
+<!-- Script pour gérer le formulaire via JavaScript -->
 <script>
     document.getElementById('animal-form').addEventListener('submit', function (e) {
         e.preventDefault(); // Empêche la soumission classique du formulaire

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Routing;
+
 use App\Database\DbConnectionNoSQL;
 
 
@@ -18,8 +19,8 @@ class Router
         $uri = parse_url($uri, PHP_URL_PATH);
         $uri = trim($uri, '/');
 
-       // error_log("URI : $uri, RequestMethod : $this->requestMethod");
-    
+        // error_log("URI : $uri, RequestMethod : $this->requestMethod");
+
         // Ignore les fichiers statiques
         if (preg_match('/\.(css|js|png|jpg|jpeg|gif|svg|ico)$/i', $uri)) {
             return;
@@ -27,7 +28,7 @@ class Router
 
         // Supprime le préfixe "ZooArcadia" de l'URI si présent
         if (strpos($uri, 'ZooArcadia/') === 0) { // Vérifie si le chemin commence par "ZooArcadia/"
-            $uri = substr($uri, strlen('ZooArcadia/') ); // Supprime "ZooArcadia/" du chemin
+            $uri = substr($uri, strlen('ZooArcadia/')); // Supprime "ZooArcadia/" du chemin
         }
 
         // Route API pour incrementer les consultations
@@ -40,67 +41,67 @@ class Router
 
         // Route pour la page des services
 
-if ($uri === 'services') {
-    $this->controllerName = 'App\Controller\Services';
-    $this->method = 'display';
-    return;
-}
+        if ($uri === 'services') {
+            $this->controllerName = 'App\Controller\Services';
+            $this->method = 'display';
+            return;
+        }
 
-// Route pour afficher le formulaire d'avis
-if ($uri === 'avis/display') {
-    $this->controllerName = 'App\\Controller\\Api\\Avis';
-    $this->method = 'displayForm';
-    return;
-}
+        // Route pour afficher le formulaire d'avis
+        if ($uri === 'avis/display') {
+            $this->controllerName = 'App\\Controller\\Api\\Avis';
+            $this->method = 'displayForm';
+            return;
+        }
 
-// Route pour afficher la liste des avis
-if ($uri === 'avis' && $this->requestMethod === 'GET') {
-    $this->controllerName = 'App\\Controller\\Api\\Avis';
-    $this->method = 'listAvis';
-    return;
-}
+        // Route pour afficher la liste des avis
+        if ($uri === 'avis' && $this->requestMethod === 'GET') {
+            $this->controllerName = 'App\\Controller\\Api\\Avis';
+            $this->method = 'listAvis';
+            return;
+        }
 
-// Route API pour créer un avis
-if ($uri === 'api/avis/create' && $this->requestMethod === 'POST') {
-    $this->controllerName = 'App\\Controller\\Api\\Avis';
-    $this->method = 'create';
-    return;
-}
+        // Route API pour créer un avis
+        if ($uri === 'api/avis/create' && $this->requestMethod === 'POST') {
+            $this->controllerName = 'App\\Controller\\Api\\Avis';
+            $this->method = 'create';
+            return;
+        }
 
-// Route API pour lister les avis
-if ($uri === 'api/avis/list' && $this->requestMethod === 'GET') {
-    $this->controllerName = 'App\\Controller\\Api\\Avis';
-    $this->method = 'list';
-    return;
-}
-
-
-// Route pour afficher la page des statistiques (interface admin)
-if ($uri === 'admin/statistiques_consultations' && $this->requestMethod === 'GET') {
-    $this->controllerName = 'App\\Controller\\Admin';
-    $this->method = 'statistiquesConsultations'; 
-    $this->returnJson = false;// Remplacez par `statistiquesConsultations` si nécessaire
-
-    return;
-}
-//error_log("URI: $uri");
-// Route API pour récupérer les statistiques au format JSON
-if ($uri === 'api/consultation/statistics' && $this->requestMethod === 'GET') {
-    $this->controllerName = 'App\\Controller\\Api\\ConsultationController';
-    $this->method = 'getStatistics';
-    $this->returnJson = true;
-    return;
-}
+        // Route API pour lister les avis
+        if ($uri === 'api/avis/list' && $this->requestMethod === 'GET') {
+            $this->controllerName = 'App\\Controller\\Api\\Avis';
+            $this->method = 'list';
+            return;
+        }
 
 
+        // Route pour afficher la page des statistiques (interface admin)
+        if ($uri === 'admin/statistiques_consultations' && $this->requestMethod === 'GET') {
+            $this->controllerName = 'App\\Controller\\Admin';
+            $this->method = 'statistiquesConsultations';
+            $this->returnJson = false;
 
-// Route API pour afficher les statistiques
-if ($uri === 'admin/statistiques_consultations') {
-    $this->controllerName = 'App\\Controller\\Admin';
-    $this->method = 'statistiquesConsultations';
-    $this->returnJson = false;
-    return;
-}
+            return;
+        }
+        //error_log("URI: $uri");
+        // Route API pour récupérer les statistiques au format JSON
+        if ($uri === 'api/consultation/statistics' && $this->requestMethod === 'GET') {
+            $this->controllerName = 'App\\Controller\\Api\\ConsultationController';
+            $this->method = 'getStatistics';
+            $this->returnJson = true;
+            return;
+        }
+
+
+
+        // Route API pour afficher les statistiques
+        if ($uri === 'admin/statistiques_consultations') {
+            $this->controllerName = 'App\\Controller\\Admin';
+            $this->method = 'statistiquesConsultations';
+            $this->returnJson = false;
+            return;
+        }
 
 
 
@@ -113,38 +114,38 @@ if ($uri === 'admin/statistiques_consultations') {
         }
 
         // Route pour ajouter une service
-if ($uri === 'admin/add_service') {
-    $this->controllerName = 'App\Controller\Admin';
-    $this->method = 'addService';
-    return;
-}
+        if ($uri === 'admin/add_service') {
+            $this->controllerName = 'App\Controller\Admin';
+            $this->method = 'addService';
+            return;
+        }
 
-if ($uri === 'admin/statistiques_consultations' && $this->requestMethod === 'GET') {
-    $this->controllerName = 'App\\Controller\\Admin';
-    $this->method = 'displayStatsPage';
-    return;
-}
+        if ($uri === 'admin/statistiques_consultations' && $this->requestMethod === 'GET') {
+            $this->controllerName = 'App\\Controller\\Admin';
+            $this->method = 'displayStatsPage';
+            return;
+        }
 
 
-// Route pour modifier un service
-if (preg_match('/^admin\/edit_service\/(\d+)$/', $uri, $matches)) {
-    $this->controllerName = 'App\Controller\Admin';
-    $this->method = 'editService';
-    $this->parameter = (int)$matches[1];
-    return;
-}
+        // Route pour modifier un service
+        if (preg_match('/^admin\/edit_service\/(\d+)$/', $uri, $matches)) {
+            $this->controllerName = 'App\Controller\Admin';
+            $this->method = 'editService';
+            $this->parameter = (int)$matches[1];
+            return;
+        }
 
-// Route pour supprimer un service
-if (preg_match('/^admin\/delete_service\/(\d+)$/', $uri, $matches)) {
-    $this->controllerName = 'App\Controller\Admin';
-    $this->method = 'deleteService';
-    $this->parameter = (int)$matches[1];
-    return;
-}
+        // Route pour supprimer un service
+        if (preg_match('/^admin\/delete_service\/(\d+)$/', $uri, $matches)) {
+            $this->controllerName = 'App\Controller\Admin';
+            $this->method = 'deleteService';
+            $this->parameter = (int)$matches[1];
+            return;
+        }
 
-        
-       
-        
+
+
+
 
         // Route pour 'add-nourriture'
         if ($uri === 'add-nourriture' && $this->requestMethod === 'POST') {
@@ -153,9 +154,9 @@ if (preg_match('/^admin\/delete_service\/(\d+)$/', $uri, $matches)) {
             return;
         }
 
-       
 
-        
+
+
 
         // Routes spécifiques pour la déconnexion
         if ($uri === 'logout') {
@@ -180,7 +181,7 @@ if (preg_match('/^admin\/delete_service\/(\d+)$/', $uri, $matches)) {
             if ($uriExplode[0] === 'animal') {
                 $this->controllerName .= 'Api\\Animal';
                 array_shift($uriExplode); // Supprime "animal"
-                
+
                 switch ($uriExplode[0]) {
                     case 'list':
                         $this->method = 'list';
@@ -210,54 +211,52 @@ if (preg_match('/^admin\/delete_service\/(\d+)$/', $uri, $matches)) {
             }
 
             // Route pour afficher la liste des habitats
-if ($uri === 'habitats/display') {
-    $this->controllerName .= 'Habitats';
-    $this->method = 'display';
-    return;
-}
+            if ($uri === 'habitats/display') {
+                $this->controllerName .= 'Habitats';
+                $this->method = 'display';
+                return;
+            }
 
 
 
-// Route pour afficher les détails d'un habitat
-if (preg_match('/^habitats\/show\/(\d+)$/', $uri, $matches)) {
-    $this->controllerName .= 'Habitats';
-    $this->method = 'show';
-    $this->parameter = (int)$matches[1];
-    return;
-}
+            // Route pour afficher les détails d'un habitat
+            if (preg_match('/^habitats\/show\/(\d+)$/', $uri, $matches)) {
+                $this->controllerName .= 'Habitats';
+                $this->method = 'show';
+                $this->parameter = (int)$matches[1];
+                return;
+            }
 
-// Route pour récupérer les animaux par habitat
-if (preg_match('/^api\/animal\/habitat\/(\d+)$/', $uri, $matches)) {
-    $this->controllerName = 'App\Controller\Api\Animal';
-    $this->method = 'getAnimalsByHabitat';
-    $this->parameter = (int)$matches[1]; // ID de l'habitat
-    return;
-}
-
-
+            // Route pour récupérer les animaux par habitat
+            if (preg_match('/^api\/animal\/habitat\/(\d+)$/', $uri, $matches)) {
+                $this->controllerName = 'App\Controller\Api\Animal';
+                $this->method = 'getAnimalsByHabitat';
+                $this->parameter = (int)$matches[1]; // ID de l'habitat
+                return;
+            }
 
 
 
-// Route pour afficher les détails d'un animal
-if (preg_match('/^animals\/details\/(\d+)$/', $uri, $matches)) {
-    $this->controllerName .= 'Animals';
-    $this->method = 'show';
-    $this->parameter = (int)$matches[1];
-    return;
-}
 
-// Route pour ajouter une service
-if ($uri === 'admin/add_service') {
-    $this->controllerName = 'App\Controller\Admin';
-    $this->method = 'addService';
-   
-    
-}
+
+            // Route pour afficher les détails d'un animal
+            if (preg_match('/^animals\/details\/(\d+)$/', $uri, $matches)) {
+                $this->controllerName .= 'Animals';
+                $this->method = 'show';
+                $this->parameter = (int)$matches[1];
+                return;
+            }
+
+            // Route pour ajouter une service
+            if ($uri === 'admin/add_service') {
+                $this->controllerName = 'App\Controller\Admin';
+                $this->method = 'addService';
+            }
             // Routes pour les horaires
             if ($uriExplode[0] === 'hours') {
                 $this->controllerName .= 'Api\\Horaires';
                 array_shift($uriExplode); // Supprime "hours"
-                
+
                 switch ($uriExplode[0]) {
                     case 'list':
                         $this->method = 'list';
@@ -374,51 +373,51 @@ if ($uri === 'admin/add_service') {
     }
 
     public function doAction(): array|string
-{
-    $controllerName = $this->controllerName;
-    $method = $this->method;
+    {
+        $controllerName = $this->controllerName;
+        $method = $this->method;
 
-    // Journalisation pour le diagnostic
-    error_log("Controller: $controllerName, Method: $method");
+        // Journalisation pour le diagnostic
+        error_log("Controller: $controllerName, Method: $method");
 
-    if (empty($method) || $controllerName === "App\\Controller\\") {
-        throw new Exception("La méthode n'a pas été initialisée. Vérifiez vos routes.");
-    }
-
-    // Vérifiez si la classe existe
-    if (!class_exists($controllerName)) {
-        throw new Exception("La classe du contrôleur '$controllerName' est introuvable.");
-    }
-
-    $controller = new $controllerName();
-
-    // Vérifiez si la méthode existe
-    if (!method_exists($controller, $method)) {
-        throw new Exception("La méthode '$method' n'est pas trouvée dans le contrôleur '$controllerName'.");
-    }
-    // Récupérer les données en JSON pour POST ou PUT
-    $data = null;
-    if ($this->requestMethod === 'POST' || $this->requestMethod === 'PUT') {
-        $contentType = $_SERVER['CONTENT_TYPE'] ?? '';
-        if (strpos($contentType, 'application/json') !== false) {
-            $data = json_decode(file_get_contents('php://input'), true);
-        } else {
-            $data = $_POST;
+        if (empty($method) || $controllerName === "App\\Controller\\") {
+            throw new Exception("La méthode n'a pas été initialisée. Vérifiez vos routes.");
         }
+
+        // Vérifiez si la classe existe
+        if (!class_exists($controllerName)) {
+            throw new Exception("La classe du contrôleur '$controllerName' est introuvable.");
+        }
+
+        $controller = new $controllerName();
+
+        // Vérifiez si la méthode existe
+        if (!method_exists($controller, $method)) {
+            throw new Exception("La méthode '$method' n'est pas trouvée dans le contrôleur '$controllerName'.");
+        }
+        // Récupérer les données en JSON pour POST ou PUT
+        $data = null;
+        if ($this->requestMethod === 'POST' || $this->requestMethod === 'PUT') {
+            $contentType = $_SERVER['CONTENT_TYPE'] ?? '';
+            if (strpos($contentType, 'application/json') !== false) {
+                $data = json_decode(file_get_contents('php://input'), true);
+            } else {
+                $data = $_POST;
+            }
+        }
+
+        $result = $this->parameter !== null
+            ? $controller->$method($this->parameter, $data)
+            : $controller->$method($data);
+
+        if ($this->returnJson) {
+            header('Content-Type: application/json; charset=utf-8');
+            echo json_encode($result, JSON_UNESCAPED_UNICODE);
+            exit;
+        }
+
+        return is_array($result) ? $result : (string) $result;
     }
-
-    $result = $this->parameter !== null
-        ? $controller->$method($this->parameter, $data)
-        : $controller->$method($data);
-
-    if ($this->returnJson) {
-        header('Content-Type: application/json; charset=utf-8');
-        echo json_encode($result, JSON_UNESCAPED_UNICODE);
-        exit;
-    }
-
-    return is_array($result) ? $result : (string) $result;
-}
 
 
     public function isReturnJson(): bool

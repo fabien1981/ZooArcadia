@@ -7,11 +7,11 @@ use Exception;
 
 class DbConnectionNoSQL
 {
-    // Instance unique pour la connexion
+   
     private static $db = null;
 
     /**
-     * Méthode pour obtenir la connexion à MongoDB
+     * Méthode pour obtenir la connexion à MongoDB avec des valeurs codées en dur
      */
     public static function getDB()
     {
@@ -20,19 +20,18 @@ class DbConnectionNoSQL
                 return self::$db;
             }
 
-            // Charger les variables d'environnement
-            $mongoUri = getenv('MONGODB_URI') ?: 'mongodb://localhost:27017';
-            $databaseName = getenv('MONGODB_DATABASE') ?: 'ECFArcadia';
+            // URI et nom de la base codés en dur
+            $mongoUri = 'mongodb+srv://julliafabien:NA3092bb@cluster0.f3axx.mongodb.net/arcadia?retryWrites=true&w=majority';
+            $databaseName = 'ECFArcadia';
 
+          
             // Initialisation du client MongoDB
             $client = new Client($mongoUri);
-
-            // Sélection de la base de données
             self::$db = $client->selectDatabase($databaseName);
+
             return self::$db;
         } catch (Exception $e) {
-           // error_log('Erreur de connexion à MongoDB : ' . $e->getMessage());
-            throw new Exception('Erreur de connexion à la base de données.');
+            throw new Exception('Erreur de connexion à la base de données : ' . $e->getMessage());
         }
     }
 
