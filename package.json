@@ -17,7 +17,6 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "sass": "sass --watch scss/main.scss css/main.css",
     "build:css": "postcss scss/main.css -o dist/css/main.css"
-    
   },
   "keywords": [],
   "author": "",

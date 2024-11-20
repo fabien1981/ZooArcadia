@@ -29,23 +29,28 @@
                             }
                         ?>
                         <div class="col-md-4 mb-4">
-                            <a href="/ZooArcadia/animals/show/<?= htmlspecialchars($animal['animal_id']) ?>?habitat_id=<?= htmlspecialchars($habitat['habitat_id']) ?>" style="text-decoration: none; color: inherit;">
-                                <div class="card">
-                                    <img 
-                                        src="<?= $imagePath ?>" 
-                                        class="card-img-top" 
-                                        alt="Image de <?= htmlspecialchars($animal['prenom']) ?>" 
-                                        style="height: 200px; object-fit: cover;"
-                                    >
-                                    <div class="card-body">
-                                        <h5 class="card-title"><?= htmlspecialchars($animal['prenom']) ?></h5>
-                                        <p class="card-text">
-                                            Race : <?= htmlspecialchars($animal['race'] ?? 'Non spécifié') ?><br>
-                                            État : <?= htmlspecialchars($animal['etat'] ?? 'Non spécifié') ?>
-                                        </p>
-                                    </div>
+                            <div 
+                                class="card" 
+                                style="cursor: pointer;" 
+                                onclick="incrementAnimalClicks(
+                                    <?= htmlspecialchars($animal['animal_id']) ?>, 
+                                    '<?= htmlspecialchars($animal['prenom']) ?>', 
+                                    '<?= htmlspecialchars($habitat['nom']) ?>'
+                                ); window.location.href='/ZooArcadia/animals/show/<?= htmlspecialchars($animal['animal_id']) ?>?habitat_id=<?= htmlspecialchars($habitat['habitat_id']) ?>';">
+                                <img 
+                                    src="<?= $imagePath ?>" 
+                                    class="card-img-top" 
+                                    alt="Image de <?= htmlspecialchars($animal['prenom']) ?>" 
+                                    style="height: 200px; object-fit: cover;"
+                                >
+                                <div class="card-body">
+                                    <h5 class="card-title"><?= htmlspecialchars($animal['prenom']) ?></h5>
+                                    <p class="card-text">
+                                        Race : <?= htmlspecialchars($animal['race'] ?? 'Non spécifié') ?><br>
+                                        État : <?= htmlspecialchars($animal['etat'] ?? 'Non spécifié') ?>
+                                    </p>
                                 </div>
-                            </a>
+                            </div>
                         </div>
                     <?php endforeach; ?>
                 </div>
@@ -66,3 +71,5 @@
         </a>
     <?php endif; ?>
 </div>
+
+<script src="/ZooArcadia/scripts/zooApp.js"></script>

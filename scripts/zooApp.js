@@ -4,17 +4,27 @@ function fetchAnimals() {
         .then(response => response.json())
         .then(data => {
             const animalList = document.getElementById('animal-list');
-            animalList.innerHTML = '';
+            if (!animalList) {
+                console.error("L'élément avec l'ID 'animal-list' est introuvable.");
+                return;
+            }
+            animalList.innerHTML = ''; // Réinitialise la liste avant de l'afficher
+
             if (data.success) {
                 data.data.forEach(animal => {
                     const animalRow = document.createElement('div');
                     animalRow.classList.add('animal-row', 'mb-3', 'p-2', 'border', 'rounded');
                     animalRow.innerHTML = `
                         <p>${animal.prenom} (${animal.race}) - État: ${animal.etat} - Habitat: ${animal.habitat_nom}</p>
+                        <button 
+                            class="btn btn-info me-2" 
+                            onclick="incrementAnimalConsultation(${animal.animal_id}, '${animal.prenom}', '${animal.habitat_nom}'); window.location.href='/ZooArcadia/animals/details/${animal.animal_id}'">
+                            Voir Détails
+                        </button>
                         <button class="btn btn-secondary me-2" onclick="editAnimal(${animal.animal_id})">Modifier</button>
                         <button class="btn btn-danger" onclick="deleteAnimal(${animal.animal_id})">Supprimer</button>
                     `;
-                    animalList.appendChild(animalRow);
+                    animalList.appendChild(animalRow); // Ajoute l'élément à la liste
                 });
             } else {
                 animalList.innerText = 'Aucun animal trouvé';
@@ -22,6 +32,7 @@ function fetchAnimals() {
         })
         .catch(error => console.error('Erreur de réseau ou de parsing :', error));
 }
+
 
 // Fonction pour ouvrir le formulaire d'ajout d'un nouvel animal
 function openAnimalForm() {
@@ -108,6 +119,7 @@ function loadHabitats() {
         .then(data => {
             if (data.success) {
                 const habitatSelect = document.getElementById('habitat');
+                
                 habitatSelect.innerHTML = '<option value="">Sélectionnez un habitat</option>';
                 data.data.forEach(habitat => {
                     const option = document.createElement('option');
@@ -162,3 +174,91 @@ function handleAnimalFormSubmit(event) {
 
 // Associer le formulaire au gestionnaire de soumission
 document.getElementById('animalForm').addEventListener('submit', handleAnimalFormSubmit);
+
+// Fonction pour incrémenter les consultations d'un animal
+function incrementAnimalConsultation(animalId, animalName, habitatName) {
+    fetch('/ZooArcadia/api/consultation/increment', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ animal_id: animalId, animal_name: animalName, habitat_name: habitatName }),
+    })
+        .then(response => response.json())
+        .then(data => {
+            //onsole.log('Réponse API:', data); // Log de la réponse
+            if (!data.success) {
+                alert('Erreur lors de l\'incrémentation: ' + data.message);
+            }
+        })
+        .catch(error => console.error('Erreur réseau ou serveur :', error));
+}
+
+
+function incrementAnimalClicks(animalId, animalName, habitatName) {
+    if (!animalId || !animalName || !habitatName) {
+        console.error("Paramètres manquants pour incrementAnimalClicks");
+        return;
+    }
+
+    fetch('/ZooArcadia/api/consultation/increment', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            animal_id: animalId,
+            animal_name: animalName,
+            habitat_name: habitatName,
+        }),
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erreur réseau ou serveur');
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (!data.success) {
+                console.error('Erreur API:', data.message);
+            } else {
+                console.log('Clics enregistrés avec succès:', data);
+            }
+        })
+        .catch(error => {
+            console.error('Erreur réseau ou serveur :', error);
+        });
+}
+
+function chargerAnimaux() {
+    fetch('/ZooArcadia/api/animal/list')
+        .then(response => response.json())
+        .then(data => {
+            const listeAnimaux = document.getElementById('liste-animaux');
+            if (!listeAnimaux) {
+                console.error("L'élément avec l'ID 'liste-animaux' est introuvable.");
+                return;
+            }
+            listeAnimaux.innerHTML = '';
+            if (data.success) {
+                data.data.forEach(animal => {
+                    const ligneAnimal = document.createElement('div');
+                    ligneAnimal.classList.add('animal-row', 'mb-3', 'p-2', 'border', 'rounded');
+                    ligneAnimal.innerHTML = `
+                        <p>${animal.prenom} (${animal.race}) - État: ${animal.etat}</p>
+                        <button 
+                            class="btn btn-info me-2" 
+                             onclick="incrementAnimalConsultation(${animal.animal_id}, '${animal.prenom}', '${animal.habitat_nom}'); window.location.href='/ZooArcadia/animals/details/${animal.animal_id}'">
+                             Voir Détails
+                        </button>
+
+                        <button class="btn btn-secondary me-2" onclick="modifierAnimal(${animal.animal_id})">Modifier</button>
+                        <button class="btn btn-danger" onclick="supprimerAnimal(${animal.animal_id})">Supprimer</button>
+                    `;
+                    listeAnimaux.appendChild(ligneAnimal);
+                });
+            } else {
+                listeAnimaux.innerText = 'Aucun animal trouvé';
+            }
+        })
+        .catch(error => console.error('Erreur de réseau ou de parsing :', error));
+}
+
+
+

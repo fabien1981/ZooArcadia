@@ -4,8 +4,9 @@ namespace App\Controller;
 
 use App\Controller\CreerCompte;
 use App\Database\Dbutils;
+use App\Controller\Api\ConsultationController;
 use PDO;
-
+use Exception;
 class Admin
 {
     // Vérifie les droits d'accès Admin
@@ -107,6 +108,60 @@ class Admin
             'message' => 'Gestion des animaux'
         ];
     }
+    // Méthode pour afficher la page des statistiques des consultations.
+     
+    public function displayStatsPage()
+{
+    try {
+        // Appel à l'API pour récupérer les statistiques
+        $response = file_get_contents('http://localhost/ZooArcadia/api/consultation/statistics');
+        $data = json_decode($response, true);
+
+        if ($data['success']) {
+            return [
+                'template' => 'admin/statistiques_consultations',
+                'stats' => $data['data'], // Les statistiques à afficher
+            ];
+        } else {
+            return [
+                'template' => 'error',
+                'message' => 'Impossible de charger les statistiques.',
+            ];
+        }
+    } catch (Exception $e) {
+        return [
+            'template' => 'error',
+            'message' => 'Erreur : ' . $e->getMessage(),
+        ];
+    }
+}
+
+
+// Affiche la page des statistiques
+public function statistiquesConsultations(): array
+{
+    // Récupération des données directement depuis le contrôleur API
+    $consultationData = (new ConsultationController())->getStatistics();
+
+    if ($consultationData['success']) {
+        return [
+            'template' => 'admin/statistiques_consultations', // Chemin vers le fichier HTML
+            'stats' => $consultationData['data'], // Données pour le template
+        ];
+    } else {
+        return [
+            'template' => 'error', // Template d'erreur
+            'message' => 'Impossible de charger les statistiques : ' . $consultationData['message'],
+        ];
+    }
+}
+
+
+
+
+
+
+
 
     // Affiche la page de gestion des horaires
     public function gestionHoraires()

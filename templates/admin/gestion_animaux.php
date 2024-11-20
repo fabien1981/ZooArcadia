@@ -85,7 +85,12 @@
                         ligneAnimal.setAttribute('data-habitat', animal.habitat_id);
                         ligneAnimal.innerHTML = `
                             <p>${animal.prenom} (${animal.race}) - État: ${animal.etat}</p>
-                            <button class="btn btn-info me-2" onclick="selectionnerAnimal(${animal.animal_id})">Sélectionner</button>
+                            <button 
+                                class="btn btn-info me-2" 
+                                 onclick="incrementAnimalConsultation(${animal.animal_id}, '${animal.prenom}', '${animal.habitat_nom}'); window.location.href='/ZooArcadia/animals/details/${animal.animal_id}'">
+                                 Voir Détails
+                            </button>
+
                             <button class="btn btn-secondary me-2" onclick="modifierAnimal(${animal.animal_id})">Modifier</button>
                             <button class="btn btn-danger" onclick="supprimerAnimal(${animal.animal_id})">Supprimer</button>
                         `;

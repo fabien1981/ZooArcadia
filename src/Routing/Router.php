@@ -17,6 +17,8 @@ class Router
     {
         $uri = parse_url($uri, PHP_URL_PATH);
         $uri = trim($uri, '/');
+
+       // error_log("URI : $uri, RequestMethod : $this->requestMethod");
     
         // Ignore les fichiers statiques
         if (preg_match('/\.(css|js|png|jpg|jpeg|gif|svg|ico)$/i', $uri)) {
@@ -26,6 +28,14 @@ class Router
         // Supprime le préfixe "ZooArcadia" de l'URI si présent
         if (strpos($uri, 'ZooArcadia/') === 0) { // Vérifie si le chemin commence par "ZooArcadia/"
             $uri = substr($uri, strlen('ZooArcadia/') ); // Supprime "ZooArcadia/" du chemin
+        }
+
+        // Route API pour incrementer les consultations
+        if ($uri === 'api/consultation/increment' && $this->requestMethod === 'POST') {
+            $this->controllerName = 'App\\Controller\\Api\\ConsultationController';
+            $this->method = 'incrementConsultation';
+            $this->returnJson = true;
+            return;
         }
 
         // Route pour la page des services
@@ -64,6 +74,37 @@ if ($uri === 'api/avis/list' && $this->requestMethod === 'GET') {
     return;
 }
 
+
+// Route pour afficher la page des statistiques (interface admin)
+if ($uri === 'admin/statistiques_consultations' && $this->requestMethod === 'GET') {
+    $this->controllerName = 'App\\Controller\\Admin';
+    $this->method = 'statistiquesConsultations'; 
+    $this->returnJson = false;// Remplacez par `statistiquesConsultations` si nécessaire
+
+    return;
+}
+//error_log("URI: $uri");
+// Route API pour récupérer les statistiques au format JSON
+if ($uri === 'api/consultation/statistics' && $this->requestMethod === 'GET') {
+    $this->controllerName = 'App\\Controller\\Api\\ConsultationController';
+    $this->method = 'getStatistics';
+    $this->returnJson = true;
+    return;
+}
+
+
+
+// Route API pour afficher les statistiques
+if ($uri === 'admin/statistiques_consultations') {
+    $this->controllerName = 'App\\Controller\\Admin';
+    $this->method = 'statistiquesConsultations';
+    $this->returnJson = false;
+    return;
+}
+
+
+
+
         // Route pour afficher la gestion des services
         if ($uri === 'admin/gestion_services') {
             $this->controllerName = 'App\Controller\Admin'; // Assurez-vous que c'est bien défini une seule fois
@@ -77,6 +118,13 @@ if ($uri === 'admin/add_service') {
     $this->method = 'addService';
     return;
 }
+
+if ($uri === 'admin/statistiques_consultations' && $this->requestMethod === 'GET') {
+    $this->controllerName = 'App\\Controller\\Admin';
+    $this->method = 'displayStatsPage';
+    return;
+}
+
 
 // Route pour modifier un service
 if (preg_match('/^admin\/edit_service\/(\d+)$/', $uri, $matches)) {
@@ -202,8 +250,8 @@ if (preg_match('/^animals\/details\/(\d+)$/', $uri, $matches)) {
 if ($uri === 'admin/add_service') {
     $this->controllerName = 'App\Controller\Admin';
     $this->method = 'addService';
-    var_dump($this->controllerName, $this->method);
-    exit;
+   
+    
 }
             // Routes pour les horaires
             if ($uriExplode[0] === 'hours') {
@@ -326,49 +374,52 @@ if ($uri === 'admin/add_service') {
     }
 
     public function doAction(): array|string
-    {
-        $controllerName = $this->controllerName;
-        $method = $this->method;
+{
+    $controllerName = $this->controllerName;
+    $method = $this->method;
 
-        if (empty($method) || $controllerName === "App\\Controller\\") {
-            throw new Exception("Contrôleur ou méthode invalide.");
-        }
+    // Journalisation pour le diagnostic
+    error_log("Controller: $controllerName, Method: $method");
 
-        if (!class_exists($controllerName)) {
-            throw new Exception("La classe du contrôleur '$controllerName' est introuvable.");
-        }
-
-        $controller = new $controllerName();
-
-        if (!method_exists($controller, $method)) {
-            throw new Exception("La méthode '$method' n'est pas trouvée dans le contrôleur '$controllerName'.");
-        }
-
-        // Récupérer les données en JSON pour PUT ou POST, ou via $_POST pour les formulaires HTML
-        $data = null;
-
-        if ($this->requestMethod === 'POST' || $this->requestMethod === 'PUT') {
-            $contentType = $_SERVER['CONTENT_TYPE'] ?? '';
-
-            if (strpos($contentType, 'application/json') !== false) {
-                $data = json_decode(file_get_contents('php://input'), true);
-            } else {
-                $data = $_POST;
-            }
-        }
-
-        $result = $this->parameter !== null
-            ? $controller->$method($this->parameter, $data)
-            : $controller->$method($data);
-
-        if ($this->returnJson) {
-            header('Content-Type: application/json; charset=utf-8');
-            echo json_encode($result, JSON_UNESCAPED_UNICODE);
-            exit;
-        }
-
-        return is_array($result) ? $result : (string) $result;
+    if (empty($method) || $controllerName === "App\\Controller\\") {
+        throw new Exception("La méthode n'a pas été initialisée. Vérifiez vos routes.");
     }
+
+    // Vérifiez si la classe existe
+    if (!class_exists($controllerName)) {
+        throw new Exception("La classe du contrôleur '$controllerName' est introuvable.");
+    }
+
+    $controller = new $controllerName();
+
+    // Vérifiez si la méthode existe
+    if (!method_exists($controller, $method)) {
+        throw new Exception("La méthode '$method' n'est pas trouvée dans le contrôleur '$controllerName'.");
+    }
+    // Récupérer les données en JSON pour POST ou PUT
+    $data = null;
+    if ($this->requestMethod === 'POST' || $this->requestMethod === 'PUT') {
+        $contentType = $_SERVER['CONTENT_TYPE'] ?? '';
+        if (strpos($contentType, 'application/json') !== false) {
+            $data = json_decode(file_get_contents('php://input'), true);
+        } else {
+            $data = $_POST;
+        }
+    }
+
+    $result = $this->parameter !== null
+        ? $controller->$method($this->parameter, $data)
+        : $controller->$method($data);
+
+    if ($this->returnJson) {
+        header('Content-Type: application/json; charset=utf-8');
+        echo json_encode($result, JSON_UNESCAPED_UNICODE);
+        exit;
+    }
+
+    return is_array($result) ? $result : (string) $result;
+}
+
 
     public function isReturnJson(): bool
     {

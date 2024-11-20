@@ -28,7 +28,7 @@ $data = $router->doAction();
 if (is_string($data)) {
     $data = json_decode($data, true);
     if (json_last_error() !== JSON_ERROR_NONE) {
-        error_log("Erreur JSON : " . json_last_error_msg());
+      //  error_log("Erreur JSON : " . json_last_error_msg());
         echo "Erreur : données JSON invalides.";
         exit;
     }

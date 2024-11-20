@@ -31,7 +31,7 @@ class DbConnectionNoSQL
             self::$db = $client->selectDatabase($databaseName);
             return self::$db;
         } catch (Exception $e) {
-            error_log('Erreur de connexion à MongoDB : ' . $e->getMessage());
+           // error_log('Erreur de connexion à MongoDB : ' . $e->getMessage());
             throw new Exception('Erreur de connexion à la base de données.');
         }
     }
