@@ -17,17 +17,17 @@
 
     
     <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="/ZooArcadia/css/bootstrap-icons.css">
+    <link rel="stylesheet" href="/css/bootstrap-icons.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css">
 
 
 
     
     <!-- CSS compilé -->
-    <link rel="stylesheet" href="/ZooArcadia/scss/main.css">
+    <link rel="stylesheet" href="/scss/main.css">
 
     <!-- Favicon -->
-    <link rel="icon" href="/ZooArcadia/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
 </head>
 
 <body>
@@ -35,7 +35,7 @@
      <!-- Navbar Bootstrap -->
      <nav class="navbar navbar-expand-lg bg-primary navbar-dark" data-bs-theme="dark">
         <div class="container-fluid">
-            <img src="/ZooArcadia/photos/logo zoo.png" width="80" height="80" alt="logo Arcadia"> 
+            <img src="/photos/logo zoo.png" width="80" height="80" alt="logo Arcadia"> 
             <a class="navbar-brand" href="#">Arcadia</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -43,49 +43,49 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link" href="/ZooArcadia/homepage/home">Accueil</a>
+                        <a class="nav-link" href="/homepage/home">Accueil</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/ZooArcadia/habitats/display">Habitats</a>
+                        <a class="nav-link" href="/habitats/display">Habitats</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/ZooArcadia/services">Services</a>
+                        <a class="nav-link" href="/services">Services</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/ZooArcadia/contact/display">Contact</a>
+                        <a class="nav-link" href="/contact/display">Contact</a>
                     </li>
 
                     <?php if (isset($_SESSION['email'])): ?>
                         <!-- Affiche le lien "Modifier le mot de passe" pour tous les utilisateurs connectés -->
                         <li class="nav-item">
-                        <a href="/ZooArcadia/modifier_mot_de_passe/display" class="nav-link">Modifier le mot de passe</a>
+                        <a href="/modifier_mot_de_passe/display" class="nav-link">Modifier le mot de passe</a>
 
                         </li>
 
                         <?php if ($_SESSION['email']['role'] === 'Vétérinaire'): ?>
                             <li class="nav-item">
-                                <a class="nav-link" href="/ZooArcadia/veterinaire/display">Espace vétérinaire</a>
+                                <a class="nav-link" href="/veterinaire/display">Espace vétérinaire</a>
                             </li>
                         <?php endif; ?>
 
                         <?php if ($_SESSION['email']['role'] === 'Admin'): ?>
                             <li class="nav-item">
-                                <a class="nav-link" href="/ZooArcadia/admin/display">Espace administrateur</a>
+                                <a class="nav-link" href="/admin/display">Espace administrateur</a>
                             </li>
                         <?php endif; ?>
 
                         <?php if ($_SESSION['email']['role'] === 'Employé'): ?>
                             <li class="nav-item">
-                                <a class="nav-link" href="/ZooArcadia/employe/display">Espace employé</a>
+                                <a class="nav-link" href="/employe/display">Espace employé</a>
                             </li>
                         <?php endif; ?>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="/ZooArcadia/logout">Déconnexion</a>
+                            <a class="nav-link" href="/logout">Déconnexion</a>
                         </li>
                     <?php else: ?>
                         <li class="nav-item">
-                            <a class="nav-link" href="/ZooArcadia/connexion/display">Connexion</a>
+                            <a class="nav-link" href="/connexion/display">Connexion</a>
                         </li>
                     <?php endif; ?>
                 </ul>

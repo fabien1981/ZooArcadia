@@ -2,7 +2,7 @@
     <h1>Gestion des animaux</h1>
     <div class="d-flex justify-content-between">
         <button class="btn btn-primary mb-3" onclick="ouvrirFormulaireAnimal()">Ajouter un animal</button>
-        <a href="/ZooArcadia/admin/display" class="btn btn-secondary mb-3">Retour à l'admin</a>
+        <a href="/admin/display" class="btn btn-secondary mb-3">Retour à l'admin</a>
     </div>
 
     <!-- Barre de recherche par nom -->
@@ -18,7 +18,7 @@
         <div id="details-animal" class="card ms-3" style="width: 25%; display: none;">
             <div class="card-body">
                 <h3 id="nom-animal"></h3>
-                <img id="image-animal" src="/ZooArcadia/photos/logo zoo.png" alt="Image de l'animal" class="img-fluid mb-3">
+                <img id="image-animal" src="/photos/logo zoo.png" alt="Image de l'animal" class="img-fluid mb-3">
                 <p><strong>État :</strong> <span id="etat-animal"></span></p>
                 <p><strong>Race :</strong> <span id="race-animal"></span></p>
                 <p><strong>Habitat :</strong> <span id="habitat-animal"></span></p>
@@ -65,7 +65,7 @@
     </div>
 </div>
 
-<script src="/ZooArcadia/scripts/zooApp.js"></script>
+<script src="/scripts/zooApp.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', () => {
         chargerAnimaux();  // Chargement de la liste des animaux
@@ -73,7 +73,7 @@
     });
 
     function chargerAnimaux() {
-        fetch('/ZooArcadia/api/animal/list')
+        fetch('/api/animal/list')
             .then(response => response.json())
             .then(data => {
                 const listeAnimaux = document.getElementById('liste-animaux');
@@ -87,7 +87,7 @@
                             <p>${animal.prenom} (${animal.race}) - État: ${animal.etat}</p>
                             <button 
                                 class="btn btn-info me-2" 
-                                 onclick="incrementAnimalConsultation(${animal.animal_id}, '${animal.prenom}', '${animal.habitat_nom}'); window.location.href='/ZooArcadia/animals/details/${animal.animal_id}'">
+                                 onclick="incrementAnimalConsultation(${animal.animal_id}, '${animal.prenom}', '${animal.habitat_nom}'); window.location.href='/animals/details/${animal.animal_id}'">
                                  Voir Détails
                             </button>
 
@@ -104,7 +104,7 @@
     }
 
     function chargerHabitats() {
-    fetch('/ZooArcadia/api/animal/habitats')
+    fetch('/api/animal/habitats')
         .then(response => response.json())
         .then(data => {
             const filterHabitat = document.getElementById('filtre-habitat');
@@ -156,7 +156,7 @@
     }
 
     function selectionnerAnimal(id) {
-        fetch(`/ZooArcadia/api/animal/show/${id}`)
+        fetch(`/api/animal/show/${id}`)
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
@@ -165,7 +165,7 @@
                     document.getElementById('etat-animal').textContent = data.data.etat;
                     document.getElementById('race-animal').textContent = data.data.race;
                     document.getElementById('habitat-animal').textContent = data.data.habitat_nom;
-                    document.getElementById('image-animal').src = data.data.image_animal ? `/ZooArcadia/photos/${data.data.image_animal}` : '/ZooArcadia/photos/logo zoo.png';
+                    document.getElementById('image-animal').src = data.data.image_animal ? `/photos/${data.data.image_animal}` : '/photos/logo zoo.png';
                 } else {
                     alert(data.message);
                 }
@@ -174,7 +174,7 @@
     }
 
     function modifierAnimal(id) {
-        fetch(`/ZooArcadia/api/animal/show/${id}`)
+        fetch(`/api/animal/show/${id}`)
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
@@ -195,7 +195,7 @@
 
     function supprimerAnimal(id) {
         if (confirm('Voulez-vous vraiment supprimer cet animal ?')) {
-            fetch(`/ZooArcadia/api/animal/delete/${id}`, { method: 'DELETE' })
+            fetch(`/api/animal/delete/${id}`, { method: 'DELETE' })
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
@@ -220,7 +220,7 @@
             habitat: document.getElementById('habitat').value
         };
 
-        const url = id ? `/ZooArcadia/api/animal/edit/${id}` : '/ZooArcadia/api/animal/create';
+        const url = id ? `/api/animal/edit/${id}` : '/api/animal/create';
         const method = id ? 'PUT' : 'POST';
 
         fetch(url, {

@@ -5,16 +5,16 @@
     </div>
     <div class="mt-4 text-center">
         <!-- Onglet général "Historique" -->
-        <a href="/ZooArcadia/historique_nourriture" class="btn btn-secondary">Historique des repas</a>
+        <a href="/historique_nourriture" class="btn btn-secondary">Historique des repas</a>
     </div>
 </div>
 
 <!-- Inclure le script -->
-<script src="/ZooArcadia/scripts/ZooApp.js"></script>
+<script src="/scripts/ZooApp.js"></script>
 <script>
     // Ajouter les boutons "Nourrir" pour chaque animal
     function fetchAnimalsWithNourrir() {
-        fetch('/ZooArcadia/api/animal/list')
+        fetch('/api/animal/list')
             .then(response => response.json())
             .then(data => {
                 const animalList = document.getElementById('animal-list');
@@ -26,12 +26,12 @@
 
                         animalCard.innerHTML = `
                             <div class="card">
-                                <img src="/ZooArcadia/photos/${animal.image_animal}" class="card-img-top" alt="${animal.prenom}">
+                                <img src="/photos/${animal.image_animal}" class="card-img-top" alt="${animal.prenom}">
                                 <div class="card-body">
                                     <h5 class="card-title">${animal.prenom}</h5>
                                     <p class="card-text">Race : ${animal.race}</p>
                                     <p class="card-text">Habitat : ${animal.habitat_nom}</p>
-                                    <a href="/ZooArcadia/nourrir?animal_id=${animal.animal_id}" class="btn btn-primary">Nourrir</a>
+                                    <a href="/nourrir?animal_id=${animal.animal_id}" class="btn btn-primary">Nourrir</a>
                                 </div>
                             </div>
                         `;

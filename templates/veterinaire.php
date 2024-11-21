@@ -11,4 +11,4 @@
 <div id="results"></div>
 
 <!-- Inclure le fichier api.js -->
-<script src="/ZooArcadia/public/js/api.js"></script>
+<script src="/public/js/api.js"></script>

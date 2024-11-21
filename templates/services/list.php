@@ -6,8 +6,8 @@
             <?php foreach ($services as $service): ?>
                 <?php 
                     // Gestion de l'image de service
-                    $imagePath = "/ZooArcadia/photos/" . htmlspecialchars($service['image'] ?? '');
-                    $defaultImagePath = "/ZooArcadia/photos/default_service.jpg"; // Image par défaut
+                    $imagePath = "/photos/" . htmlspecialchars($service['image'] ?? '');
+                    $defaultImagePath = "/photos/default_service.jpg"; // Image par défaut
                     $fullImagePath = $_SERVER['DOCUMENT_ROOT'] . $imagePath;
 
                     // Vérifie si l'image existe

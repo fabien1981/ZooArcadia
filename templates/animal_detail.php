@@ -3,7 +3,7 @@
     <?php if (!empty($animal)): ?>
         <div class="card mx-auto" style="max-width: 600px;">
             <img 
-            src="/ZooArcadia/photos/<?= htmlspecialchars(basename($animal['image_animal'])) ?>" 
+            src="/photos/<?= htmlspecialchars(basename($animal['image_animal'])) ?>" 
                 class="card-img-top" 
                 alt="Image de <?= htmlspecialchars($animal['prenom']) ?>" 
                 style="height: 300px; object-fit: cover;"
@@ -15,16 +15,16 @@
                 <p class="card-text">Habitat : <?= htmlspecialchars($animal['habitat_nom']) ?></p>
             </div>
         </div>
-        <a href="/ZooArcadia/habitats/display" class="btn btn-primary mt-4">
+        <a href="/habitats/display" class="btn btn-primary mt-4">
             <i class="bi bi-arrow-left"></i> Retour aux habitats
         </a>
-        <a href="/ZooArcadia/habitats/show/<?= htmlspecialchars($habitat_id ?? '') ?>" class="btn btn-primary mt-4">
+        <a href="/habitats/show/<?= htmlspecialchars($habitat_id ?? '') ?>" class="btn btn-primary mt-4">
     <i class="bi bi-arrow-left"></i> Retour à l'habitat
 </a>
 
     <?php else: ?>
         <p class="text-center">Aucun détail disponible pour cet animal.</p>
-        <a href="/ZooArcadia/habitats/display" class="btn btn-outline-secondary mt-3">
+        <a href="/habitats/display" class="btn btn-outline-secondary mt-3">
             <i class="bi bi-arrow-left"></i> Retour aux habitats
         </a>
 

@@ -1,6 +1,6 @@
 Options +FollowSymLinks
 RewriteEngine On
-RewriteBase / 
+
 Options -Indexes
 
 # Si le fichier ou le dossier existe, le servir directement

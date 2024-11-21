@@ -18,7 +18,7 @@ class Logout
         $_SESSION['success_message'] = 'Vous avez été déconnecté';
 
         // Redirige vers la page d'accueil après la déconnexion
-        header('Location: /ZooArcadia/index.php');
+        header('Location: /index.php');
         exit; // Arrête le script pour s'assurer que la redirection fonctionne
     }
 }

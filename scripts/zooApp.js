@@ -1,6 +1,6 @@
 // Fonction pour afficher la liste des animaux
 function fetchAnimals() {
-    fetch('/ZooArcadia/api/animal/list')
+    fetch('/api/animal/list')
         .then(response => response.json())
         .then(data => {
             const animalList = document.getElementById('animal-list');
@@ -18,7 +18,7 @@ function fetchAnimals() {
                         <p>${animal.prenom} (${animal.race}) - État: ${animal.etat} - Habitat: ${animal.habitat_nom}</p>
                         <button 
                             class="btn btn-info me-2" 
-                            onclick="incrementAnimalConsultation(${animal.animal_id}, '${animal.prenom}', '${animal.habitat_nom}'); window.location.href='/ZooArcadia/animals/details/${animal.animal_id}'">
+                            onclick="incrementAnimalConsultation(${animal.animal_id}, '${animal.prenom}', '${animal.habitat_nom}'); window.location.href='/animals/details/${animal.animal_id}'">
                             Voir Détails
                         </button>
                         <button class="btn btn-secondary me-2" onclick="editAnimal(${animal.animal_id})">Modifier</button>
@@ -49,7 +49,7 @@ function closeAnimalForm() {
 
 // Fonction pour afficher le formulaire de modification d'un animal
 function editAnimal(id) {
-    fetch(`/ZooArcadia/api/animal/show/${id}`)
+    fetch(`/api/animal/show/${id}`)
         .then(response => response.json())
         .then(data => {
             if (data.success) {
@@ -70,7 +70,7 @@ function editAnimal(id) {
 // Fonction pour supprimer un animal
 function deleteAnimal(id) {
     if (confirm('Voulez-vous vraiment supprimer cet animal ?')) {
-        fetch(`/ZooArcadia/api/animal/delete/${id}`, { method: 'DELETE' })
+        fetch(`/api/animal/delete/${id}`, { method: 'DELETE' })
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
@@ -84,7 +84,7 @@ function deleteAnimal(id) {
 }
 
 function chargerAnimauxParHabitat(habitatId) {
-    const url = habitatId ? `/ZooArcadia/api/animal/habitat/${habitatId}` : '/ZooArcadia/api/animal/list';
+    const url = habitatId ? `/api/animal/habitat/${habitatId}` : '/api/animal/list';
 
     fetch(url)
         .then(response => response.json())
@@ -152,7 +152,7 @@ function handleAnimalFormSubmit(event) {
         habitat: document.getElementById('habitat').value
     };
 
-    const url = id ? `/ZooArcadia/api/animal/edit/${id}` : '/ZooArcadia/api/animal/create';
+    const url = id ? `/api/animal/edit/${id}` : '/api/animal/create';
     const method = id ? 'PUT' : 'POST';
 
     fetch(url, {

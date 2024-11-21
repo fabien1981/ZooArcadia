@@ -1,10 +1,10 @@
 @use 'custom';
-@use '../node_modules/bootstrap/scss/bootstrap';
+@use '/node_modules/bootstrap/scss/bootstrap';
 
 
 
 // Import des icônes Bootstrap et styles personnalisés
-@use "../node_modules/bootstrap-icons/font/bootstrap-icons.css";
+@use "/node_modules/bootstrap-icons/font/bootstrap-icons.css";
 
 $primary-color:#228b22;
 // Variables de couleurs et de polices
@@ -297,7 +297,7 @@ h1 {
 /* Style pour le menu déroulant (menu burger) */
 /* Style pour le menu déroulant (menu burger) */
 .navbar-collapse {
-    background-image: url('/ZooArcadia/photos/motifzebre2.png'); /* Image de fond */
+    background-image: url('/photos/motifzebre2.png'); /* Image de fond */
     background-size: cover; /* L'image couvre le fond */
     background-repeat: no-repeat; /* Évite la répétition */
     background-position: center; /* Centrer l'image */

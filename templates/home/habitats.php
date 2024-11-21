@@ -3,7 +3,7 @@
     <div class="row align-items-center mb-5">
         <!-- Image à gauche -->
         <div class="col-md-4 text-center">
-            <img src="/ZooArcadia/photos/ZooArcadia.jpeg" alt="Description du Zoo" class="img-fluid rounded shadow-sm">
+            <img src="/photos/ZooArcadia.jpeg" alt="Description du Zoo" class="img-fluid rounded shadow-sm">
         </div>
         <!-- Texte descriptif à droite -->
         <div class="col-md-8">
@@ -29,14 +29,14 @@
                     <?php 
                         // Formats d'image supportés
                         $formats = ['jpg', 'jpeg', 'png', 'webp', 'gif'];
-                        $imagePath = "/ZooArcadia/photos/" . htmlspecialchars($habitat['nom_image']);
+                        $imagePath = "/photos/" . htmlspecialchars($habitat['nom_image']);
                         $imageFound = false;
 
                         // Vérifie si le fichier existe avec l'un des formats
                         foreach ($formats as $format) {
-                            $fullPath = $_SERVER['DOCUMENT_ROOT'] . "/ZooArcadia/photos/" . pathinfo($habitat['nom_image'], PATHINFO_FILENAME) . "." . $format;
+                            $fullPath = $_SERVER['DOCUMENT_ROOT'] . "/photos/" . pathinfo($habitat['nom_image'], PATHINFO_FILENAME) . "." . $format;
                             if (file_exists($fullPath)) {
-                                $imagePath = "/ZooArcadia/photos/" . pathinfo($habitat['nom_image'], PATHINFO_FILENAME) . "." . $format;
+                                $imagePath = "/photos/" . pathinfo($habitat['nom_image'], PATHINFO_FILENAME) . "." . $format;
                                 $imageFound = true;
                                 break;
                             }
@@ -45,7 +45,7 @@
                     <div class="carousel-item <?= $index === 0 ? 'active' : '' ?>">
                         <div class="card mx-auto" style="max-width: 600px;">
                             <img 
-                                src="<?= $imageFound ? htmlspecialchars($imagePath) : '/ZooArcadia/photos/default_habitat.jpg' ?>" 
+                                src="<?= $imageFound ? htmlspecialchars($imagePath) : '/photos/default_habitat.jpg' ?>" 
                                 class="card-img-top" 
                                 alt="Image de <?= htmlspecialchars($habitat['nom']) ?>" 
                                 style="height: 300px; object-fit: cover;"
@@ -53,7 +53,7 @@
                             <div class="card-body text-center" >
     
     <h5 class="card-title text-primary" style="color: #228b22; ">
-                                    <a href="/ZooArcadia/habitats/show/<?= htmlspecialchars($habitat['habitat_id']) ?>">
+                                    <a href="/habitats/show/<?= htmlspecialchars($habitat['habitat_id']) ?>">
                                         <?= htmlspecialchars($habitat['nom']) ?>
                                     </a>
                                 </h5>

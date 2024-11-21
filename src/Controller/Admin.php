@@ -14,7 +14,7 @@ class Admin
     private function checkAdminAccess()
     {
         if (!isset($_SESSION['email']) || $_SESSION['email']['role'] !== 'Admin') {
-            header('Location: /ZooArcadia/connexion/display');
+            header('Location: /connexion/display');
             exit;
         }
     }
@@ -43,7 +43,7 @@ class Admin
 
         // Redirection après la création
         $_SESSION['success_message'] = 'Le compte a été créé avec succès.';
-        header('Location: /ZooArcadia/admin/display');
+        header('Location: /admin/display');
         exit;
     }
 
@@ -60,7 +60,7 @@ class Admin
                 $query->bindParam(':id', $id, PDO::PARAM_INT);
                 $query->execute();
 
-                header('Location: /ZooArcadia/admin/gestion_services');
+                header('Location: /admin/gestion_services');
                 exit;
             } catch (\Exception $e) {
                 return [
@@ -77,7 +77,7 @@ class Admin
         $service = $query->fetch(\PDO::FETCH_ASSOC);
 
         // Liste des fichiers dans le dossier `photos`
-        $photosDir = $_SERVER['DOCUMENT_ROOT'] . '/ZooArcadia/photos/';
+        $photosDir = $_SERVER['DOCUMENT_ROOT'] . '/photos/';
         $photos = array_diff(scandir($photosDir), ['.', '..']); // Exclut `.` et `..`
 
         return [
@@ -115,7 +115,7 @@ class Admin
     {
         try {
             // Appel à l'API pour récupérer les statistiques
-            $response = file_get_contents('http://localhost/ZooArcadia/api/consultation/statistics');
+            $response = file_get_contents('http://localhost/api/consultation/statistics');
             $data = json_decode($response, true);
 
             if ($data['success']) {
@@ -216,7 +216,7 @@ class Admin
                     }
 
                     // Déplacement de l'image vers le dossier des photos
-                    $targetDir = $_SERVER['DOCUMENT_ROOT'] . '/ZooArcadia/photos/';
+                    $targetDir = $_SERVER['DOCUMENT_ROOT'] . '/photos/';
                     $imagePath = basename($_FILES['image']['name']);
                     $targetFile = $targetDir . $imagePath;
 
@@ -235,7 +235,7 @@ class Admin
                 $query->execute();
 
                 // Redirection après ajout
-                header('Location: /ZooArcadia/admin/gestion_services');
+                header('Location: /admin/gestion_services');
                 exit;
             } catch (\Exception $e) {
                 return [
@@ -254,10 +254,10 @@ class Admin
             $query = Dbutils::getPdo()->prepare('DELETE FROM service WHERE service_id = :id');
             $query->bindParam(':id', $id);
             $query->execute();
-            header('Location: /ZooArcadia/admin/gestion_services');
+            header('Location: /admin/gestion_services');
             exit;
         } catch (\Exception $e) {
-            header('Location: /ZooArcadia/admin/gestion_services?error=delete');
+            header('Location: /admin/gestion_services?error=delete');
             exit;
         }
     }

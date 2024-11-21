@@ -1,6 +1,6 @@
 <div class="container mt-5">
     <h1>Modifier un service</h1>
-    <form action="/ZooArcadia/admin/edit_service/<?= htmlspecialchars($service['service_id']) ?>" method="POST">
+    <form action="/admin/edit_service/<?= htmlspecialchars($service['service_id']) ?>" method="POST">
         <div class="mb-3">
             <label for="nom" class="form-label">Nom</label>
             <input type="text" class="form-control" id="nom" name="nom" value="<?= htmlspecialchars($service['nom']) ?>" required>
@@ -14,7 +14,7 @@
             <label for="image" class="form-label">Image actuelle</label>
             <p>
                 <img 
-                    src="/ZooArcadia/photos/<?= htmlspecialchars($service['image'] ?? 'default.jpg') ?>" 
+                    src="/photos/<?= htmlspecialchars($service['image'] ?? 'default.jpg') ?>" 
                     alt="Image actuelle" 
                     style="height: 150px; object-fit: cover;">
             </p>

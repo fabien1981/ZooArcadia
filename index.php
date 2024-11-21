@@ -14,15 +14,15 @@ $dotenv->load();
 $router = new Router($_SERVER['REQUEST_METHOD'], $_SERVER['REQUEST_URI']);
 
 // Enregistrer les routes
-$router->get('ZooArcadia/habitats/display', ['App\\Controller\\Habitats', 'display']);
+$router->get('/habitats/display', ['App\\Controller\\Habitats', 'display']);
 
 
-$router->get('ZooArcadia/employe', [\App\Controller\Employe::class, 'display']);
-$router->get('ZooArcadia/nourrir', [\App\Controller\Employe::class, 'nourrir']);
-$router->get('ZooArcadia/admin/creation_compte', [\App\Controller\Admin::class, 'creationCompte']);
-$router->get('ZooArcadia/admin/gestion_animaux', [\App\Controller\Admin::class, 'gestionAnimaux']);
-$router->get('ZooArcadia/admin/gestion_horaires', [\App\Controller\Admin::class, 'gestionHoraires']);
-$router->post('ZooArcadia/admin/creer_compte', [\App\Controller\Admin::class, 'creerCompte']);
+$router->get('/employe', [\App\Controller\Employe::class, 'display']);
+$router->get('/nourrir', [\App\Controller\Employe::class, 'nourrir']);
+$router->get('/admin/creation_compte', [\App\Controller\Admin::class, 'creationCompte']);
+$router->get('/admin/gestion_animaux', [\App\Controller\Admin::class, 'gestionAnimaux']);
+$router->get('/admin/gestion_horaires', [\App\Controller\Admin::class, 'gestionHoraires']);
+$router->post('/admin/creer_compte', [\App\Controller\Admin::class, 'creerCompte']);
 
 // Exécuter l'action basée sur la route
 $data = $router->doAction();

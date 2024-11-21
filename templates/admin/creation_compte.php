@@ -1,12 +1,12 @@
 
 <div class="container">
-<a href="/ZooArcadia/admin/display" class="btn btn-secondary mb-3">Retour à l'admin</a>
+<a href="/admin/display" class="btn btn-secondary mb-3">Retour à l'admin</a>
 
     <h2>Créer un compte utilisateur</h2>
 
     <div id="response-message" class="alert" role="alert" style="display: none;"></div>
 
-    <form id="creation-compte-form" action="/ZooArcadia/admin/creer_compte" method="POST" novalidate>
+    <form id="creation-compte-form" action="/admin/creer_compte" method="POST" novalidate>
 
         <!-- Champs du formulaire -->
         <div class="mb-3">

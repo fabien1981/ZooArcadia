@@ -23,9 +23,9 @@
                             $animalData = $stmt->fetch(PDO::FETCH_ASSOC);
 
                             // Déterminer le chemin de l'image
-                            $imagePath = "/ZooArcadia/photos/" . htmlspecialchars(basename($animalData['image_animal'] ?? ''));
+                            $imagePath = "/photos/" . htmlspecialchars(basename($animalData['image_animal'] ?? ''));
                             if (!file_exists($_SERVER['DOCUMENT_ROOT'] . $imagePath) || empty($animalData['image_animal'])) {
-                                $imagePath = "/ZooArcadia/photos/default_animal.jpg"; // Image par défaut si le fichier n'existe pas
+                                $imagePath = "/photos/default_animal.jpg"; // Image par défaut si le fichier n'existe pas
                             }
                         ?>
                         <div class="col-md-4 mb-4">
@@ -36,7 +36,7 @@
                                     <?= htmlspecialchars($animal['animal_id']) ?>, 
                                     '<?= htmlspecialchars($animal['prenom']) ?>', 
                                     '<?= htmlspecialchars($habitat['nom']) ?>'
-                                ); window.location.href='/ZooArcadia/animals/show/<?= htmlspecialchars($animal['animal_id']) ?>?habitat_id=<?= htmlspecialchars($habitat['habitat_id']) ?>';">
+                                ); window.location.href='/animals/show/<?= htmlspecialchars($animal['animal_id']) ?>?habitat_id=<?= htmlspecialchars($habitat['habitat_id']) ?>';">
                                 <img 
                                     src="<?= $imagePath ?>" 
                                     class="card-img-top" 
@@ -60,16 +60,16 @@
         </div>
 
         <!-- Bouton Retour aux habitats -->
-        <a href="/ZooArcadia/habitats/display" class="btn btn-primary mt-4">
+        <a href="/habitats/display" class="btn btn-primary mt-4">
             <i class="bi bi-arrow-left"></i> Retour aux habitats
         </a>
     <?php else: ?>
         <p class="text-center">Aucun détail disponible pour cet habitat.</p>
         <!-- Bouton Retour aux habitats même si l'habitat est introuvable -->
-        <a href="/ZooArcadia/habitats/display" class="btn btn-outline-secondary mt-3">
+        <a href="/habitats/display" class="btn btn-outline-secondary mt-3">
             <i class="bi bi-arrow-left"></i> Retour aux habitats
         </a>
     <?php endif; ?>
 </div>
 
-<script src="/ZooArcadia/scripts/zooApp.js"></script>
+<script src="/scripts/zooApp.js"></script>

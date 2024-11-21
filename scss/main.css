@@ -23938,8 +23938,8 @@ textarea.form-control-lg {
  */
  @font-face {
   font-family: "bootstrap-icons";
-  src: url("../ZooArcadia/fonts/bootstrap-icons.woff2") format("woff2"),
-       url("../ZooArcadia/fonts/bootstrap-icons.woff") format("woff");
+  src: url("/fonts/bootstrap-icons.woff2") format("woff2"),
+       url("/fonts/bootstrap-icons.woff") format("woff");
 }
 
 
@@ -32412,7 +32412,7 @@ h1 {
 /* Style pour le menu déroulant (menu burger) */
 /* Style pour le menu déroulant (menu burger) */
 .navbar-collapse {
-  background-image: url("/ZooArcadia/photos/motifzebre2.png"); /* Image de fond */
+  background-image: url("/photos/motifzebre2.png"); /* Image de fond */
   background-size: cover; /* L'image couvre le fond */
   background-repeat: no-repeat; /* Évite la répétition */
   background-position: center; /* Centrer l'image */

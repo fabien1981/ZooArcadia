@@ -11,11 +11,11 @@
         <?php unset($_SESSION['success_message']); ?>
     <?php endif; ?>
 
-    <a href="/ZooArcadia/admin/creation_compte" class="btn btn-primary">Créer un compte utilisateur</a>
-    <a href="/ZooArcadia/admin/gestion_animaux" class="btn btn-primary">Gestion des animaux</a>
-    <a href="/ZooArcadia/admin/gestion_horaires" class="btn btn-primary">Gestion des horaires</a>
-    <a href="/ZooArcadia/admin/gestion_services" class="btn btn-primary">Gestion des services</a>
-    <a href="/ZooArcadia/admin/statistiques_consultations" class="btn btn-primary">Statistiques des consultations</a>
+    <a href="/admin/creation_compte" class="btn btn-primary">Créer un compte utilisateur</a>
+    <a href="/admin/gestion_animaux" class="btn btn-primary">Gestion des animaux</a>
+    <a href="/admin/gestion_horaires" class="btn btn-primary">Gestion des horaires</a>
+    <a href="/admin/gestion_services" class="btn btn-primary">Gestion des services</a>
+    <a href="/admin/statistiques_consultations" class="btn btn-primary">Statistiques des consultations</a>
  
 
 

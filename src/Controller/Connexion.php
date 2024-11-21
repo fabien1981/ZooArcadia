@@ -47,16 +47,16 @@ class Connexion
                     // Redirection en fonction du rôle
                     switch ($_SESSION['email']['role']) {
                         case 'Admin':
-                            header('Location: /ZooArcadia/admin/display');
+                            header('Location: /admin/display');
                             break;
                         case 'Vétérinaire':
-                            header('Location: /ZooArcadia/veterinaire/display');
+                            header('Location: /veterinaire/display');
                             break;
                         case 'Employé':
-                            header('Location: /ZooArcadia/employe/display');
+                            header('Location: /employe/display');
                             break;
                         default:
-                            header('Location: /ZooArcadia/homepage/home');
+                            header('Location: /homepage/home');
                             break;
                     }
                     exit;

@@ -15,7 +15,7 @@ class NourritureController
         $date_time = Dbutils::protectDbData($_POST['date_time']);
         $type_nourriture = Dbutils::protectDbData($_POST['type_nourriture']);
         $quantite = Dbutils::protectDbData($_POST['quantite']);
-        $redirect_to = $_POST['redirect_to'] ?? '/ZooArcadia/employe';
+        $redirect_to = $_POST['redirect_to'] ?? '/employe';
 
         // Vérification si l'animal existe
         $stmt = $pdo->prepare("SELECT * FROM animal WHERE animal_id = ?");
