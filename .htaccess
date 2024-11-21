@@ -1,15 +1,25 @@
 Options +FollowSymLinks
 RewriteEngine On
-RewriteBase /ZooArcadia/
+RewriteBase / 
+Options -Indexes
 
 # Si le fichier ou le dossier existe, le servir directement
 RewriteCond %{REQUEST_FILENAME} -f [OR]
 RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule ^ - [L]
 
-# Exclure les fichiers statiques (CSS, JS, images) des redirections
-RewriteCond %{REQUEST_URI} \.(css|js|png|jpg|jpeg|gif|webp|svg|woff|woff2|ttf|eot)$ [NC]
+# Sinon, rediriger toutes les requêtes vers index.php
+RewriteRule ^ index.php [L]
+
+
+
+AddType font/woff2 .woff2
+AddType font/woff .woff
+
+# Autoriser l'accès aux fichiers statiques comme les photos
+RewriteCond %{REQUEST_URI} ^/photos/ [NC]
 RewriteRule ^ - [L]
 
-# Sinon, rediriger toutes les autres requêtes vers index.php
-RewriteRule ^ index.php [L]
+# Exclure les autres fichiers statiques (CSS, JS, images dans public/)
+RewriteCond %{REQUEST_URI} \.(css|js|png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot|ico|webp)$ [NC]
+RewriteRule ^ - [L]
