@@ -9,38 +9,55 @@ use Exception;
 class Animal
 {
     public function list(): array
-    {
-        try {
-            $query = Dbutils::getPdo()->prepare('
-                SELECT animal.*, habitat.nom AS habitat_nom
-                FROM animal
-                JOIN habitat ON animal.habitat = habitat.habitat_id
-            ');
-            $query->execute();
-            $animaux = $query->fetchAll(PDO::FETCH_ASSOC);
-
-            return [
-                'success' => true,
-                'data' => $animaux
-            ];
-        } catch (Exception $e) {
-            return [
-                'success' => false,
-                'message' => 'Erreur lors de la récupération des animaux : ' . $e->getMessage()
-            ];
-        }
-    }
-
-    public function delete(int $id): array
 {
     try {
+        $query = Dbutils::getPdo()->prepare('
+            SELECT animal.*, habitat.nom AS habitat_nom
+            FROM animal
+            JOIN habitat ON animal.habitat = habitat.habitat_id
+        ');
+        $query->execute();
+        $animaux = $query->fetchAll(PDO::FETCH_ASSOC);
+
+        if (!$animaux) {
+            return [
+                'success' => true,
+                'data' => [],
+                'message' => 'Aucun animal trouvé.'
+            ];
+        }
+
+        return [
+            'success' => true,
+            'data' => $animaux
+        ];
+    } catch (Exception $e) {
+        return [
+            'success' => false,
+            'message' => 'Erreur lors de la récupération des animaux : ' . $e->getMessage()
+        ];
+    }
+}
+
+public function delete(int $id): array
+{
+    try {
+        // Vérifie si l'animal existe
+        $query = Dbutils::getPdo()->prepare('SELECT * FROM animal WHERE animal_id = :id');
+        $query->bindParam(':id', $id, PDO::PARAM_INT);
+        $query->execute();
+        if (!$query->fetch()) {
+            return ['success' => false, 'message' => 'Animal introuvable.'];
+        }
+
+        // Suppression
         $query = Dbutils::getPdo()->prepare('DELETE FROM animal WHERE animal_id = :id');
         $query->bindParam(':id', $id, PDO::PARAM_INT);
         $query->execute();
 
         return ['success' => true];
     } catch (Exception $e) {
-        return ['success' => false, 'message' => 'Erreur lors de la suppression de l\'animal : ' . $e->getMessage()];
+        return ['success' => false, 'message' => 'Erreur lors de la suppression : ' . $e->getMessage()];
     }
 }
 
@@ -115,48 +132,65 @@ class Animal
     }
 
     public function edit(int $id, array $data): array
-    {
-        if (empty($data['prenom']) || empty($data['race']) || empty($data['etat']) || empty($data['habitat'])) {
-            return ['success' => false, 'message' => 'Tous les champs sont requis.'];
-        }
-
-        try {
-            $query = Dbutils::getPdo()->prepare('UPDATE animal SET prenom = :prenom, race = :race, etat = :etat, image_animal = :image_animal, habitat = :habitat WHERE animal_id = :id');
-            $query->bindParam(':prenom', $data['prenom']);
-            $query->bindParam(':race', $data['race']);
-            $query->bindParam(':etat', $data['etat']);
-            $query->bindParam(':image_animal', $data['image_animal']);
-            $query->bindParam(':habitat', $data['habitat']);
-            $query->bindParam(':id', $id, PDO::PARAM_INT);
-            $query->execute();
-
-            return ['success' => true];
-        } catch (Exception $e) {
-            return ['success' => false, 'message' => 'Erreur lors de la mise à jour de l\'animal : ' . $e->getMessage()];
-        }
+{
+    if (empty($data['prenom']) || empty($data['race']) || empty($data['etat']) || empty($data['habitat'])) {
+        return ['success' => false, 'message' => 'Tous les champs sont requis.'];
     }
 
-    public function show(int $id): array
-{
     try {
-        $query = Dbutils::getPdo()->prepare('
-            SELECT animal.*, habitat.nom AS habitat_nom
-            FROM animal
-            JOIN habitat ON animal.habitat = habitat.habitat_id
-            WHERE animal_id = :id
-        ');
+        // Vérifie si l'animal existe
+        $query = Dbutils::getPdo()->prepare('SELECT * FROM animal WHERE animal_id = :id');
         $query->bindParam(':id', $id, PDO::PARAM_INT);
         $query->execute();
-        $animal = $query->fetch(PDO::FETCH_ASSOC);
-
-        if (!$animal) {
+        if (!$query->fetch()) {
             return ['success' => false, 'message' => 'Animal introuvable.'];
         }
 
-        return ['success' => true, 'data' => $animal];
+        // Mise à jour
+        $query = Dbutils::getPdo()->prepare('
+            UPDATE animal SET prenom = :prenom, race = :race, etat = :etat, image_animal = :image_animal, habitat = :habitat
+            WHERE animal_id = :id
+        ');
+        $query->bindParam(':prenom', $data['prenom']);
+        $query->bindParam(':race', $data['race']);
+        $query->bindParam(':etat', $data['etat']);
+        $query->bindParam(':image_animal', $data['image_animal']);
+        $query->bindParam(':habitat', $data['habitat']);
+        $query->bindParam(':id', $id, PDO::PARAM_INT);
+        $query->execute();
+
+        return ['success' => true];
     } catch (Exception $e) {
-        return ['success' => false, 'message' => 'Erreur : ' . $e->getMessage()];
+        return ['success' => false, 'message' => 'Erreur lors de la mise à jour : ' . $e->getMessage()];
     }
 }
+
+
+    public function show(int $id): array
+    {
+        try {
+            $query = Dbutils::getPdo()->prepare('
+                SELECT animal.*, habitat.nom AS habitat_nom
+                FROM animal
+                JOIN habitat ON animal.habitat = habitat.habitat_id
+                WHERE animal_id = :id
+            ');
+            $query->bindParam(':id', $id, PDO::PARAM_INT);
+            $query->execute();
+            $animal = $query->fetch(PDO::FETCH_ASSOC);
+    
+            if (!$animal) {
+                return ['success' => false, 'message' => 'Animal introuvable.'];
+            }
+    
+            return ['success' => true, 'data' => $animal];
+        } catch (Exception $e) {
+            return [
+                'success' => false,
+                'message' => 'Erreur lors de la récupération des détails : ' . $e->getMessage()
+            ];
+        }
+    }
+    
 
 }

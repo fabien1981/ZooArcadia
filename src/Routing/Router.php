@@ -420,6 +420,31 @@ if ($uri === 'admin/add_service') {
     return is_array($result) ? $result : (string) $result;
 }
 
+public function put($route, $action)
+{
+    $currentRoute = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
+    $route = trim($route, '/');
+
+    if ($this->requestMethod === 'PUT' && preg_match("#^$route$#", $currentRoute, $matches)) {
+        $this->controllerName = $action[0];
+        $this->method = $action[1];
+        $this->parameter = $matches[1] ?? null; // Si une variable {id} est passée
+    }
+}
+
+public function delete($route, $action)
+{
+    $currentRoute = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
+    $route = trim($route, '/');
+
+    if ($this->requestMethod === 'DELETE' && preg_match("#^$route$#", $currentRoute, $matches)) {
+        $this->controllerName = $action[0];
+        $this->method = $action[1];
+        $this->parameter = $matches[1] ?? null; // Si une variable {id} est passée
+    }
+}
+
+
 
     public function isReturnJson(): bool
     {

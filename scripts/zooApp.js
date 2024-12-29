@@ -140,6 +140,16 @@ document.addEventListener('DOMContentLoaded', function() {
     fetchAnimals();
 });
 
+function filtrerAnimaux() {
+    const recherche = document.getElementById('barre-recherche').value.toLowerCase();
+    const animaux = document.querySelectorAll('.animal-row');
+    animaux.forEach(animal => {
+        const nom = animal.textContent.toLowerCase();
+        animal.style.display = nom.includes(recherche) ? '' : 'none';
+    });
+}
+
+
 // Fonction pour gérer la soumission du formulaire pour ajout/modification
 function handleAnimalFormSubmit(event) {
     event.preventDefault();
