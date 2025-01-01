@@ -401,4 +401,40 @@ body {
   .a{
     color: #228b22 !important;
   }
+
+
+  .veterinaire_card {
+    cursor: pointer;
+    border: 2px solid #007BFF;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+    background-color: #f8f9fa; /* Couleur de fond légère */
+}
+
+.veterinaire_card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.veterinaire_card-img-top {
+    border-bottom: 1px solid #007BFF;
+}
+
+.veterinaire_card-body {
+    padding: 15px;
+}
+
+.veterinaire_card-title {
+    font-size: 1.3rem;
+    color: #333;
+    font-weight: bold;
+}
+
+.veterinaire_card-text {
+    font-size: 0.95rem;
+    color: #555;
+    margin-top: 10px;
+}
+
   

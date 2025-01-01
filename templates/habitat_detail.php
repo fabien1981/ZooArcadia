@@ -48,6 +48,7 @@
                                     <p class="card-text">
                                         Race : <?= htmlspecialchars($animal['race'] ?? 'Non spécifié') ?><br>
                                         État : <?= htmlspecialchars($animal['etat'] ?? 'Non spécifié') ?>
+                                        
                                     </p>
                                 </div>
                             </div>

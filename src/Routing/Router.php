@@ -255,9 +255,9 @@ if ($uri === 'admin/add_service') {
 }
             // Routes pour les horaires
             if ($uriExplode[0] === 'hours') {
-                $this->controllerName .= 'Api\\Horaires';
-                array_shift($uriExplode); // Supprime "hours"
-                
+                $this->controllerName = 'App\Controller\Api\Horaires';
+                array_shift($uriExplode);
+            
                 switch ($uriExplode[0]) {
                     case 'list':
                         $this->method = 'list';
@@ -278,6 +278,7 @@ if ($uri === 'admin/add_service') {
                 }
                 return;
             }
+            
         }
 
         // Route pour afficher le formulaire de modification de mot de passe
@@ -286,6 +287,46 @@ if ($uri === 'admin/add_service') {
             $this->method = 'afficherFormulaire';
             return;
         }
+// Route pour afficher les rapports d'un animal
+if ($uriExplode[0] === 'veterinaire' && $uriExplode[1] === 'showReports') {
+    $this->controllerName .= 'Veterinaire';
+    $this->method = 'showReports';
+    $this->parameter = isset($uriExplode[2]) ? (int)$uriExplode[2] : null;
+    return;
+}
+
+// Route pour créer un rapport vétérinaire
+if ($uriExplode[0] === 'veterinaire' && $uriExplode[1] === 'createReport' && $_SERVER['REQUEST_METHOD'] === 'POST') {
+    $this->controllerName .= 'Veterinaire';
+    $this->method = 'createReport';
+    return;
+}
+
+
+
+
+// Route pour consulter les rapports vétérinaires
+if ($uriExplode[0] === 'veterinaire' && $uriExplode[1] === 'reports') {
+    $this->controllerName .= 'Veterinaire';
+    $this->method = 'reports';
+    return;
+}
+
+if ($uriExplode[0] === 'animals' && $uriExplode[1] === 'show') {
+    $this->controllerName .= 'Animals';
+    $this->method = 'showAnimalDetails';
+    $this->parameter = isset($uriExplode[2]) ? (int)$uriExplode[2] : null;
+
+
+    return;
+}
+
+
+
+
+
+
+
 
         // Route pour afficher le formulaire de création de compte
         if ($uri === 'admin/creation_compte') {
@@ -350,6 +391,8 @@ if ($uri === 'admin/add_service') {
             $this->method = 'home';
         }
     }
+
+    
 
     public function get($route, $action)
     {

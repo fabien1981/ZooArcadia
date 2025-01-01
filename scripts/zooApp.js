@@ -140,14 +140,18 @@ document.addEventListener('DOMContentLoaded', function() {
     fetchAnimals();
 });
 
-function filtrerAnimaux() {
+function filtrerAnimaux(event) {
+    event.preventDefault();
     const recherche = document.getElementById('barre-recherche').value.toLowerCase();
     const animaux = document.querySelectorAll('.animal-row');
     animaux.forEach(animal => {
         const nom = animal.textContent.toLowerCase();
         animal.style.display = nom.includes(recherche) ? '' : 'none';
     });
+    return false; // Empêche le rechargement de la page
 }
+
+
 
 
 // Fonction pour gérer la soumission du formulaire pour ajout/modification
@@ -235,6 +239,37 @@ function incrementAnimalClicks(animalId, animalName, habitatName) {
             console.error('Erreur réseau ou serveur :', error);
         });
 }
+
+function voirDetails(id) {
+    fetch(`/ZooArcadia/api/animal/show/${id}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                const animal = data.data;
+
+                // Vérifie si le conteneur existe
+                const detailsAnimal = document.getElementById('details-animal');
+                if (!detailsAnimal) {
+                    console.error("L'élément 'details-animal' est introuvable.");
+                    return;
+                }
+
+                // Affiche les détails dans le conteneur
+                detailsAnimal.style.display = 'block';
+                document.getElementById('nom-animal').textContent = animal.prenom;
+                document.getElementById('etat-animal').textContent = animal.etat;
+                document.getElementById('race-animal').textContent = animal.race;
+                document.getElementById('habitat-animal').textContent = animal.habitat_nom;
+                document.getElementById('image-animal').src = animal.image_animal 
+                    ? `/ZooArcadia/photos/${animal.image_animal}` 
+                    : '/ZooArcadia/photos/logo zoo.png';
+            } else {
+                alert('Erreur : ' + data.message);
+            }
+        })
+        .catch(error => console.error('Erreur lors du chargement des détails :', error));
+}
+
 
 function chargerAnimaux() {
     fetch('/ZooArcadia/api/animal/list')

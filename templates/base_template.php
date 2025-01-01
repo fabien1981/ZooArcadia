@@ -105,25 +105,74 @@
     ?>
 </main>
 <!-- Footer -->
+<!-- Footer -->
 <footer class="bg-primary text-white text-center footer">
     <div class="row">
-        <div class="col-6 col-lg-4">
-            
+        <!-- Horaires d'ouverture -->
+        <div class="col-6 col-lg-4" id="footer-horaires">
+            <h5>Horaires d'ouverture</h5>
+            <div id="contenu-horaires-footer">
+                <p class="text-muted">Chargement des horaires...</p>
+            </div>
         </div>
+
+        <!-- Informations générales -->
         <div class="col-6 col-lg-4">
-            <p>Eco Zoo Arcadia<br/>
-                Forêt de Brocéliande<br/>
+            <p>Eco Zoo Arcadia<br />
+                Forêt de Brocéliande<br />
                 France
             </p>
         </div>
+
+        <!-- Contact -->
         <div class="col-6 col-lg-4">
-            <p>Mail</p>
+            <p>Contactez-nous : info@zooarcadia.fr</p>
         </div>
+
+        <!-- Mentions légales -->
         <div class="col-12">
-            <p>Mentions légales</p>
+            <p><a href="#" class="text-white">Mentions légales</a></p>
         </div>
     </div>
 </footer>
+
+<script>
+    // Charger les horaires dans le footer
+    document.addEventListener('DOMContentLoaded', () => {
+        chargerHorairesFooter();
+    });
+
+    function chargerHorairesFooter() {
+        fetch('/ZooArcadia/api/hours/list')
+            .then(response => response.json())
+            .then(data => {
+                const contenuHoraires = document.getElementById('contenu-horaires-footer');
+                contenuHoraires.innerHTML = ''; // Réinitialise le contenu
+                if (data.success && data.data.length > 0) {
+                    data.data.forEach(horaire => {
+                        const horaireDiv = document.createElement('div');
+                        horaireDiv.classList.add('mb-3', 'p-2', 'border', 'rounded');
+
+                        horaireDiv.innerHTML = `
+                            <h6 class="text-uppercase">Période</h6>
+                            <p>${horaire.periode}</p>
+                            <h6 class="text-uppercase">Horaires</h6>
+                            <p>Caisses : ${horaire.fermeture_caisses} | Parc à pied : ${horaire.fermeture_parc_pied}</p>
+                        `;
+                        contenuHoraires.appendChild(horaireDiv);
+                    });
+                } else {
+                    contenuHoraires.innerHTML = '<p>Aucun horaire disponible.</p>';
+                }
+            })
+            .catch(error => {
+                console.error('Erreur lors du chargement des horaires du footer :', error);
+                const contenuHoraires = document.getElementById('contenu-horaires-footer');
+                contenuHoraires.innerHTML = '<p>Erreur lors du chargement des horaires.</p>';
+            });
+    }
+</script>
+
 <!-- JavaScript Bootstrap (via CDN) -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
