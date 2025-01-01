@@ -22,7 +22,10 @@
                         <td><?= htmlspecialchars($service['description']) ?></td>
                         <td>
                             <a href="/ZooArcadia/admin/edit_service/<?= htmlspecialchars($service['service_id']) ?>" class="btn btn-warning">Modifier</a>
-                            <a href="/ZooArcadia/admin/delete_service/<?= htmlspecialchars($service['service_id']) ?>" class="btn btn-danger" onclick="return confirm('Confirmer la suppression ?');">Supprimer</a>
+                            <?php if ($_SESSION['email']['role'] === 'Admin'): ?>
+    <a href="/ZooArcadia/admin/delete_service/<?= htmlspecialchars($service['service_id']) ?>" class="btn btn-danger" onclick="return confirm('Confirmer la suppression ?');">Supprimer</a>
+<?php endif; ?>
+
                         </td>
                     </tr>
                     
@@ -32,8 +35,13 @@
     <?php else: ?>
         <p>Aucun service trouvé.</p>
     <?php endif; ?>
+    <!-- Bouton Retour : conditionné au rôle -->
     <div>
-    <a href="/ZooArcadia/admin/display" class="btn btn-primary" style="margin-bottom: 15px;">⬅ Retour au tableau de bord</a>
-</div>
+        <?php if ($_SESSION['email']['role'] === 'Admin'): ?>
+            <a href="/ZooArcadia/admin/display" class="btn btn-primary" style="margin-bottom: 15px;">⬅ Retour au tableau de bord admin</a>
+        <?php elseif ($_SESSION['email']['role'] === 'Employé'): ?>
+            <a href="/ZooArcadia/employe/dashboard" class="btn btn-primary" style="margin-bottom: 15px;">⬅ Retour à l'espace employé</a>
+        <?php endif; ?>
+    </div>
 </div>
 

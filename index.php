@@ -13,7 +13,7 @@ $dotenv->load();
 // Initialiser le routeur
 $router = new Router($_SERVER['REQUEST_METHOD'], $_SERVER['REQUEST_URI']);
 
-$router->get('/ZooArcadia/test', [\App\Controller\TestController::class, 'test']);
+
 
 
 // Routes API pour la gestion des animaux

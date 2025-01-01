@@ -281,13 +281,30 @@ if ($uri === 'admin/add_service') {
             
         }
 
+        // Route pour l'historique de l'alimentation
+if ($uriExplode[0] === 'employe' && $uriExplode[1] === 'historique_nourriture') {
+    $this->controllerName .= 'Employe';
+    $this->method = 'historiqueNourriture';
+    return;
+}
+
+// Route pour nourrir un animal
+if ($uriExplode[0] === 'employe' && $uriExplode[1] === 'nourrir') {
+    $this->controllerName .= 'Employe';
+    $this->method = 'nourrirAnimal';
+    $this->parameter = isset($uriExplode[2]) ? (int)$uriExplode[2] : null;
+    return;
+}
+
+
         // Route pour afficher le formulaire de modification de mot de passe
         if ($uri === 'modifier_mot_de_passe/display') {
             $this->controllerName .= 'ModifierMotDePasse';
             $this->method = 'afficherFormulaire';
             return;
         }
-// Route pour afficher les rapports d'un animal
+
+        // Route pour afficher les rapports d'un animal
 if ($uriExplode[0] === 'veterinaire' && $uriExplode[1] === 'showReports') {
     $this->controllerName .= 'Veterinaire';
     $this->method = 'showReports';
@@ -295,43 +312,65 @@ if ($uriExplode[0] === 'veterinaire' && $uriExplode[1] === 'showReports') {
     return;
 }
 
-// Route pour créer un rapport vétérinaire
-if ($uriExplode[0] === 'veterinaire' && $uriExplode[1] === 'createReport' && $_SERVER['REQUEST_METHOD'] === 'POST') {
+if ($uriExplode[0] === 'employe') {
+    $this->controllerName = 'App\Controller\Employe'; // Pas de préfixe 'ZooArcadia'
+
+    switch ($uriExplode[1]) {
+        case 'dashboard':
+            $this->method = 'dashboard';
+            break;
+        case 'gestion_services':
+            $this->method = 'gestionServices';
+            break;
+        case 'edit_service':
+            $this->method = 'editService';
+            $this->parameter = isset($uriExplode[2]) ? (int)$uriExplode[2] : null;
+            break;
+        case 'avis':
+            $this->method = 'avis';
+            break;
+        case 'services':
+            $this->method = 'services';
+            break;
+        case 'alimentation':
+            $this->method = 'alimentation';
+            break;
+        case 'display': // Gestion de la route employe/display
+            $this->method = 'display';
+            break;
+        default:
+            throw new Exception("Route non trouvée pour l'espace employé.");
+    }
+    return;
+}
+
+
+// Route pour créer un rapport
+if ($uriExplode[0] === 'veterinaire' && $uriExplode[1] === 'createReport') {
     $this->controllerName .= 'Veterinaire';
     $this->method = 'createReport';
     return;
 }
 
-
-
-
-// Route pour consulter les rapports vétérinaires
 if ($uriExplode[0] === 'veterinaire' && $uriExplode[1] === 'reports') {
     $this->controllerName .= 'Veterinaire';
     $this->method = 'reports';
     return;
 }
 
-if ($uriExplode[0] === 'animals' && $uriExplode[1] === 'show') {
-    $this->controllerName .= 'Animals';
-    $this->method = 'showAnimalDetails';
-    $this->parameter = isset($uriExplode[2]) ? (int)$uriExplode[2] : null;
 
-
+if ($uriExplode[0] === 'veterinaire' && $uriExplode[1] === 'reports') {
+    $this->controllerName .= 'Veterinaire';
+    $this->method = 'showReports';
     return;
 }
 
-// Route pour accéder à la liste des rapports vétérinaires depuis l'administration
-if ($uriExplode[0] === 'admin' && $uriExplode[1] === 'rapports_veterinaires') {
-    $this->controllerName .= 'Admin';
-    $this->method = 'showVeterinaireReports';
+// Route pour les rapports vétérinaires
+if ($uri === '/ZooArcadia/veterinaire/showReports') {
+    $this->controllerName .= 'Veterinaire';
+    $this->method = 'showReports';
     return;
 }
-
-
-
-
-
 
 
 

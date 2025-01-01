@@ -1,8 +1,7 @@
-<?php if (isset($animal)): ?>
-    <h2 class="text-center mt-5">Nourrir <?php echo htmlspecialchars($animal['prenom']); ?></h2>
-    <form action="/ZooArcadia/add-nourriture" method="POST" class="mt-4">
-        <input type="hidden" name="animal_id" value="<?php echo htmlspecialchars($animal['animal_id']); ?>">
-        <input type="hidden" name="redirect_to" value="/ZooArcadia/employe">
+<?php if (isset($data['animal'])): ?>
+    <h2 class="text-center mt-5">Nourrir <?= htmlspecialchars($data['animal']['prenom']) ?></h2>
+    <form action="/ZooArcadia/employe/add_nourriture" method="POST" class="mt-4">
+        <input type="hidden" name="animal_id" value="<?= htmlspecialchars($data['animal']['animal_id']) ?>">
         <div class="form-group">
             <label for="date_time">Date et Heure :</label>
             <input type="datetime-local" id="date_time" name="date_time" class="form-control" required>

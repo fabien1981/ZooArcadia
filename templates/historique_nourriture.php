@@ -13,7 +13,7 @@ $stmt = $pdo->query("
 ?>
 
 <h2 class="text-center">Historique des repas des animaux</h2>
-<?php if ($stmt->rowCount() > 0): ?>
+<?php if (!empty($data['nourriture'])): ?>
     <table class="table table-striped table-bordered">
         <thead>
             <tr>
@@ -24,16 +24,18 @@ $stmt = $pdo->query("
             </tr>
         </thead>
         <tbody>
-            <?php while ($nourriture = $stmt->fetch(PDO::FETCH_ASSOC)): ?>
+            <?php foreach ($data['nourriture'] as $nourriture): ?>
                 <tr>
-                    <td><?php echo htmlspecialchars($nourriture['date_time']); ?></td>
-                    <td><?php echo htmlspecialchars($nourriture['animal_prenom']); ?></td>
-                    <td><?php echo htmlspecialchars($nourriture['type_nourriture']); ?></td>
-                    <td><?php echo htmlspecialchars($nourriture['quantite']); ?> g</td>
+                    <td><?= htmlspecialchars($nourriture['date_time']) ?></td>
+                    <td><?= htmlspecialchars($nourriture['animal_prenom']) ?></td>
+                    <td><?= htmlspecialchars($nourriture['type_nourriture']) ?></td>
+                    <td><?= htmlspecialchars($nourriture['quantite']) ?> g</td>
                 </tr>
-            <?php endwhile; ?>
+            <?php endforeach; ?>
         </tbody>
     </table>
 <?php else: ?>
     <p class="text-center text-muted">Aucune donnée trouvée.</p>
 <?php endif; ?>
+
+<a href="/ZooArcadia/employe/dashboard" class="btn btn-primary mt-3">⬅ Retour au tableau de bord</a>
