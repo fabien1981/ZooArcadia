@@ -261,4 +261,30 @@ public function deleteService(int $id): void
     }
 }
 
+public function showVeterinaireReports()
+    {
+        if (!isset($_SESSION['email']) || $_SESSION['email']['role'] !== 'Admin') {
+            header('Location: /ZooArcadia/connexion/display');
+            exit;
+        }
+
+        $pdo = Dbutils::getPdo();
+        $stmt = $pdo->prepare("
+            SELECT rv.rapport_veterinaire_id, rv.date, rv.etat, rv.nourriture, rv.grammage, rv.detail, a.prenom 
+            FROM rapport_veterinaire rv
+            JOIN animal a ON rv.animal_id = a.animal_id
+            ORDER BY rv.date DESC
+        ");
+        $stmt->execute();
+        $reports = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return [
+            'template' => 'admin/rapports_veterinaires',
+            'data' => [
+                'reports' => $reports
+            ],
+            'message' => 'Liste des rapports vétérinaires'
+        ];
+    }
+
 }

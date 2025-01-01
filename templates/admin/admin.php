@@ -4,7 +4,7 @@
     <!-- Affichage du message de confirmation de création de compte -->
     <?php
     require_once __DIR__ . '/../../config/session.php';
-     if (isset($_SESSION['success_message'])): ?>
+    if (isset($_SESSION['success_message'])): ?>
         <div class="alert alert-success" role="alert">
             <?= $_SESSION['success_message']; ?>
         </div>
@@ -16,8 +16,5 @@
     <a href="/ZooArcadia/admin/gestion_horaires" class="btn btn-primary">Gestion des horaires</a>
     <a href="/ZooArcadia/admin/gestion_services" class="btn btn-primary">Gestion des services</a>
     <a href="/ZooArcadia/admin/statistiques_consultations" class="btn btn-primary">Statistiques des consultations</a>
- 
-
-
-
+    <a href="/ZooArcadia/admin/rapports_veterinaires" class="btn btn-primary">Liste des rapports vétérinaires</a>
 </div>

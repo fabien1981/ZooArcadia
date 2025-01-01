@@ -321,6 +321,14 @@ if ($uriExplode[0] === 'animals' && $uriExplode[1] === 'show') {
     return;
 }
 
+// Route pour accéder à la liste des rapports vétérinaires depuis l'administration
+if ($uriExplode[0] === 'admin' && $uriExplode[1] === 'rapports_veterinaires') {
+    $this->controllerName .= 'Admin';
+    $this->method = 'showVeterinaireReports';
+    return;
+}
+
+
 
 
 
