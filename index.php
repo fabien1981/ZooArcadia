@@ -1,5 +1,10 @@
 <?php
 
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+
 use App\Routing\Router;
 use Dotenv\Dotenv;
 

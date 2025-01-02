@@ -23,12 +23,13 @@ $lastReport = $data['lastReport'] ?? null; ?>
                 
 
                 <h5 class="card-title">Dernier rapport vétérinaire</h5>
-            <?php if ($lastReport): ?>
-                <p><strong>Date de la derniere visite du vétérinaire :</strong> <?= htmlspecialchars($lastReport['date']) ?></p>
-                <p><strong>Avis du vétérinaire :</strong> <?= htmlspecialchars($lastReport['detail']) ?></p>
-            <?php else: ?>
-                <p>Aucun rapport vétérinaire disponible pour cet animal.</p>
-            <?php endif; ?>
+<?php if ($lastReport): ?>
+    <p><strong>Date de la dernière visite du vétérinaire :</strong> <?= htmlspecialchars($lastReport['date']); ?></p>
+    <p><strong>Avis du vétérinaire :</strong> <?= htmlspecialchars($lastReport['detail']); ?></p>
+<?php else: ?>
+    <p>Aucun rapport vétérinaire disponible pour cet animal.</p>
+<?php endif; ?>
+
             </div>
         </div>
 

@@ -146,13 +146,6 @@ if (preg_match('/^admin\/delete_service\/(\d+)$/', $uri, $matches)) {
        
         
 
-        // Route pour 'add-nourriture'
-        if ($uri === 'add-nourriture' && $this->requestMethod === 'POST') {
-            $this->controllerName .= 'NourritureController';
-            $this->method = 'addNourriture';
-            return;
-        }
-
        
 
         
@@ -246,6 +239,8 @@ if (preg_match('/^animals\/details\/(\d+)$/', $uri, $matches)) {
     return;
 }
 
+
+
 // Route pour ajouter une service
 if ($uri === 'admin/add_service') {
     $this->controllerName = 'App\Controller\Admin';
@@ -290,11 +285,20 @@ if ($uriExplode[0] === 'employe' && $uriExplode[1] === 'historique_nourriture') 
 
 // Route pour nourrir un animal
 if ($uriExplode[0] === 'employe' && $uriExplode[1] === 'nourrir') {
-    $this->controllerName .= 'Employe';
+    $this->controllerName = 'App\Controller\Employe';
     $this->method = 'nourrirAnimal';
     $this->parameter = isset($uriExplode[2]) ? (int)$uriExplode[2] : null;
     return;
 }
+
+// Route pour ajouter une nourriture
+if ($uriExplode[0] === 'employe' && $uriExplode[1] === 'add_nourriture') {
+    $this->controllerName = 'App\Controller\Employe';
+    $this->method = 'addNourriture';
+    return;
+}
+
+
 
 
         // Route pour afficher le formulaire de modification de mot de passe
@@ -311,6 +315,14 @@ if ($uriExplode[0] === 'veterinaire' && $uriExplode[1] === 'showReports') {
     $this->parameter = isset($uriExplode[2]) ? (int)$uriExplode[2] : null;
     return;
 }
+
+if ($uriExplode[0] === 'animals' && $uriExplode[1] === 'show') {
+    $this->controllerName = 'App\Controller\Animals';
+    $this->method = 'showAnimalDetails';
+    $this->parameter = isset($uriExplode[2]) ? (int)$uriExplode[2] : null;
+    return;
+}
+
 
 if ($uriExplode[0] === 'employe') {
     $this->controllerName = 'App\Controller\Employe'; // Pas de préfixe 'ZooArcadia'

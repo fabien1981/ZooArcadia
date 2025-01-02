@@ -62,65 +62,55 @@ class Animals
     }
 
     public function showAnimalDetails(int $animalId)
-{
-    $pdo = Dbutils::getPdo();
+    {
 
-    // Récupérer les détails de l'animal
-    $stmtAnimal = $pdo->prepare("
-        SELECT 
-            a.animal_id, 
-            a.prenom, 
-            a.etat, 
-            a.race, 
-            a.image_animal, 
-            a.habitat AS habitat_id, 
-            h.nom AS habitat_nom
-        FROM animal a
-        LEFT JOIN habitat h ON a.habitat = h.habitat_id
-        WHERE a.animal_id = :animal_id
-    ");
-    $stmtAnimal->bindParam(':animal_id', $animalId, PDO::PARAM_INT);
-    $stmtAnimal->execute();
-    $animal = $stmtAnimal->fetch(PDO::FETCH_ASSOC);
-
-    if (!$animal) {
+       
+        $pdo = Dbutils::getPdo();
+    
+        // Récupérer les détails de l'animal
+        $stmtAnimal = $pdo->prepare("
+            SELECT 
+                a.animal_id, 
+                a.prenom, 
+                a.etat, 
+                a.race, 
+                a.image_animal, 
+                a.habitat AS habitat_id, 
+                h.nom AS habitat_nom
+            FROM animal a
+            LEFT JOIN habitat h ON a.habitat = h.habitat_id
+            WHERE a.animal_id = :animal_id
+        ");
+        $stmtAnimal->bindParam(':animal_id', $animalId, PDO::PARAM_INT);
+        $stmtAnimal->execute();
+        $animal = $stmtAnimal->fetch(PDO::FETCH_ASSOC);
+    
+        // Récupérer le dernier rapport vétérinaire
+        $stmtReport = $pdo->prepare("
+            SELECT 
+                rv.date, 
+                rv.detail
+            FROM rapport_veterinaire rv
+            WHERE rv.animal_id = :animal_id
+            ORDER BY rv.date DESC
+            LIMIT 1
+        ");
+        $stmtReport->bindParam(':animal_id', $animalId, PDO::PARAM_INT);
+        $stmtReport->execute();
+        $lastReport = $stmtReport->fetch(PDO::FETCH_ASSOC);
+    
+    
+    
         return [
             'template' => 'animal_detail',
             'data' => [
-                'animal' => null,
-                'lastReport' => null
+                'animal' => $animal,
+                'lastReport' => $lastReport ?: null,
             ],
-            'message' => 'Animal introuvable'
+            'message' => 'Détails de l\'animal',
         ];
     }
-
-    // Récupérer le dernier rapport vétérinaire
-    $stmtReport = $pdo->prepare("
-        SELECT 
-            rv.date, 
-            rv.detail
-        FROM rapport_veterinaire rv
-        WHERE rv.animal_id = :animal_id
-        ORDER BY rv.date DESC
-        LIMIT 1
-    ");
-    $stmtReport->bindParam(':animal_id', $animalId, PDO::PARAM_INT);
-    $stmtReport->execute();
-    $lastReport = $stmtReport->fetch(PDO::FETCH_ASSOC);
-
-  
-    return [
-        'template' => 'animal_detail',
-        'data' => [
-            'animal' => $animal,
-            'lastReport' => $lastReport ?: null // Null si aucun rapport trouvé
-        ],
-        'message' => 'Détails de l\'animal'
-    ];
-}
-
-
-
+    
 
 
 }

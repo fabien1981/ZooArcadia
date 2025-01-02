@@ -2,18 +2,13 @@
 require_once __DIR__ . '/../src/Database/Dbutils.php';
 use App\Database\Dbutils;
 
-// Connexion à la base de données et récupération des données
-$pdo = Dbutils::getPdo();
-$stmt = $pdo->query("
-    SELECT n.date_time, n.type_nourriture, n.quantite, a.prenom AS animal_prenom 
-    FROM nourriture n 
-    JOIN animal a ON n.animal_id = a.animal_id 
-    ORDER BY n.date_time DESC
-");
+// Récupérer les données transmises depuis le contrôleur
+$nourriture = $data['nourriture'] ?? []; // Utiliser une liste vide par défaut
 ?>
 
 <h2 class="text-center">Historique des repas des animaux</h2>
-<?php if (!empty($data['nourriture'])): ?>
+
+<?php if (!empty($nourriture)): ?>
     <table class="table table-striped table-bordered">
         <thead>
             <tr>
@@ -21,15 +16,17 @@ $stmt = $pdo->query("
                 <th>Animal</th>
                 <th>Type de nourriture</th>
                 <th>Quantité</th>
+                <th>Enregistré par</th>
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($data['nourriture'] as $nourriture): ?>
+            <?php foreach ($nourriture as $row): ?>
                 <tr>
-                    <td><?= htmlspecialchars($nourriture['date_time']) ?></td>
-                    <td><?= htmlspecialchars($nourriture['animal_prenom']) ?></td>
-                    <td><?= htmlspecialchars($nourriture['type_nourriture']) ?></td>
-                    <td><?= htmlspecialchars($nourriture['quantite']) ?> g</td>
+                    <td><?= htmlspecialchars($row['date_time']); ?></td>
+                    <td><?= htmlspecialchars($row['animal_prenom']); ?></td>
+                    <td><?= htmlspecialchars($row['type_nourriture']); ?></td>
+                    <td><?= htmlspecialchars($row['quantite']); ?> g</td>
+                    <td><?= htmlspecialchars($row['user_prenom'] . ' ' . $row['user_nom']); ?></td>
                 </tr>
             <?php endforeach; ?>
         </tbody>
@@ -38,4 +35,4 @@ $stmt = $pdo->query("
     <p class="text-center text-muted">Aucune donnée trouvée.</p>
 <?php endif; ?>
 
-<a href="/ZooArcadia/employe/dashboard" class="btn btn-primary mt-3">⬅ Retour au tableau de bord</a>
+<a href="/ZooArcadia/employe/alimentation" class="btn btn-primary mt-3">⬅ Retour à la page alimentation</a>
