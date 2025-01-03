@@ -384,6 +384,12 @@ if ($uri === '/ZooArcadia/veterinaire/showReports') {
     return;
 }
 
+// Route pour les contacts
+if ($uriExplode[0] === 'contact' && $uriExplode[1] === 'handle') {
+    $this->controllerName = 'App\Controller\Contact';
+    $this->method = 'handleContactForm';
+    return;
+}
 
 
 
@@ -545,6 +551,7 @@ public function delete($route, $action)
         $this->parameter = $matches[1] ?? null; // Si une variable {id} est passée
     }
 }
+
 
 
 
