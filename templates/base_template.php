@@ -105,7 +105,7 @@
     ?>
     
 </main>
-<!-- Footer -->
+
 <!-- Footer -->
 <footer class="bg-primary text-white text-center footer">
     <div class="row">
@@ -126,15 +126,42 @@
         </div>
 
         <!-- Contact -->
-        <div class="col-6 col-lg-4">
+        <div class="col-6 col-lg-4 d-flex align-items-center justify-content-center">
             <p>Contactez-nous : zooarcadia2025@gmail.com</p>
         </div>
 
         <!-- Mentions légales -->
         <div class="col-12">
-            <p><a href="#" class="text-white">Mentions légales</a></p>
+    <p><a href="#" class="text-white" data-bs-toggle="modal" data-bs-target="#mentionsLegalesModal">Mentions légales</a></p>
+</div>
+
+<!-- Modale Bootstrap -->
+<div class="modal fade" id="mentionsLegalesModal" tabindex="-1" aria-labelledby="mentionsLegalesLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content  text-primary">
+            <div class="modal-header">
+                <h5 class="modal-title" id="mentionsLegalesLabel">Mentions Légales</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h3>Éditeur du site</h3>
+                <p>Nom de l'entreprise : Zoo Arcadia<br>
+                Adresse : Forêt de Brocéliande, France<br>
+                Téléphone : 01 23 45 67 89<br>
+                Email : zooarcadia2025@gmail.com</p>
+                <h3>Hébergement</h3>
+                <p>Nom de l'hébergeur : HEROKU<br>
+               
+                <h3>Données personnelles</h3>
+                <p>Les informations collectées sur ce site sont destinées à la gestion des utilisateurs et ne seront pas partagées sans consentement préalable. Vous pouvez exercer vos droits en contactant : zooarcadia2025@gmail.com</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+            </div>
         </div>
     </div>
+</div>
+
 </footer>
 
 <script>

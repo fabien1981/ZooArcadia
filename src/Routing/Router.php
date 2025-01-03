@@ -12,6 +12,7 @@ class Router
     private ?string $method;
     private ?string $parameter = null;
     private bool $returnJson = false;
+    private $page;
 
     public function __construct(private $requestMethod, string $uri)
     {
@@ -60,6 +61,8 @@ if ($uri === 'api/avis/list' && $this->requestMethod === 'GET') {
 
     return;
 }
+
+
 
 
 
@@ -417,6 +420,8 @@ if ($uriExplode[0] === 'contact' && $uriExplode[1] === 'handle') {
     $this->method = 'handleContactForm';
     return;
 }
+
+
 
 
 
