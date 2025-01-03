@@ -14,41 +14,60 @@ class Avis
     private $collection;
 
     public function __construct()
-    {
-        // Récupération de la collection "avis" via la connexion centralisée
+{
+    try {
         $this->collection = DbConnectionNoSQL::getDB()->avis;
+       
+    } catch (\Exception $e) {
+        echo 'Erreur de connexion MongoDB : ' . $e->getMessage();
+        exit;
     }
-    
+}
 
     /*
      * Méthode pour créer un avis
      */
-    public function create(array $data = null): array
+    public function create(): void
 {
-    // Récupérer le JSON envoyé
-    if ($data === null) {
-        $data = json_decode(file_get_contents('php://input'), true);
-    }
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $data = $_POST;
 
-    if (empty($data['pseudo']) || empty($data['avis']) || empty($data['rating'])) {
-        return ['success' => false, 'message' => 'Tous les champs sont requis.'];
-    }
+        // Vérifier que tous les champs requis sont remplis
+        if (empty($data['pseudo']) || empty($data['avis']) || empty($data['rating'])) {
+            echo 'Tous les champs sont requis.';
+            return;
+        }
 
-    try {
-        $avis = [
-            'pseudo' => DbConnectionNoSQL::protectDbData($data['pseudo']),
-            'avis' => DbConnectionNoSQL::protectDbData($data['avis']),
-            'rating' => (int)DbConnectionNoSQL::protectDbData($data['rating']),
-            'date_created' => new \MongoDB\BSON\UTCDateTime()
-        ];
+        try {
+            // Préparation des données à insérer
+            $avis = [
+                'pseudo' => htmlspecialchars($data['pseudo']),
+                'avis' => htmlspecialchars($data['avis']),
+                'rating' => (int)$data['rating'],
+                'date_created' => new \MongoDB\BSON\UTCDateTime(),
+                'is_validated' => false // Initialiser comme non validé
+            ];
 
-        $this->collection->insertOne($avis);
+            // Insertion dans la collection MongoDB
+            $this->collection->insertOne($avis);
 
-        return ['success' => true, 'message' => 'Merci pour votre avis !'];
-    } catch (\Exception $e) {
-        return ['success' => false, 'message' => 'Erreur lors de l\'enregistrement : ' . $e->getMessage()];
+            // Ajouter un message de succès dans la session
+            session_start();
+            $_SESSION['success_message'] = 'Votre avis a bien été envoyé.';
+
+            // Redirection vers la page d'accueil
+            header('Location: /ZooArcadia/homepage/home');
+            exit;
+        } catch (\Exception $e) {
+            echo 'Erreur lors de l\'enregistrement : ' . $e->getMessage();
+        }
+    } else {
+        echo 'Méthode non autorisée.';
     }
 }
+
+
+
 
 
 
@@ -56,18 +75,24 @@ class Avis
      * Méthode pour lister tous les avis
      */
     public function list(): array
-    {
-        try {
-            $avis = $this->collection->find([], ['sort' => ['date_created' => -1]])->toArray();
-
-            return [
-                'success' => true,
-                'data' => $avis
-            ];
-        } catch (\Exception $e) {
-            return ['success' => false, 'message' => 'Erreur lors de la récupération des avis : ' . $e->getMessage()];
-        }
+{
+    try {
+        // Récupérer uniquement les avis validés
+        $avis = $this->collection->find(['is_validated' => true], ['sort' => ['date_created' => -1]])->toArray();
+        return [
+            'success' => true,
+            'data' => $avis
+        ];
+    } catch (\Exception $e) {
+        return [
+            'success' => false,
+            'message' => 'Erreur lors de la récupération des avis : ' . $e->getMessage()
+        ];
     }
+}
+
+    
+    
 
     /*
      * Méthode pour supprimer un avis
@@ -90,37 +115,41 @@ class Avis
     /*
      * Méthode pour préparer les données pour les templates
      */
-    public function listAvis(): array
+    public function listAvis(): void
 {
     try {
-        // Appelle la méthode list() pour récupérer les avis
+        // Récupérer les avis via la méthode list()
         $avisData = $this->list();
 
         if ($avisData['success']) {
-            return [
-                'template' => 'avis_list', // Nom du fichier template situé dans templates/
-                'avis' => $avisData['data'], // Les données des avis
-            ];
+            $avis = $avisData['data']; // Données des avis
+            $page = __DIR__ . '/../../../templates/avis_list.php'; // Chemin vers le fichier de contenu
         } else {
-            return [
-                'template' => 'error', // Nom d'un template d'erreur si la récupération échoue
-                'message' => $avisData['message'],
-            ];
+            $avis = [];
+            $page = __DIR__ . '/../../../templates/error.php'; // Chemin vers un fichier d'erreur si la récupération échoue
+            $errorMessage = $avisData['message'];
         }
+
+        // Inclure la base template
+        require_once __DIR__ . '/../../../templates/base_template.php';
     } catch (\Exception $e) {
-        return [
-            'template' => 'error',
-            'message' => 'Erreur lors de la récupération des avis : ' . $e->getMessage(),
-        ];
+        if (getenv('APP_DEBUG') === 'true') {
+            var_dump($e->getMessage()); // Debug : affiche l'erreur
+        }
+        echo '<div class="container mt-5"><p class="text-danger">Erreur lors de la récupération des avis : ' . htmlspecialchars($e->getMessage()) . '</p></div>';
     }
 }
 
 
-    public function displayForm(): void
-{
-    // Chemin vers votre fichier de formulaire
-    include __DIR__ . '/../../../templates/avis.php';
 
+
+
+public function displayForm(): array
+{
+    return [
+        'template' => 'avis_form', // Remplacez 'avis_form' par le nom exact de votre fichier template sans extension.
+        'message' => 'Laisser un avis'
+    ];
 }
 
 }

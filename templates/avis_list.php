@@ -5,7 +5,7 @@
             <?php foreach ($avis as $avisItem): ?>
                 <li class="list-group-item">
                     <strong><?= htmlspecialchars($avisItem['pseudo']) ?></strong> :
-                    <?= htmlspecialchars($avisItem['avis']) ?> 
+                    <?= htmlspecialchars($avisItem['avis']) ?>
                     <span class="text-warning">
                         <?= str_repeat('★', (int) $avisItem['rating']) ?>
                     </span>

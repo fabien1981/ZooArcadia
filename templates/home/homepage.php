@@ -153,7 +153,8 @@
     <div class="text-center">
         <h3>Partagez votre expérience</h3>
         <p>Nous serions ravis de connaître votre avis !</p>
-        <a href="../avis/display" class="btn btn-primary">Avis des visiteurs</a>
+        <a href="/ZooArcadia/avis/display" class="btn btn-primary">Avis des visiteurs</a>
+
     </div>
 </div>
 

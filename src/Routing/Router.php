@@ -53,26 +53,33 @@ if ($uri === 'avis/display') {
     return;
 }
 
-// Route pour afficher la liste des avis
-if ($uri === 'avis' && $this->requestMethod === 'GET') {
+// Route API pour lister les avis
+if ($uri === 'api/avis/list' && $this->requestMethod === 'GET') {
     $this->controllerName = 'App\\Controller\\Api\\Avis';
     $this->method = 'listAvis';
+
     return;
 }
+
+
+
 
 // Route API pour créer un avis
 if ($uri === 'api/avis/create' && $this->requestMethod === 'POST') {
     $this->controllerName = 'App\\Controller\\Api\\Avis';
     $this->method = 'create';
+
     return;
 }
+
 
 // Route API pour lister les avis
 if ($uri === 'api/avis/list' && $this->requestMethod === 'GET') {
     $this->controllerName = 'App\\Controller\\Api\\Avis';
-    $this->method = 'list';
+    $this->method = 'listAvis';
     return;
 }
+
 
 
 // Route pour afficher la page des statistiques (interface admin)
@@ -298,7 +305,27 @@ if ($uriExplode[0] === 'employe' && $uriExplode[1] === 'add_nourriture') {
     return;
 }
 
+// Route pour la gestion des avis
+if ($uri === 'employe/avis' && $this->requestMethod === 'GET') {
+    $this->controllerName = 'App\\Controller\\Employe';
+    $this->method = 'gestionAvis';
+    return;
+}
 
+
+// Route pour valider un avis
+if ($uri === 'employe/validate_avis' && $this->requestMethod === 'POST') {
+    $this->controllerName = 'App\\Controller\\Employe';
+    $this->method = 'validateAvis';
+    return;
+}
+
+// Route pour supprimer un avis
+if ($uri === 'employe/delete_avis' && $this->requestMethod === 'POST') {
+    $this->controllerName = 'App\\Controller\\Employe';
+    $this->method = 'deleteAvis';
+    return;
+}
 
 
         // Route pour afficher le formulaire de modification de mot de passe

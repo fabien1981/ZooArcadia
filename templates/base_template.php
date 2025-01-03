@@ -103,6 +103,7 @@
             echo "Contenu de la page introuvable.";
         }
     ?>
+    
 </main>
 <!-- Footer -->
 <!-- Footer -->
@@ -126,7 +127,7 @@
 
         <!-- Contact -->
         <div class="col-6 col-lg-4">
-            <p>Contactez-nous : info@zooarcadia.fr</p>
+            <p>Contactez-nous : zooarcadia2025@gmail.com</p>
         </div>
 
         <!-- Mentions légales -->

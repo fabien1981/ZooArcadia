@@ -45,4 +45,15 @@ class DbConnectionNoSQL
         $value = htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
         return $value;
     }
+
+    public static function testConnection()
+{
+    try {
+        $db = self::getDB();
+        return $db->listCollections(); // Liste toutes les collections
+    } catch (Exception $e) {
+        return 'Erreur : ' . $e->getMessage();
+    }
+}
+
 }

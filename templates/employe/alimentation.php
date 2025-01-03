@@ -45,4 +45,5 @@ $animaux = $data['animaux'] ?? [];
     <?php else: ?>
         <p class="text-center text-muted">Aucun animal disponible.</p>
     <?php endif; ?>
+    <a href="/ZooArcadia/employe/dashboard" class="btn btn-primary" style="margin-bottom: 15px;">⬅ Retour à l'espace employé</a>
 </div>
