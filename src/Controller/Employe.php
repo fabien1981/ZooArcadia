@@ -24,7 +24,7 @@ class Employe
     public function display()
 {
     if (!isset($_SESSION['email']) || $_SESSION['email']['role'] !== 'Employé') {
-        header('Location: /ZooArcadia/connexion/display');
+        header('Location: connexion/display');
         exit;
     }
 
@@ -77,7 +77,7 @@ class Employe
                 $query->bindParam(':id', $id, PDO::PARAM_INT);
                 $query->execute();
 
-                header('Location: /ZooArcadia/employe/gestion_services');
+                header('Location: employe/gestion_services');
                 exit;
             } catch (\Exception $e) {
                 return [
@@ -94,7 +94,7 @@ class Employe
         $service = $query->fetch(\PDO::FETCH_ASSOC);
 
         // Liste des fichiers dans le dossier `photos`
-        $photosDir = $_SERVER['DOCUMENT_ROOT'] . '/ZooArcadia/photos/';
+        $photosDir = $_SERVER['DOCUMENT_ROOT'] . 'photos/';
         $photos = array_diff(scandir($photosDir), ['.', '..']); 
 
         return [
@@ -238,7 +238,7 @@ public function addNourriture()
             $stmt->execute();
 
             // Redirection vers l'historique des repas
-            header('Location: /ZooArcadia/employe/historique_nourriture');
+            header('Location: employe/historique_nourriture');
             exit;
         } catch (\Exception $e) {
             return [
@@ -304,7 +304,7 @@ public function gestionAvis(): array
         }
 
         // Redirection vers la gestion des avis
-        header('Location: /ZooArcadia/employe/avis');
+        header('Location: employe/avis');
         exit;
     }
 
@@ -332,7 +332,7 @@ public function gestionAvis(): array
         }
 
         // Redirection vers la gestion des avis
-        header('Location: /ZooArcadia/employe/avis');
+        header('Location: employe/avis');
         exit;
     }
 

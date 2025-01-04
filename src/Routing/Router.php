@@ -408,7 +408,7 @@ if ($uriExplode[0] === 'veterinaire' && $uriExplode[1] === 'reports') {
 }
 
 // Route pour les rapports vétérinaires
-if ($uri === '/ZooArcadia/veterinaire/showReports') {
+if ($uri === 'veterinaire/showReports') {
     $this->controllerName .= 'Veterinaire';
     $this->method = 'showReports';
     return;

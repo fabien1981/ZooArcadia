@@ -2,7 +2,7 @@
 require_once __DIR__ . '/../config/session.php';
 
 if (!isset($_SESSION['email']) || $_SESSION['email']['role'] !== 'Vétérinaire') {
-    header('Location: /ZooArcadia/connexion/display');
+    header('Location: connexion/display');
     exit;
 }
 
@@ -10,7 +10,7 @@ $animal = $data['animal'] ?? null;
 
 if (!$animal): ?>
     <div class="alert alert-danger">Animal introuvable.</div>
-    <a href="/ZooArcadia/veterinaire/display" class="btn btn-secondary">Retour</a>
+    <a href="veterinaire/display" class="btn btn-secondary">Retour</a>
     <?php exit; ?>
 <?php endif; ?>
 
@@ -31,7 +31,7 @@ if (!$animal): ?>
         <?php unset($_SESSION['error_message']); ?>
     <?php endif; ?>
 
-    <form method="POST" action="/ZooArcadia/api/veterinaire/createReport">
+    <form method="POST" action="api/veterinaire/createReport">
         <input type="hidden" name="animal_id" value="<?= htmlspecialchars($animal['animal_id']) ?>">
 
     <div class="mb-3">
@@ -61,7 +61,7 @@ if (!$animal): ?>
         </div>
 
         <button type="submit" class="btn btn-success">Créer le rapport</button>
-        <a href="/ZooArcadia/veterinaire/display" class="btn btn-secondary">Annuler</a>
+        <a href="veterinaire/display" class="btn btn-secondary">Annuler</a>
     </form>
 
 <script>
@@ -79,7 +79,7 @@ document.getElementById('formulaireRapport').addEventListener('submit', function
 
     console.log('Données envoyées :', data); // Debug
 
-    fetch('/ZooArcadia/api/veterinaire/createReport', {
+    fetch('api/veterinaire/createReport', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -91,7 +91,7 @@ document.getElementById('formulaireRapport').addEventListener('submit', function
             console.log('Réponse de l\'API :', result); // Debug
             if (result.success) {
                 alert(result.message);
-                window.location.href = '/ZooArcadia/veterinaire/display';
+                window.location.href = 'veterinaire/display';
             } else {
                 alert(result.message);
             }

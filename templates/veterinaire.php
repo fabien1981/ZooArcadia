@@ -7,7 +7,7 @@
         <button class="nav-link active" id="animaux-tab" data-bs-toggle="tab" data-bs-target="#animaux" type="button" role="tab" aria-controls="animaux" aria-selected="true">Animaux</button>
     </li>
     <li class="nav-item" role="presentation">
-        <a href="/ZooArcadia/veterinaire/showReports" class="nav-link" id="rapports-tab">Rapports vétérinaires</a>
+        <a href="veterinaire/showReports" class="nav-link" id="rapports-tab">Rapports vétérinaires</a>
     </li>
 </ul>
 
@@ -52,7 +52,7 @@
 
     // Charger la liste des animaux
     function chargerListeAnimaux() {
-        fetch('/ZooArcadia/api/animal/list')
+        fetch('api/animal/list')
             .then(response => response.json())
             .then(data => {
                 const listeAnimaux = document.getElementById('liste-animaux');
@@ -71,7 +71,7 @@
                                         <strong>Habitat:</strong> ${animal.habitat_nom}<br>
                                         <strong>État:</strong> ${animal.etat}
                                     </p>
-                                    <a href="/ZooArcadia/veterinaire/createReport?animal_id=${animal.animal_id}" class="btn btn-primary">Créer un rapport</a>
+                                    <a href="veterinaire/createReport?animal_id=${animal.animal_id}" class="btn btn-primary">Créer un rapport</a>
                                 </div>
                             </div>
                         `;
@@ -89,7 +89,7 @@
 
     // Charger la liste des rapports
     function chargerListeRapports() {
-        fetch('/ZooArcadia/api/veterinaire/reports')
+        fetch('api/veterinaire/reports')
             .then(response => response.json())
             .then(data => {
                 const listeRapports = document.getElementById('liste-rapports');
@@ -119,7 +119,7 @@
 
     // Afficher les détails d'un rapport
     function afficherRapportDetails(id) {
-        fetch(`/ZooArcadia/api/veterinaire/showReport/${id}`)
+        fetch(`api/veterinaire/showReport/${id}`)
             .then(response => response.json())
             .then(data => {
                 if (data.success) {

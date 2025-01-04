@@ -1,6 +1,6 @@
 Options +FollowSymLinks
 RewriteEngine On
-RewriteBase /ZooArcadia/
+RewriteBase 
 
 # Si le fichier ou le dossier existe, le servir directement
 RewriteCond %{REQUEST_FILENAME} -f [OR]

@@ -11,7 +11,7 @@ class Veterinaire
     public function display()
     {
         if (!isset($_SESSION['email']) || $_SESSION['email']['role'] !== 'Vétérinaire') {
-            header('Location: /ZooArcadia/connexion/display');
+            header('Location: connexion/display');
             exit;
         }
 
@@ -33,7 +33,7 @@ class Veterinaire
 
         if (!$animalId || !$etat || !$nourriture || !$grammage || !$detail) {
             $_SESSION['error_message'] = 'Tous les champs sont requis.';
-            header('Location: /ZooArcadia/veterinaire/createReport?animal_id=' . $animalId);
+            header('Location: veterinaire/createReport?animal_id=' . $animalId);
             exit;
         }
 
@@ -59,11 +59,11 @@ class Veterinaire
             $updateStmt->execute();
 
             $_SESSION['success_message'] = 'Rapport créé avec succès et état de l\'animal mis à jour.';
-            header('Location: /ZooArcadia/veterinaire/display');
+            header('Location: veterinaire/display');
             exit;
         } catch (Exception $e) {
             $_SESSION['error_message'] = 'Erreur : ' . $e->getMessage();
-            header('Location: /ZooArcadia/veterinaire/createReport?animal_id=' . $animalId);
+            header('Location: veterinaire/createReport?animal_id=' . $animalId);
             exit;
         }
     }
@@ -72,7 +72,7 @@ class Veterinaire
     $animalId = $_GET['animal_id'] ?? null;
     if (!$animalId) {
         $_SESSION['error_message'] = 'ID de l\'animal manquant.';
-        header('Location: /ZooArcadia/veterinaire/display');
+        header('Location: veterinaire/display');
         exit;
     }
 
@@ -84,7 +84,7 @@ class Veterinaire
 
     if (!$animal) {
         $_SESSION['error_message'] = 'Animal introuvable.';
-        header('Location: /ZooArcadia/veterinaire/display');
+        header('Location: veterinaire/display');
         exit;
     }
 
@@ -128,7 +128,7 @@ public function reports()
     public function showReports()
 {
     if (!isset($_SESSION['email']) || $_SESSION['email']['role'] !== 'Vétérinaire') {
-        header('Location: /ZooArcadia/connexion/display');
+        header('Location: connexion/display');
         exit;
     }
 
