@@ -1,3 +1,7 @@
 <?php
-// Si une variable d'environnement BASE_URL est définie, utilisez-la, sinon utilisez une valeur par défaut.
-define('BASE_URL', getenv('BASE_URL') ?: '/ZooArcadia');
+/* Définissez la variable en fonction de l'environnement
+if (getenv('BASE_URL')) {
+    define('BASE_URL', getenv('BASE_URL')); // Pour Heroku ou des environnements spécifiques
+} else {
+    define('BASE_URL', '/ZooArcadia'); // Pour local sans sous-dossier
+}*/

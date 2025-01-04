@@ -104,11 +104,11 @@
     </div>
     <div class="row habitat-gallery justify-content-around mt-3">
         <div class="col-6 col-sm-4 col-md-3 habitat-item">
-            <img src="/ZooArcadia/photos/marais.png" alt="Marais" class="rounded img-fluid habitat-image" />
+            <img src="/photos/marais.png" alt="Marais" class="rounded img-fluid habitat-image" />
             <p class="habitat-title">Marais</p>
         </div>
         <div class="col-6 col-sm-4 col-md-3 habitat-item">
-            <img src="/ZooArcadia/photos/tigre3.png" alt="Jungle" class="rounded img-fluid habitat-image" />
+            <img src="/photos/tigre3.png" alt="Jungle" class="rounded img-fluid habitat-image" />
             <p class="habitat-title">Jungle</p>
         </div>
         <div class="col-6 col-sm-4 col-md-3 habitat-item">
