@@ -319,6 +319,13 @@ if ($uri === 'employe/avis' && $this->requestMethod === 'GET') {
     return;
 }
 
+if ($uri === '/test/mongodb') {
+    $this->controllerName = 'App\Controller\TestController';
+    $this->method = 'testMongoDB';
+    return;
+}
+
+
 
 // Route pour valider un avis
 if ($uri === 'employe/validate_avis' && $this->requestMethod === 'POST') {

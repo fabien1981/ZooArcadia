@@ -14,27 +14,30 @@ class DbConnectionNoSQL
      * Méthode pour obtenir la connexion à MongoDB
      */
     public static function getDB()
-    {
-        try {
-            if (self::$db !== null) {
-                return self::$db;
-            }
-
-            // Charger les variables d'environnement
-            $mongoUri = getenv('MONGODB_URI') ?: 'mongodb://localhost:27017';
-            $databaseName = getenv('MONGODB_DATABASE') ?: 'ECFArcadia';
-
-            // Initialisation du client MongoDB
-            $client = new Client($mongoUri);
-
-            // Sélection de la base de données
-            self::$db = $client->selectDatabase($databaseName);
+{
+    try {
+        if (self::$db !== null) {
             return self::$db;
-        } catch (Exception $e) {
-           // error_log('Erreur de connexion à MongoDB : ' . $e->getMessage());
-            throw new Exception('Erreur de connexion à la base de données.');
         }
+
+        // Charger les variables d'environnement
+        $mongoUri = getenv('MONGODB_URI') ?: 'mongodb://localhost:27017';
+        $databaseName = getenv('MONGODB_DATABASE') ?: 'ECFArcadia';
+
+        error_log('Connexion à MongoDB avec URI : ' . $mongoUri);
+
+        // Initialisation du client MongoDB
+        $client = new \MongoDB\Client($mongoUri);
+
+        // Sélection de la base de données
+        self::$db = $client->selectDatabase($databaseName);
+        return self::$db;
+    } catch (Exception $e) {
+        error_log('Erreur de connexion à MongoDB : ' . $e->getMessage());
+        throw new Exception('Erreur de connexion à la base de données.');
     }
+}
+
 
     /**
      * Méthode pour protéger les données avant insertion ou mise à jour
@@ -55,5 +58,20 @@ class DbConnectionNoSQL
         return 'Erreur : ' . $e->getMessage();
     }
 }
+
+public static function testMongoConnection()
+{
+    try {
+        $db = self::getDB();
+        $collections = $db->listCollections();
+        foreach ($collections as $collection) {
+            echo 'Collection trouvée : ' . $collection->getName() . PHP_EOL;
+        }
+        return 'Connexion MongoDB réussie.';
+    } catch (Exception $e) {
+        return 'Erreur MongoDB : ' . $e->getMessage();
+    }
+}
+
 
 }
