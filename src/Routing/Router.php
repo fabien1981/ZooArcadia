@@ -47,6 +47,13 @@ if ($uri === 'services') {
     return;
 }
 
+if ($uri === '/test/mongodb') {
+    $this->controllerName = 'App\Controller\TestController';
+    $this->method = 'testMongoDB';
+    return;
+}
+
+
 // Route pour afficher le formulaire d'avis
 if ($uri === 'avis/display') {
     $this->controllerName = 'App\\Controller\\Api\\Avis';
@@ -249,14 +256,6 @@ if (preg_match('/^animals\/details\/(\d+)$/', $uri, $matches)) {
     return;
 }
 
-if ($uri === '/test/mongodb') {
-    $this->controllerName = 'App\Controller\TestController';
-    $this->method = 'testMongoDB';
-    return;
-}
-
-
-
 
 // Route pour ajouter une service
 if ($uri === 'admin/add_service') {
@@ -359,13 +358,6 @@ if ($uriExplode[0] === 'veterinaire' && $uriExplode[1] === 'showReports') {
     $this->parameter = isset($uriExplode[2]) ? (int)$uriExplode[2] : null;
     return;
 }
-
-if ($uri === '/test/mongodb') {
-    $this->controllerName = 'App\Controller\TestController';
-    $this->method = 'testMongoDB';
-    return;
-}
-
 
 
 if ($uriExplode[0] === 'animals' && $uriExplode[1] === 'show') {
