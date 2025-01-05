@@ -17,9 +17,9 @@ class Contact
     $mail = new PHPMailer(true);
 
     try {
-        // Mode debug de PHPMailer
-        $mail->SMTPDebug = 2; // Active le mode debug (2 pour voir les détails complets)
-        $mail->Debugoutput = 'html'; // Format HTML pour les logs
+        /* Mode debug de PHPMailer
+        $mail->SMTPDebug =2 ; // Active le mode debug (2 pour voir les détails complets)
+        $mail->Debugoutput = 'html'; // Format HTML pour les logs*/
 
         // Configuration SMTP
         $mail->isSMTP();
