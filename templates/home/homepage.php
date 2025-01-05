@@ -21,7 +21,7 @@
             </div>
         </div>
         <div class="col-md-6">
-            <img src="photos/lions1.png" alt="Lion" class="img-fluid rounded">
+            <img src="/photos/lions1.png" alt="Lion" class="img-fluid rounded">
         </div>
     </div>
 
@@ -34,28 +34,28 @@
     <div id="carouselExampleFade" class="carousel slide carousel-fade">
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <img src="photos/vueaerienne.jpeg" class="d-block w-100" alt="...">
+      <img src="/ZooArcadia/photos/vueaerienne.jpeg" class="d-block w-100" alt="...">
     </div>
     <div class="carousel-item">
-      <img src="photos/Designer.jpeg" class="d-block w-100" alt="...">
+      <img src="/ZooArcadia/photos/Designer.jpeg" class="d-block w-100" alt="...">
     </div>
     <div class="carousel-item">
-      <img src="photos/toucan.jpeg" class="d-block w-100" alt="...">
+      <img src="/ZooArcadia/photos/toucan.jpeg" class="d-block w-100" alt="...">
     </div>
     <div class="carousel-item">
-      <img src="photos/elephantzoo.jpg" class="d-block w-100" alt="...">
+      <img src="/ZooArcadia/photos/elephantzoo.jpg" class="d-block w-100" alt="...">
     </div>
     <div class="carousel-item">
-      <img src="photos/guide.jpeg" class="d-block w-100" alt="...">
+      <img src="/ZooArcadia/photos/guide.jpeg" class="d-block w-100" alt="...">
     </div>
     <div class="carousel-item">
-      <img src="photos/eolienne.png" class="d-block w-100" alt="...">
+      <img src="/ZooArcadia/photos/eolienne.png" class="d-block w-100" alt="...">
     </div>
     <div class="carousel-item">
-      <img src="photos/veto.jpeg" class="d-block w-100" alt="...">
+      <img src="/ZooArcadia/photos/veto.jpeg" class="d-block w-100" alt="...">
     </div>
     <div class="carousel-item">
-      <img src="photos/zoo3.jpeg" class="d-block w-100" alt="...">
+      <img src="/ZooArcadia/photos/zoo3.jpeg" class="d-block w-100" alt="...">
     </div>
   </div>
   <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
@@ -78,19 +78,19 @@
         </div>
         <div class="row animal-gallery justify-content-around mt-3" >
             <div class="col-6 col-sm-4 col-md-3 animal-item">
-                <img src="photos/tigre3.png" alt="Tigre"  class="rounded-circle img-fluid" />
+                <img src="/photos/tigre3.png" alt="Tigre"  class="rounded-circle img-fluid" />
                 <p class="animal-title">Tigre</p>
             </div>
             <div class="col-6 col-sm-4 col-md-3 animal-item">
-                <img src="photos/lionceau1.png" alt="Lion" class="rounded-circle img-fluid" />
+                <img src="/photos/lionceau1.png" alt="Lion" class="rounded-circle img-fluid" />
                 <p class="animal-title">Lion</p>
             </div>
             <div class="col-6 col-sm-4 col-md-3 animal-item">
-                <img src="photos/loutre1.png" alt="Loutre" class="rounded-circle img-fluid" />
+                <img src="/photos/loutre1.png" alt="Loutre" class="rounded-circle img-fluid" />
                 <p class="animal-title">Loutre</p>
             </div>
             <div class="col-6 col-sm-4 col-md-3 animal-item">
-                <img src="photos/girafe1.png" alt="Girafe" class="rounded-circle img-fluid" />
+                <img src="/photos/girafe1.png" alt="Girafe" class="rounded-circle img-fluid" />
                 <p class="animal-title">Girafe</p>
             </div>
         </div>
@@ -112,7 +112,7 @@
             <p class="habitat-title">Jungle</p>
         </div>
         <div class="col-6 col-sm-4 col-md-3 habitat-item">
-            <img src="photos/girafe2.png" alt="Savane" class="rounded img-fluid habitat-image" />
+            <img src="/photos/girafe2.png" alt="Savane" class="rounded img-fluid habitat-image" />
             <p class="habitat-title">Savane</p>
         </div>
     </div>
@@ -127,13 +127,13 @@
     <div id="carouselServices" class="carousel slide carousel-fade">
     <div class="carousel-inner">
         <div class="carousel-item active">
-            <img src="photos/restaurant.jpeg" class="d-block w-100" alt="...">
+            <img src="/ZooArcadia/photos/restaurant.jpeg" class="d-block w-100" alt="...">
         </div>
         <div class="carousel-item">
-            <img src="photos/train.png" class="d-block w-100" alt="...">
+            <img src="/ZooArcadia/photos/train.png" class="d-block w-100" alt="...">
         </div>
         <div class="carousel-item">
-            <img src="photos/guide.jpeg" class="d-block w-100" alt="...">
+            <img src="/ZooArcadia/photos/guide.jpeg" class="d-block w-100" alt="...">
         </div>
     </div>
     <button class="carousel-control-prev" type="button" data-bs-target="#carouselServices" data-bs-slide="prev">
@@ -153,14 +153,14 @@
     <div class="text-center">
         <h3>Partagez votre expérience</h3>
         <p>Nous serions ravis de connaître votre avis !</p>
-        <a href="avis/display" class="btn btn-primary">Avis des visiteurs</a>
+        <a href="/ZooArcadia/avis/display" class="btn btn-primary">Avis des visiteurs</a>
 
     </div>
 </div>
 
 <div class="container mt-5 text-center">
     <h2>Partagez votre expérience</h2>
-    <a href="api/avis/list" class="btn btn-primary">Voir les avis des visiteurs</a>
+    <a href="/ZooArcadia/api/avis/list" class="btn btn-primary">Voir les avis des visiteurs</a>
 </div>
 
 

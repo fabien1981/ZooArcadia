@@ -32,7 +32,7 @@
             rating: document.getElementById('rating').value,
         };
 
-        fetch('api/avis/create', {
+        fetch('/ZooArcadia/api/avis/create', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

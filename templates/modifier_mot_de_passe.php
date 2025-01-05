@@ -1,7 +1,7 @@
 <?php
 
 if (!isset($_SESSION['email'])) {
-    header('Location: connexion/display');
+    header('Location: /ZooArcadia/connexion/display');
     exit;
 }
 

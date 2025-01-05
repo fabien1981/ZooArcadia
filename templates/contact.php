@@ -23,7 +23,7 @@
     <?php endif; ?>
 
     <!-- Formulaire de contact -->
-    <form method="POST" action="contact/handleContactForm">
+    <form method="POST" action="/ZooArcadia/contact/handleContactForm">
         <div class="mb-3">
             <label for="TitreInput" class="form-label">Titre</label>
             <input 

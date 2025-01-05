@@ -35,4 +35,4 @@ $nourriture = $data['nourriture'] ?? []; // Utiliser une liste vide par défaut
     <p class="text-center text-muted">Aucune donnée trouvée.</p>
 <?php endif; ?>
 
-<a href="employe/alimentation" class="btn btn-primary mt-3">⬅ Retour à la page alimentation</a>
+<a href="/ZooArcadia/employe/alimentation" class="btn btn-primary mt-3">⬅ Retour à la page alimentation</a>

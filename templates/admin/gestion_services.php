@@ -1,6 +1,6 @@
 <div class="container mt-5">
     <h1>Gestion des services</h1>
-    <a href="admin/add_service" class="btn btn-success">Ajouter un service</a>
+    <a href="/ZooArcadia/admin/add_service" class="btn btn-success">Ajouter un service</a>
  
 
 
@@ -21,9 +21,9 @@
                         <td><?= htmlspecialchars($service['nom']) ?></td>
                         <td><?= htmlspecialchars($service['description']) ?></td>
                         <td>
-                            <a href="admin/edit_service/<?= htmlspecialchars($service['service_id']) ?>" class="btn btn-warning">Modifier</a>
+                            <a href="/ZooArcadia/admin/edit_service/<?= htmlspecialchars($service['service_id']) ?>" class="btn btn-warning">Modifier</a>
                             <?php if ($_SESSION['email']['role'] === 'Admin'): ?>
-    <a href="admin/delete_service/<?= htmlspecialchars($service['service_id']) ?>" class="btn btn-danger" onclick="return confirm('Confirmer la suppression ?');">Supprimer</a>
+    <a href="/ZooArcadia/admin/delete_service/<?= htmlspecialchars($service['service_id']) ?>" class="btn btn-danger" onclick="return confirm('Confirmer la suppression ?');">Supprimer</a>
 <?php endif; ?>
 
                         </td>
@@ -38,9 +38,9 @@
     <!-- Bouton Retour : conditionné au rôle -->
     <div>
         <?php if ($_SESSION['email']['role'] === 'Admin'): ?>
-            <a href="admin/display" class="btn btn-primary" style="margin-bottom: 15px;">⬅ Retour au tableau de bord admin</a>
+            <a href="/ZooArcadia/admin/display" class="btn btn-primary" style="margin-bottom: 15px;">⬅ Retour au tableau de bord admin</a>
         <?php elseif ($_SESSION['email']['role'] === 'Employé'): ?>
-            <a href="employe/dashboard" class="btn btn-primary" style="margin-bottom: 15px;">⬅ Retour à l'espace employé</a>
+            <a href="/ZooArcadia/employe/dashboard" class="btn btn-primary" style="margin-bottom: 15px;">⬅ Retour à l'espace employé</a>
         <?php endif; ?>
     </div>
 </div>

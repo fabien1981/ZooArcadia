@@ -24,11 +24,11 @@
                     <br>
                     Note: <?= str_repeat('★', (int) $avis['rating']) ?>
                     <br>
-                    <form action="employe/validate_avis" method="post" class="d-inline">
+                    <form action="/ZooArcadia/employe/validate_avis" method="post" class="d-inline">
                         <input type="hidden" name="id" value="<?= $avis['_id'] ?>">
                         <button type="submit" class="btn btn-success btn-sm">Valider</button>
                     </form>
-                    <form action="employe/delete_avis" method="post" class="d-inline">
+                    <form action="/ZooArcadia/employe/delete_avis" method="post" class="d-inline">
                         <input type="hidden" name="id" value="<?= $avis['_id'] ?>">
                         <button type="submit" class="btn btn-danger btn-sm">Supprimer</button>
                     </form>
