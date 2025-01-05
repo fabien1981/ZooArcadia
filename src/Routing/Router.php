@@ -319,11 +319,7 @@ if ($uri === 'employe/avis' && $this->requestMethod === 'GET') {
     return;
 }
 
-if ($uri === '/test/mongodb') {
-    $this->controllerName = 'App\Controller\TestController';
-    $this->method = 'testMongoDB';
-    return;
-}
+
 
 
 
@@ -356,6 +352,13 @@ if ($uriExplode[0] === 'veterinaire' && $uriExplode[1] === 'showReports') {
     $this->parameter = isset($uriExplode[2]) ? (int)$uriExplode[2] : null;
     return;
 }
+
+if ($uri === '/test/mongodb') {
+    $this->controllerName = 'App\Controller\TestController';
+    $this->method = 'testMongoDB';
+    return;
+}
+
 
 if ($uriExplode[0] === 'animals' && $uriExplode[1] === 'show') {
     $this->controllerName = 'App\Controller\Animals';
