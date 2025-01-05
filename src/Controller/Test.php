@@ -5,6 +5,13 @@ class Test
 {
     public function mongodb()
     {
-        echo "Test MongoDB executed successfully!";
+        // Définir les en-têtes pour une réponse JSON
+        header('Content-Type: application/json; charset=utf-8');
+
+        // Retourner une réponse JSON
+        echo json_encode([
+            'message' => 'Test MongoDB executed successfully!',
+            'status' => 'success'
+        ]);
     }
 }
