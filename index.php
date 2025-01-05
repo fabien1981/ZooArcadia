@@ -17,6 +17,8 @@ $dotenv->load();
 
 // Initialiser le routeur
 $router = new Router($_SERVER['REQUEST_METHOD'], $_SERVER['REQUEST_URI']);
+$router->add('/test/mongodb', [App\Controller\Test::class, 'mongodb']);
+
 
 
 
@@ -48,6 +50,7 @@ $router->get('/admin/delete_service/{id}', [\App\Controller\Admin::class, 'delet
 // Routes employé et alimentation
 $router->get('/employe', [\App\Controller\Employe::class, 'display']);
 $router->get('/nourrir', [\App\Controller\Employe::class, 'nourrir']);
+
 
 // Routes pour les statistiques API
 $router->get('/api/consultation/statistics', [\App\Controller\Api\ConsultationController::class, 'getStatistics']);

@@ -8,6 +8,14 @@ use Exception;
 
 class Router
 {
+    private $routes = [];
+
+    public function add($route, $callback)
+    {
+        $this->routes[$route] = $callback;
+    }
+
+
     private string $controllerName = "App\\Controller\\";
     private ?string $method;
     private ?string $parameter = null;
