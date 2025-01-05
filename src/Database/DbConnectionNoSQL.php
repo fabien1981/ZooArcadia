@@ -19,15 +19,20 @@ class DbConnectionNoSQL
             return self::$db;
         }
 
+        // Récupérer les paramètres de connexion depuis les variables d'environnement
         $mongoUri = getenv('MONGODB_URI') ?: 'mongodb://localhost:27017';
-        $databaseName = getenv('MONGODB_DATABASE') ?: 'ECFArcadia';
+        $databaseName = getenv('MONGODB_DATABASE') ?: 'default_database';
 
         try {
+            // Créer une connexion MongoDB
             $client = new Client($mongoUri);
             self::$db = $client->selectDatabase($databaseName);
             return self::$db;
         } catch (Exception $e) {
-            throw new Exception('Erreur de connexion MongoDB : ' . $e->getMessage());
+            // Journaliser l'erreur pour débogage
+            error_log('Erreur de connexion MongoDB : ' . $e->getMessage());
+            // Lancer une exception générique pour l'utilisateur
+            throw new Exception('Une erreur est survenue lors de la connexion à la base de données.');
         }
     }
 
@@ -40,33 +45,4 @@ class DbConnectionNoSQL
         $value = htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
         return $value;
     }
-
-    public static function testConnection()
-{
-    try {
-        $db = self::getDB();
-        return $db->listCollections(); // Liste toutes les collections
-    } catch (Exception $e) {
-        return 'Erreur : ' . $e->getMessage();
-    }
-}
-
-public static function testMongoConnection()
-    {
-        try {
-            $db = self::getDB();
-            $collections = $db->listCollections();
-
-            $result = [];
-            foreach ($collections as $collection) {
-                $result[] = $collection->getName();
-            }
-
-            return $result;
-        } catch (Exception $e) {
-            throw new Exception('Erreur MongoDB : ' . $e->getMessage());
-        }
-    }
-
-
 }
