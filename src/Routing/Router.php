@@ -249,6 +249,13 @@ if (preg_match('/^animals\/details\/(\d+)$/', $uri, $matches)) {
     return;
 }
 
+if ($uri === '/test/mongodb') {
+    $this->controllerName = 'App\Controller\TestController';
+    $this->method = 'testMongoDB';
+    return;
+}
+
+
 
 
 // Route pour ajouter une service
@@ -358,6 +365,7 @@ if ($uri === '/test/mongodb') {
     $this->method = 'testMongoDB';
     return;
 }
+
 
 
 if ($uriExplode[0] === 'animals' && $uriExplode[1] === 'show') {

@@ -60,18 +60,18 @@ class DbConnectionNoSQL
 }
 
 public static function testMongoConnection()
-{
-    try {
-        $db = self::getDB();
-        $collections = $db->listCollections();
-        foreach ($collections as $collection) {
-            echo 'Collection trouvée : ' . $collection->getName() . PHP_EOL;
+    {
+        try {
+            $db = self::getDB();
+            $collections = $db->listCollections();
+            foreach ($collections as $collection) {
+                echo 'Collection trouvée : ' . $collection->getName() . PHP_EOL;
+            }
+            return 'Connexion MongoDB réussie.';
+        } catch (Exception $e) {
+            return 'Erreur MongoDB : ' . $e->getMessage();
         }
-        return 'Connexion MongoDB réussie.';
-    } catch (Exception $e) {
-        return 'Erreur MongoDB : ' . $e->getMessage();
     }
-}
 
 
 }
