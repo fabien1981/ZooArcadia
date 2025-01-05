@@ -11,8 +11,7 @@ use Dotenv\Dotenv;
 require_once __DIR__ . '/config/session.php';
 require_once __DIR__ . '/vendor/autoload.php';
 
-echo 'MONGODB_URI: ' . getenv('MONGODB_URI');
-exit;
+
 
 // Charger les variables d'environnement
 $dotenv = Dotenv::createImmutable(__DIR__);
