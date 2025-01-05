@@ -13,7 +13,7 @@ class Admin
     private function checkAdminAccess()
     {
         if (!isset($_SESSION['email']) || $_SESSION['email']['role'] !== 'Admin') {
-            header('Location: /ZooArcadia/connexion/display');
+            header('Location: /connexion/display');
             exit;
         }
     }
@@ -42,7 +42,7 @@ class Admin
 
         // Redirection après la création
         $_SESSION['success_message'] = 'Le compte a été créé avec succès.';
-        header('Location: /ZooArcadia/admin/display');
+        header('Location: /admin/display');
         exit;
     }
 
@@ -59,7 +59,7 @@ class Admin
             $query->bindParam(':id', $id, PDO::PARAM_INT);
             $query->execute();
 
-            header('Location: /ZooArcadia/admin/gestion_services');
+            header('Location: /admin/gestion_services');
             exit;
         } catch (\Exception $e) {
             return [
@@ -76,7 +76,7 @@ class Admin
     $service = $query->fetch(\PDO::FETCH_ASSOC);
 
     // Liste des fichiers dans le dossier `photos`
-    $photosDir = $_SERVER['DOCUMENT_ROOT'] . '/ZooArcadia/photos/';
+    $photosDir = $_SERVER['DOCUMENT_ROOT'] . '/photos/';
     $photos = array_diff(scandir($photosDir), ['.', '..']); // Exclut `.` et `..`
 
     return [
@@ -85,6 +85,8 @@ class Admin
         'photos' => $photos, // Liste des photos disponibles
     ];
 }
+
+
 
 
     // Affiche le formulaire pour créer un compte utilisateur
@@ -215,7 +217,7 @@ public function addService(): array
                 }
 
                 // Déplacement de l'image vers le dossier des photos
-                $targetDir = $_SERVER['DOCUMENT_ROOT'] . '/ZooArcadia/photos/';
+                $targetDir = $_SERVER['DOCUMENT_ROOT'] . '/photos/';
                 $imagePath = basename($_FILES['image']['name']);
                 $targetFile = $targetDir . $imagePath;
 
@@ -234,7 +236,7 @@ public function addService(): array
             $query->execute();
 
             // Redirection après ajout
-            header('Location: /ZooArcadia/admin/gestion_services');
+            header('Location: /admin/gestion_services');
             exit;
         } catch (\Exception $e) {
             return [
@@ -246,6 +248,20 @@ public function addService(): array
     return ['template' => 'admin/add_service'];
 }
 
+public function rapportsVeterinaires()
+{
+    if (!isset($_SESSION['email']) || $_SESSION['email']['role'] !== 'Admin') {
+        header('Location: /connexion/display');
+        exit;
+    }
+
+    return [
+        'template' => 'rapports_veterinaires',
+        'message' => 'Liste des rapports vétérinaires',
+    ];
+}
+
+
 
 public function deleteService(int $id): void
 {
@@ -253,10 +269,10 @@ public function deleteService(int $id): void
         $query = Dbutils::getPdo()->prepare('DELETE FROM service WHERE service_id = :id');
         $query->bindParam(':id', $id);
         $query->execute();
-        header('Location: /ZooArcadia/admin/gestion_services');
+        header('Location: /admin/gestion_services');
         exit;
     } catch (\Exception $e) {
-        header('Location: /ZooArcadia/admin/gestion_services?error=delete');
+        header('Location: /admin/gestion_services?error=delete');
         exit;
     }
 }
@@ -264,7 +280,7 @@ public function deleteService(int $id): void
 public function showVeterinaireReports()
     {
         if (!isset($_SESSION['email']) || $_SESSION['email']['role'] !== 'Admin') {
-            header('Location: /ZooArcadia/connexion/display');
+            header('Location: /connexion/display');
             exit;
         }
 

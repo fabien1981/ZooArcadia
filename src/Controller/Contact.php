@@ -69,18 +69,18 @@ public function handleContactForm()
                 $_SESSION['success_message'] = 'Votre message a été envoyé avec succès !';
 
                 // Redirection après succès
-                header('Location: /ZooArcadia/contact/display');
+                header('Location: /contact/display');
                 exit;
             } catch (Exception $e) {
                 $_SESSION['error_message'] = 'Erreur lors de l\'envoi : ' . $e->getMessage();
 
                 // Redirection après échec
-                header('Location: /ZooArcadia/contact/display');
+                header('Location: /contact/display');
                 exit;
             }
         } else {
             $_SESSION['error_message'] = 'Veuillez remplir tous les champs du formulaire.';
-            header('Location: /ZooArcadia/contact/display');
+            header('Location: /contact/display');
             exit;
         }
     }

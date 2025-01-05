@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
 
     <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="/css/bootstrap-icons.css">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css">
 
     <!-- CSS compilé -->
@@ -102,7 +102,8 @@
 <footer class="bg-primary text-white text-center footer">
     <div class="row">
         <!-- Horaires d'ouverture -->
-        <div class="col-6 col-lg-4" id="footer-horaires">
+          <!-- Horaires d'ouverture -->
+          <div class="col-6 col-lg-4" id="footer-horaires">
             <h5>Horaires d'ouverture</h5>
             <div id="contenu-horaires-footer">
                 <p class="text-muted">Chargement des horaires...</p>
@@ -126,8 +127,72 @@
         <div class="col-12">
             <p><a href="#" class="text-white" data-bs-toggle="modal" data-bs-target="#mentionsLegalesModal">Mentions légales</a></p>
         </div>
+
+        <!-- Modale Bootstrap -->
+<div class="modal fade" id="mentionsLegalesModal" tabindex="-1" aria-labelledby="mentionsLegalesLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content  text-primary">
+            <div class="modal-header">
+                <h5 class="modal-title" id="mentionsLegalesLabel">Mentions Légales</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h3>Éditeur du site</h3>
+                <p>Nom de l'entreprise : Zoo Arcadia<br>
+                Adresse : Forêt de Brocéliande, France<br>
+                Téléphone : 01 23 45 67 89<br>
+                Email : zooarcadia2025@gmail.com</p>
+                <h3>Hébergement</h3>
+                <p>Nom de l'hébergeur : HEROKU<br>
+               
+                <h3>Données personnelles</h3>
+                <p>Les informations collectées sur ce site sont destinées à la gestion des utilisateurs et ne seront pas partagées sans consentement préalable. Vous pouvez exercer vos droits en contactant : zooarcadia2025@gmail.com</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+    </div>
+
     </div>
 </footer>
+
+<script>
+    // Charger les horaires dans le footer
+    document.addEventListener('DOMContentLoaded', () => {
+        chargerHorairesFooter();
+    });
+
+    function chargerHorairesFooter() {
+        fetch('/api/hours/list')
+            .then(response => response.json())
+            .then(data => {
+                const contenuHoraires = document.getElementById('contenu-horaires-footer');
+                contenuHoraires.innerHTML = ''; // Réinitialise le contenu
+                if (data.success && data.data.length > 0) {
+                    data.data.forEach(horaire => {
+                        const horaireDiv = document.createElement('div');
+                        horaireDiv.classList.add('mb-3', 'p-2', 'border', 'rounded');
+
+                        horaireDiv.innerHTML = `
+                            <h6 class="text-uppercase">Période</h6>
+                            <p>${horaire.periode}</p>
+                            <h6 class="text-uppercase">Horaires</h6>
+                            <p>Caisses : ${horaire.fermeture_caisses} | Parc à pied : ${horaire.fermeture_parc_pied}</p>
+                        `;
+                        contenuHoraires.appendChild(horaireDiv);
+                    });
+                } else {
+                    contenuHoraires.innerHTML = '<p>Aucun horaire disponible.</p>';
+                }
+            })
+            .catch(error => {
+                console.error('Erreur lors du chargement des horaires du footer :', error);
+                const contenuHoraires = document.getElementById('contenu-horaires-footer');
+                contenuHoraires.innerHTML = '<p>Erreur lors du chargement des horaires.</p>';
+            });
+    }
+</script>
 
 <!-- JavaScript Bootstrap -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>

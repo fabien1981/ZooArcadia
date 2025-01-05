@@ -1,6 +1,6 @@
 <div class="container mt-5">
     <h1>Ajouter un service</h1>
-    <form action="/ZooArcadia/admin/add_service" method="POST">
+    <form action="/admin/add_service" method="POST">
         <div class="mb-3">
             <label for="nom" class="form-label">Nom</label>
             <input type="text" class="form-control" id="nom" name="nom" required>
@@ -31,10 +31,10 @@
             <div class="modal-body">
                 <div class="row">
                     <?php
-                    $imagesDir = $_SERVER['DOCUMENT_ROOT'] . '/ZooArcadia/photos/';
+                    $imagesDir = $_SERVER['DOCUMENT_ROOT'] . '/photos/';
                     $images = array_diff(scandir($imagesDir), ['.', '..']); // Exclut les répertoires '.' et '..'
                     foreach ($images as $image):
-                        $imagePath = "/ZooArcadia/photos/" . htmlspecialchars($image);
+                        $imagePath = "/photos/" . htmlspecialchars($image);
                     ?>
                         <div class="col-md-3 mb-3 text-center">
                             <img src="<?= $imagePath ?>" alt="<?= htmlspecialchars($image) ?>" class="img-fluid img-thumbnail" style="cursor: pointer;" onclick="selectImage('<?= $image ?>')">

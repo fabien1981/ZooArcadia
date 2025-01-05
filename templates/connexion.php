@@ -24,5 +24,5 @@
 </div>
 
 <!-- Inclusion du fichier JavaScript externe -->
-<script src="/ZooArcadia/scripts/connexion.js"></script>
+<script src="/scripts/connexion.js"></script>
 

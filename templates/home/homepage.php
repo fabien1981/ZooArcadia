@@ -34,28 +34,28 @@
     <div id="carouselExampleFade" class="carousel slide carousel-fade">
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <img src="/ZooArcadia/photos/vueaerienne.jpeg" class="d-block w-100" alt="...">
+      <img src="/photos/vueaerienne.jpeg" class="d-block w-100" alt="...">
     </div>
     <div class="carousel-item">
-      <img src="/ZooArcadia/photos/Designer.jpeg" class="d-block w-100" alt="...">
+      <img src="/photos/Designer.jpeg" class="d-block w-100" alt="...">
     </div>
     <div class="carousel-item">
-      <img src="/ZooArcadia/photos/toucan.jpeg" class="d-block w-100" alt="...">
+      <img src="/photos/toucan.jpeg" class="d-block w-100" alt="...">
     </div>
     <div class="carousel-item">
-      <img src="/ZooArcadia/photos/elephantzoo.jpg" class="d-block w-100" alt="...">
+      <img src="/photos/elephantzoo.jpg" class="d-block w-100" alt="...">
     </div>
     <div class="carousel-item">
-      <img src="/ZooArcadia/photos/guide.jpeg" class="d-block w-100" alt="...">
+      <img src="/photos/guide.jpeg" class="d-block w-100" alt="...">
     </div>
     <div class="carousel-item">
-      <img src="/ZooArcadia/photos/eolienne.png" class="d-block w-100" alt="...">
+      <img src="/photos/eolienne.png" class="d-block w-100" alt="...">
     </div>
     <div class="carousel-item">
-      <img src="/ZooArcadia/photos/veto.jpeg" class="d-block w-100" alt="...">
+      <img src="/photos/veto.jpeg" class="d-block w-100" alt="...">
     </div>
     <div class="carousel-item">
-      <img src="/ZooArcadia/photos/zoo3.jpeg" class="d-block w-100" alt="...">
+      <img src="/photos/zoo3.jpeg" class="d-block w-100" alt="...">
     </div>
   </div>
   <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
@@ -127,13 +127,13 @@
     <div id="carouselServices" class="carousel slide carousel-fade">
     <div class="carousel-inner">
         <div class="carousel-item active">
-            <img src="/ZooArcadia/photos/restaurant.jpeg" class="d-block w-100" alt="...">
+            <img src="/photos/restaurant.jpeg" class="d-block w-100" alt="...">
         </div>
         <div class="carousel-item">
-            <img src="/ZooArcadia/photos/train.png" class="d-block w-100" alt="...">
+            <img src="/photos/train.png" class="d-block w-100" alt="...">
         </div>
         <div class="carousel-item">
-            <img src="/ZooArcadia/photos/guide.jpeg" class="d-block w-100" alt="...">
+            <img src="/photos/guide.jpeg" class="d-block w-100" alt="...">
         </div>
     </div>
     <button class="carousel-control-prev" type="button" data-bs-target="#carouselServices" data-bs-slide="prev">
@@ -153,14 +153,14 @@
     <div class="text-center">
         <h3>Partagez votre expérience</h3>
         <p>Nous serions ravis de connaître votre avis !</p>
-        <a href="/ZooArcadia/avis/display" class="btn btn-primary">Avis des visiteurs</a>
+        <a href="/avis/display" class="btn btn-primary">Avis des visiteurs</a>
 
     </div>
 </div>
 
 <div class="container mt-5 text-center">
     <h2>Partagez votre expérience</h2>
-    <a href="/ZooArcadia/api/avis/list" class="btn btn-primary">Voir les avis des visiteurs</a>
+    <a href="/api/avis/list" class="btn btn-primary">Voir les avis des visiteurs</a>
 </div>
 
 

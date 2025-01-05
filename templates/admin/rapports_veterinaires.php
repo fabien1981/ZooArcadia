@@ -34,5 +34,5 @@
         </table>
     </div>
 
-    <a href="/ZooArcadia/admin/display" class="btn btn-primary mt-3">Retour au tableau de bord</a>
+    <a href="/admin/display" class="btn btn-primary mt-3">Retour au tableau de bord</a>
 </div>

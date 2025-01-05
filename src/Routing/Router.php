@@ -278,6 +278,10 @@ if ($uri === 'admin/add_service') {
                         $this->method = 'delete';
                         $this->parameter = isset($uriExplode[1]) ? (int)$uriExplode[1] : null;
                         break;
+                    case 'show': 
+                            $this->method = 'show';
+                            $this->parameter = isset($uriExplode[1]) ? (int)$uriExplode[1] : null;
+                            break;
                     default:
                         throw new Exception("Route non reconnue pour 'hours'");
                 }
@@ -408,7 +412,7 @@ if ($uriExplode[0] === 'veterinaire' && $uriExplode[1] === 'reports') {
 }
 
 // Route pour les rapports vétérinaires
-if ($uri === '/ZooArcadia/veterinaire/showReports') {
+if ($uri === '/veterinaire/showReports') {
     $this->controllerName .= 'Veterinaire';
     $this->method = 'showReports';
     return;
@@ -440,6 +444,25 @@ if ($uriExplode[0] === 'contact' && $uriExplode[1] === 'handle') {
             return;
         }
 
+        // Route pour afficher les rapports vétérinaires dans l'espace admin
+// Route pour afficher les rapports vétérinaires depuis l'admin
+if ($uri === 'admin/rapports_veterinaires') {
+    $this->controllerName = 'App\Controller\Admin';
+    $this->method = 'rapportsVeterinaires';
+    return;
+}
+
+// Route pour récupérer les rapports vétérinaires via l'API
+if ($uri === 'api/veterinaire/reports') {
+    $this->controllerName = 'App\Controller\Veterinaire';
+    $this->method = 'apiReports';
+    return;
+}
+
+
+
+
+
         // Route pour accéder à la gestion des animaux dans l'interface admin
         if ($uri === 'admin/gestion_animaux') {
             $this->controllerName .= 'Admin';
@@ -453,6 +476,15 @@ if ($uriExplode[0] === 'contact' && $uriExplode[1] === 'handle') {
             $this->method = 'gestionHoraires';
             return;
         }
+
+        // Route pour afficher un horaire spécifique
+        if ($uriExplode[0] === 'hours' && $uriExplode[1] === 'show') {
+            $this->controllerName = 'App\Controller\Api\Horaires';
+            $this->method = 'show';
+            $this->parameter = isset($uriExplode[2]) ? (int)$uriExplode[2] : null;
+            return;
+        }
+        
 
         // Routage par défaut pour les autres URI
         $uriLength = count($uriExplode);

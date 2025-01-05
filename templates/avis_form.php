@@ -1,6 +1,6 @@
 <div class="container mt-5">
     <h2>Laisser un avis</h2>
-    <form method="POST" action="/ZooArcadia/api/avis/create">
+    <form method="POST" action="/api/avis/create">
         <div class="mb-3">
             <label for="pseudo" class="form-label">Pseudo</label>
             <input type="text" class="form-control" id="pseudo" name="pseudo" required>

@@ -10,7 +10,7 @@ $animaux = $data['animaux'] ?? [];
 
     <!-- Historique des repas -->
     <div class="text-center mb-4">
-        <a href="/ZooArcadia/employe/historique_nourriture" class="btn btn-secondary">Historique des repas</a>
+        <a href="/employe/historique_nourriture" class="btn btn-secondary">Historique des repas</a>
     </div>
 
     <!-- Liste des animaux avec recommandations -->
@@ -36,7 +36,7 @@ $animaux = $data['animaux'] ?? [];
                             <?= htmlspecialchars($animal['recommandation_date'] ?? 'Non spécifiée') ?>
                         </td>
                         <td>
-                            <a href="/ZooArcadia/employe/nourrir/<?= htmlspecialchars($animal['animal_id']) ?>" class="btn btn-primary">Nourrir</a>
+                            <a href="/employe/nourrir/<?= htmlspecialchars($animal['animal_id']) ?>" class="btn btn-primary">Nourrir</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -45,5 +45,5 @@ $animaux = $data['animaux'] ?? [];
     <?php else: ?>
         <p class="text-center text-muted">Aucun animal disponible.</p>
     <?php endif; ?>
-    <a href="/ZooArcadia/employe/dashboard" class="btn btn-primary" style="margin-bottom: 15px;">⬅ Retour à l'espace employé</a>
+    <a href="/employe/dashboard" class="btn btn-primary" style="margin-bottom: 15px;">⬅ Retour à l'espace employé</a>
 </div>

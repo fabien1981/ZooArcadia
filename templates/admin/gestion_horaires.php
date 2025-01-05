@@ -1,7 +1,7 @@
 <div class="container">
     <h1>Gestion des horaires d'ouverture</h1>
     <button class="btn btn-primary mb-3" onclick="ouvrirFormulaireHoraire()">Ajouter un horaire</button>
-    <a href="/ZooArcadia/admin/display" class="btn btn-secondary mb-3">Retour à l'admin</a>
+    <a href="/admin/display" class="btn btn-secondary mb-3">Retour à l'admin</a>
 
     <!-- Liste des horaires -->
     <div id="liste-horaires" class="mb-3"></div>
@@ -49,7 +49,7 @@
      * Charger la liste des horaires depuis l'API
      */
     function chargerListeHoraires() {
-        fetch('/ZooArcadia/api/hours/list')
+        fetch('/api/hours/list')
             .then(response => response.json())
             .then(data => {
                 const listeHoraires = document.getElementById('liste-horaires');
@@ -84,7 +84,7 @@
     function soumettreFormulaireHoraire(event) {
         event.preventDefault();
         const id = document.getElementById('horaireId').value;
-        const url = id ? `/ZooArcadia/api/hours/edit/${id}` : '/ZooArcadia/api/hours/create';
+        const url = id ? `/api/hours/edit/${id}` : '/api/hours/create';
         const methode = id ? 'PUT' : 'POST';
 
         const formData = {
@@ -115,29 +115,35 @@
      * Modifier un horaire existant
      */
     function modifierHoraire(id) {
-        fetch(`/ZooArcadia/api/hours/show/${id}`)
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    document.getElementById('horaireId').value = id;
-                    document.getElementById('periode').value = data.data.periode;
-                    document.getElementById('fermeture_caisses').value = data.data.fermeture_caisses;
-                    document.getElementById('fermeture_parc_pied').value = data.data.fermeture_parc_pied;
-                    document.getElementById('titre-formulaire').textContent = 'Modifier un horaire';
-                    document.getElementById('formulaire-horaire').style.display = 'block';
-                } else {
-                    alert(data.message || 'Erreur lors du chargement de l\'horaire.');
-                }
-            })
-            .catch(error => console.error('Erreur réseau :', error));
-    }
+    fetch(`/api/hours/show/${id}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Erreur HTTP : ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.success) {
+                document.getElementById('horaireId').value = id;
+                document.getElementById('periode').value = data.data.periode;
+                document.getElementById('fermeture_caisses').value = data.data.fermeture_caisses;
+                document.getElementById('fermeture_parc_pied').value = data.data.fermeture_parc_pied;
+                document.getElementById('titre-formulaire').textContent = 'Modifier un horaire';
+                document.getElementById('formulaire-horaire').style.display = 'block';
+            } else {
+                alert(data.message || 'Erreur lors du chargement de l\'horaire.');
+            }
+        })
+        .catch(error => console.error('Erreur réseau ou API :', error));
+}
+
 
     /**
      * Supprimer un horaire existant
      */
     function supprimerHoraire(id) {
         if (confirm('Voulez-vous vraiment supprimer cet horaire ?')) {
-            fetch(`/ZooArcadia/api/hours/delete/${id}`, { method: 'DELETE' })
+            fetch(`/api/hours/delete/${id}`, { method: 'DELETE' })
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {

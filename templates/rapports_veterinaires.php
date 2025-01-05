@@ -8,8 +8,10 @@
 
     <!-- Bouton pour retourner à l'espace vétérinaire -->
     <div class="mb-3">
-        <a href="/ZooArcadia/veterinaire/display" class="btn btn-primary">Retour à l'espace vétérinaire</a>
-    </div>
+    <a href="<?= $_SESSION['email']['role'] === 'Admin' ? '/admin/display' : '/veterinaire/display'; ?>" class="btn btn-primary">Retour</a>
+</div>
+
+
 
     <!-- Tableau des rapports -->
     <div class="table-responsive">
@@ -52,7 +54,7 @@
     });
 
     function fetchReports() {
-    fetch('/ZooArcadia/api/veterinaire/reports')
+    fetch('/api/veterinaire/reports')
         .then(response => response.json())
         .then(data => {
             const tbody = document.getElementById('reports-body');

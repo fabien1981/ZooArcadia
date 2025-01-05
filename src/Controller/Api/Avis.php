@@ -56,7 +56,7 @@ class Avis
             $_SESSION['success_message'] = 'Votre avis a bien été envoyé.';
 
             // Redirection vers la page d'accueil
-            header('Location: /ZooArcadia/homepage/home');
+            header('Location: /homepage/home');
             exit;
         } catch (\Exception $e) {
             echo 'Erreur lors de l\'enregistrement : ' . $e->getMessage();

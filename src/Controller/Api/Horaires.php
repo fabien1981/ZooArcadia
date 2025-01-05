@@ -86,4 +86,31 @@ class Horaires
             return ['success' => false, 'message' => 'Erreur lors de la suppression de l\'horaire : ' . $e->getMessage()];
         }
     }
+
+    public function show(int $id): array
+{
+    try {
+        $query = Dbutils::getPdo()->prepare('SELECT * FROM horaires WHERE id = :id');
+        $query->bindParam(':id', $id, PDO::PARAM_INT);
+        $query->execute();
+        $horaire = $query->fetch(PDO::FETCH_ASSOC);
+
+        if ($horaire) {
+            header('Content-Type: application/json');
+            echo json_encode(['success' => true, 'data' => $horaire]);
+            exit;
+        } else {
+            header('Content-Type: application/json');
+            echo json_encode(['success' => false, 'message' => 'Horaire introuvable.']);
+            exit;
+        }
+    } catch (Exception $e) {
+        header('Content-Type: application/json');
+        echo json_encode(['success' => false, 'message' => 'Erreur lors de la récupération de l\'horaire : ' . $e->getMessage()]);
+        exit;
+    }
+}
+
+    
+
 }

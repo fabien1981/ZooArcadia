@@ -10,7 +10,7 @@ $animal = $data['animal'] ?? null;
             Quantité : <?= htmlspecialchars($animal['recommandation_grammage'] ?? 'Non spécifiée'); ?> g
         </p>
 
-        <form action="/ZooArcadia/employe/add_nourriture" method="POST" class="mt-4">
+        <form action="/employe/add_nourriture" method="POST" class="mt-4">
     <input type="hidden" name="animal_id" value="<?= htmlspecialchars($animal['animal_id']); ?>">
     <input type="hidden" name="user_id" value="<?= isset($_SESSION['email']['user_id']) ? htmlspecialchars($_SESSION['email']['user_id']) : ''; ?>">
 
@@ -42,4 +42,4 @@ $animal = $data['animal'] ?? null;
     </div>
 <?php endif; ?>
 
-<a href="/ZooArcadia/employe/alimentation" class="btn btn-primary mt-3">⬅ Retour à la page alimentation</a>
+<a href="/employe/alimentation" class="btn btn-primary mt-3">⬅ Retour à la page alimentation</a>

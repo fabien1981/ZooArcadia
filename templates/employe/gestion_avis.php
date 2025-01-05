@@ -24,11 +24,11 @@
                     <br>
                     Note: <?= str_repeat('★', (int) $avis['rating']) ?>
                     <br>
-                    <form action="/ZooArcadia/employe/validate_avis" method="post" class="d-inline">
+                    <form action="/employe/validate_avis" method="post" class="d-inline">
                         <input type="hidden" name="id" value="<?= $avis['_id'] ?>">
                         <button type="submit" class="btn btn-success btn-sm">Valider</button>
                     </form>
-                    <form action="/ZooArcadia/employe/delete_avis" method="post" class="d-inline">
+                    <form action="/employe/delete_avis" method="post" class="d-inline">
                         <input type="hidden" name="id" value="<?= $avis['_id'] ?>">
                         <button type="submit" class="btn btn-danger btn-sm">Supprimer</button>
                     </form>
@@ -54,3 +54,5 @@
         <p>Aucun avis validé.</p>
     <?php endif; ?>
 </div>
+
+<a href="/employe/dashboard" class="btn btn-primary" style="margin-bottom: 15px;">⬅ Retour à l'espace employé</a>

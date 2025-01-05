@@ -1,14 +1,4 @@
-<?php
 
-if (!isset($_SESSION['email'])) {
-    header('Location: /ZooArcadia/connexion/display');
-    exit;
-}
-
-// Variables pour stocker les messages de succès ou d'erreur
-$error = $error ?? null;
-$success = $success ?? null;
-?>
 
 <div class="container">
     <h1>Modifier le mot de passe</h1>
@@ -27,16 +17,16 @@ $success = $success ?? null;
 
     <form action="" method="post">
         <div class="mb-3">
-            <label for="current_password" class="form-label">Mot de passe actuel</label>
-            <input type="password" class="form-control" id="current_password" name="current_password" required>
+            <label for="mot_de_passe_actuel" class="form-label">Mot de passe actuel</label>
+            <input type="password" class="form-control" id="mot_de_passe_actuel" name="mot_de_passe_actuel" required>
         </div>
         <div class="mb-3">
-            <label for="new_password" class="form-label">Nouveau mot de passe</label>
-            <input type="password" class="form-control" id="new_password" name="new_password" required>
+            <label for="nouveau_mot_de_passe" class="form-label">Nouveau mot de passe</label>
+            <input type="password" class="form-control" id="nouveau_mot_de_passe" name="nouveau_mot_de_passe" required>
         </div>
         <div class="mb-3">
-            <label for="confirm_password" class="form-label">Confirmer le nouveau mot de passe</label>
-            <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
+            <label for="confirmation_mot_de_passe" class="form-label">Confirmer le nouveau mot de passe</label>
+            <input type="password" class="form-control" id="confirmation_mot_de_passe" name="confirmation_mot_de_passe" required>
         </div>
         <button type="submit" class="btn btn-primary">Modifier le mot de passe</button>
     </form>
