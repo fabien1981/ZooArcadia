@@ -6,17 +6,13 @@ use App\Database\Dbutils;
 use PDO;
 use Exception;
 
-/**
- * Class Animal
- * Contrôleur API pour gérer les opérations CRUD sur les animaux.
+/*
+
+  Contrôleur API pour gérer les opérations CRUD sur les animaux.
  */
 class Animal
 {
-    /**
-     * Récupère la liste complète des animaux avec leurs habitats associés.
-     *
-     * @return array Un tableau contenant la réussite et les données ou un message d'erreur.
-     */
+    
     public function list(): array
     {
         try {

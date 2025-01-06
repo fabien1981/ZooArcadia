@@ -248,7 +248,7 @@ public function addNourriture()
         }
     }
 
-    // En cas de requête non POST
+
     throw new Exception('Méthode HTTP non autorisée');
 }
 

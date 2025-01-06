@@ -15,7 +15,7 @@ class ConsultationController
         $input = file_get_contents('php://input'); // Lire les données brutes
         $data = json_decode($input, true); // Décoder les données JSON
 
-        error_log("Données JSON reçues : " . json_encode($data)); // Journaliser les données reçues
+        error_log("Données JSON reçues : " . json_encode($data)); 
 
         $animalId = $data['animal_id'] ?? null;
         $animalName = $data['animal_name'] ?? null;
@@ -30,7 +30,6 @@ class ConsultationController
         $db = DbConnectionNoSQL::getDB(); // Connexion à MongoDB
         $collection = $db->consultations;
 
-        // Rechercher l'enregistrement correspondant
         $existingRecord = $collection->findOne(['animal_id' => (int)$animalId]);
 
         if ($existingRecord) {
@@ -46,7 +45,7 @@ class ConsultationController
                 'animal_id' => (int)$animalId,
                 'animal_name' => $animalName,
                 'habitat_name' => $habitatName,
-                'consultations' => 1, // Initialise à 1
+                'consultations' => 1, 
             ]);
             error_log("Nouvel enregistrement créé pour animal_id = $animalId");
         }
@@ -92,7 +91,7 @@ private function ajouterChampConsultations($collection)
         // Mise à jour des documents manquants la clé `consultations`
         $result = $collection->updateMany(
             ['consultations' => ['$exists' => false]], // Condition : champ `consultations` inexistant
-            ['$set' => ['consultations' => 0]]        // Ajoute la clé `consultations` avec une valeur par défaut de 0
+            ['$set' => ['consultations' => 0]]       
         );
 
         // Journaliser le nombre de documents mis à jour
@@ -100,7 +99,7 @@ private function ajouterChampConsultations($collection)
     } catch (Exception $e) {
         // Journaliser l'erreur en cas d'échec
         error_log("Erreur dans ajouterChampConsultations : " . $e->getMessage());
-        throw $e; // Relancer l'exception pour la gérer dans `getStatistics`
+        throw $e; 
     }
 }
 

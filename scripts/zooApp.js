@@ -198,7 +198,7 @@ function incrementAnimalConsultation(animalId, animalName, habitatName) {
     })
         .then(response => response.json())
         .then(data => {
-            //onsole.log('Réponse API:', data); // Log de la réponse
+   
             if (!data.success) {
                 alert('Erreur lors de l\'incrémentation: ' + data.message);
             }

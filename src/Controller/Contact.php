@@ -17,9 +17,7 @@ class Contact
     $mail = new PHPMailer(true);
 
     try {
-        /* Mode debug de PHPMailer
-        $mail->SMTPDebug =2 ; // Active le mode debug (2 pour voir les détails complets)
-        $mail->Debugoutput = 'html'; // Format HTML pour les logs*/
+  
 
         // Configuration SMTP
         $mail->isSMTP();
@@ -92,7 +90,7 @@ public function handleContactForm()
     {
         // Logique pour afficher la page de contact
         return [
-            'template' => 'contact', // Assurez-vous que le fichier `contact.php` existe dans `templates/`
+            'template' => 'contact',
             'message' => 'Nous contacter'
         ];
     }

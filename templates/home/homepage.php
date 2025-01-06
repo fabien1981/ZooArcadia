@@ -76,7 +76,7 @@
         <div class="section-title" style="background-color: #228b22; padding: 10px;">
             <h2>Nos Animaux</h2>
         </div>
-        <div class="row animal-gallery justify-content-around mt-3" >
+        <div class="row animal-gallery justify-content-around mt-3 secondary" >
             <div class="col-6 col-sm-4 col-md-3 animal-item">
                 <img src="/photos/tigre3.png" alt="Tigre"  class="rounded-circle img-fluid" />
                 <p class="animal-title">Tigre</p>
