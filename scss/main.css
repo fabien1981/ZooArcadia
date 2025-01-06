@@ -12256,7 +12256,6 @@ h1 {
   background-color: rgba(255, 255, 255, 0.2); /* Change le fond au survol */
 }
 
-/* Assurez-vous que l'image de fond est visible uniquement dans le menu burger */
 .navbar-collapse.collapse:not(.show) {
   background: none; /* Pas de fond si le menu est fermé */
   width: auto; /* Réinitialise la largeur */

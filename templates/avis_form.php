@@ -1,4 +1,4 @@
-<div class="container mt-5">
+<div class="container mt-5  bg-container">
     <h2>Laisser un avis</h2>
     <form method="POST" action="/api/avis/create">
         <div class="mb-3">

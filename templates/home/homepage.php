@@ -76,7 +76,7 @@
         <div class="section-title" style="background-color: #228b22; padding: 10px;">
             <h2>Nos Animaux</h2>
         </div>
-        <div class="row animal-gallery justify-content-around mt-3 secondary" >
+        <div class="row animal-gallery justify-content-around mt-3 "style="background-color: #D2B48C; padding: 10px;" >
             <div class="col-6 col-sm-4 col-md-3 animal-item">
                 <img src="/photos/tigre3.png" alt="Tigre"  class="rounded-circle img-fluid" />
                 <p class="animal-title">Tigre</p>
@@ -102,16 +102,16 @@
     <div class="section-title" style="background-color: #228b22; padding: 10px;">
         <h2>Nos Habitats</h2>
     </div>
-    <div class="row habitat-gallery justify-content-around mt-3">
-        <div class="col-6 col-sm-4 col-md-3 habitat-item">
+    <div class="row habitat-gallery justify-content-around mt-3 " >
+        <div class="col-6 col-sm-4 col-md-3 habitat-item " style="background-color: #D2B48C; padding: 10px;">
             <img src="/photos/marais.png" alt="Marais" class="rounded img-fluid habitat-image" />
             <p class="habitat-title">Marais</p>
         </div>
-        <div class="col-6 col-sm-4 col-md-3 habitat-item">
+        <div class="col-6 col-sm-4 col-md-3 habitat-item" style="background-color: #D2B48C; padding: 10px;">
             <img src="/photos/tigre3.png" alt="Jungle" class="rounded img-fluid habitat-image" />
             <p class="habitat-title">Jungle</p>
         </div>
-        <div class="col-6 col-sm-4 col-md-3 habitat-item">
+        <div class="col-6 col-sm-4 col-md-3 habitat-item" style="background-color: #D2B48C; padding: 10px;">
             <img src="/photos/girafe2.png" alt="Savane" class="rounded img-fluid habitat-image" />
             <p class="habitat-title">Savane</p>
         </div>
