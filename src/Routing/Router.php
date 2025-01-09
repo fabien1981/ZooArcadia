@@ -132,7 +132,7 @@ if ($uri === 'admin/statistiques_consultations') {
 
         // Route pour afficher la gestion des services
         if ($uri === 'admin/gestion_services') {
-            $this->controllerName = 'App\Controller\Admin'; // Assurez-vous que c'est bien défini une seule fois
+            $this->controllerName = 'App\Controller\Admin'; 
             $this->method = 'gestionServices';
             return;
         }

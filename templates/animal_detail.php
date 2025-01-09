@@ -33,10 +33,6 @@ $lastReport = $data['lastReport'] ?? null; ?>
             </div>
         </div>
 
-
-
-
-
         
         <a href="/habitats/display" class="btn btn-primary mt-4">
             <i class="bi bi-arrow-left"></i> Retour aux habitats

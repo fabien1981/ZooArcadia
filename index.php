@@ -22,6 +22,7 @@ $router = new Router($_SERVER['REQUEST_METHOD'], $_SERVER['REQUEST_URI']);
 $router->add('/test/mongodb', [App\Controller\Test::class, 'mongodb']);
 
 
+$router->get('/veterinaire/display', [\App\Controller\Veterinaire::class, 'display']);
 
 
 

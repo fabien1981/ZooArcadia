@@ -52,7 +52,7 @@
                             >
                             <div class="card-body text-center" >
     
-    <h5 class="card-title text-primary" style="color: #228b22; ">
+                                <h5 class="card-title text-primary" style="color: #228b22; ">
                                     <a href="/habitats/show/<?= htmlspecialchars($habitat['habitat_id']) ?>">
                                         <?= htmlspecialchars($habitat['nom']) ?>
                                     </a>
