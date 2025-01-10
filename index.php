@@ -13,9 +13,6 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 
 
-// Charger les variables d'environnement
-$dotenv = Dotenv::createImmutable(__DIR__);
-$dotenv->load();
 
 // Initialiser le routeur
 $router = new Router($_SERVER['REQUEST_METHOD'], $_SERVER['REQUEST_URI']);
