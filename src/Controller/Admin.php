@@ -198,6 +198,7 @@ public function statistiquesConsultations(): array
 
 public function addService(): array
 {
+     // Vérifie si la requête est de type POST
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         try {
             // Initialisation du chemin de l'image

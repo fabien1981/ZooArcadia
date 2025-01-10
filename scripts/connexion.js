@@ -30,7 +30,9 @@ if (inputEmail && inputPassword && btnValidation) {
 
     // Fonction pour valider le champ Password
     function validatePassword(input) {
+
         const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])[A-Za-z\d\W_]{8,}$/;
+        
         if (input.value.match(passwordRegex)) {
             setValidationState(input, true, "Mot de passe valide");
             return true;

@@ -40,8 +40,11 @@ class CreerCompte
     // Préparation de la requête pour insérer l'utilisateur
     $query = $pdo->prepare('INSERT INTO utilisateur (email, password, nom, prenom, role_id) VALUES (:email, :password, :nom, :prenom, :role_id)');
     $query->bindParam(':email', $formulaire['email']);
+
     $password = password_hash($formulaire['password'], PASSWORD_BCRYPT);
+    
     $query->bindParam(':password', $password);
+
     $query->bindParam(':nom', $formulaire['nom']);
     $query->bindParam(':prenom', $formulaire['prenom']);
 

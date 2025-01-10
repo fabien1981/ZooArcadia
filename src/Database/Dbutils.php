@@ -3,7 +3,6 @@
 namespace App\Database;
 
 use PDO;
-use Dotenv\Dotenv;
 
 class Dbutils
 {
@@ -15,13 +14,10 @@ class Dbutils
             return self::$pdo;
         }
 
-        // Charge les variables d'environnement
-        $dotenv = Dotenv::createImmutable(__DIR__ . '/../../');
-        $dotenv->load();
-
-        $dsn = $_ENV['DB_DSN'];
-        $user = $_ENV['DB_USER'];
-        $password = $_ENV['DB_PASSWORD'];
+        // Charger les variables d'environnement directement depuis getenv()
+        $dsn = getenv('DB_DSN');
+        $user = getenv('DB_USER');
+        $password = getenv('DB_PASSWORD');
 
         // Active les exceptions PDO
         self::$pdo = new PDO($dsn, $user, $password, [
