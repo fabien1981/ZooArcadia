@@ -16,25 +16,24 @@ class DbConnectionNoSQL
     public static function getDB()
     {
         if (self::$db !== null) {
+            error_log("Connexion MongoDB déjà établie.");
             return self::$db;
         }
-
-        // Récupérer les paramètres de connexion depuis les variables d'environnement
-        $mongoUri = getenv('MONGODB_URI') ?: 'mongodb://localhost:27017';
-        $databaseName = getenv('MONGODB_DATABASE') ?: 'default_database';
-
+    
+        $mongoUri = getenv('MONGODB_URI') ?: 'mongodb://mongodb:27017';
+        $databaseName = getenv('MONGODB_DATABASE') ?: 'ECFArcadia';
+    
         try {
-            // Créer une connexion MongoDB
-            $client = new Client($mongoUri);
+            $client = new \MongoDB\Client($mongoUri);
             self::$db = $client->selectDatabase($databaseName);
+            error_log("Connexion réussie à MongoDB : $mongoUri, base de données : $databaseName");
             return self::$db;
-        } catch (Exception $e) {
-            // Journaliser l'erreur pour débogage
-            error_log('Erreur de connexion MongoDB : ' . $e->getMessage());
-            // Lancer une exception générique pour l'utilisateur
-            throw new Exception('Une erreur est survenue lors de la connexion à la base de données.');
+        } catch (\Exception $e) {
+            error_log("Erreur de connexion MongoDB : " . $e->getMessage());
+            throw new \Exception('Erreur de connexion MongoDB.');
         }
     }
+    
 
     /**
      * Méthode pour protéger les données avant insertion ou mise à jour

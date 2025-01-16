@@ -1,0 +1,30 @@
+[
+  {
+    "_id": {"$oid": "673e642c8e926e65fd0b21ee"},
+    "animal_id": 3,
+    "animal_name": "Gigi",
+    "habitat_name": "Savane",
+    "consultations": 2
+  },
+  {
+    "_id": {"$oid": "673e64308e926e65fd0b21ef"},
+    "animal_id": 2,
+    "animal_name": "Starlion",
+    "habitat_name": "Savane",
+    "consultations": 16
+  },
+  {
+    "_id": {"$oid": "677125dc25c02cbde6043cf2"},
+    "animal_id": 111,
+    "animal_name": "Tigrou",
+    "habitat_name": "Jungle",
+    "consultations": 3
+  },
+  {
+    "_id": {"$oid": "677af01608f6a9cf0b09dcd3"},
+    "animal_id": 114,
+    "animal_name": "Léo",
+    "habitat_name": "Savane",
+    "consultations": 2
+  }
+]

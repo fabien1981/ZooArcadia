@@ -5,7 +5,7 @@ const btnValidation = document.getElementById("btn-validation-connexion");
 
 // Vérifie que les éléments existent avant d’ajouter des événements
 if (inputEmail && inputPassword && btnValidation) {
-    // Activation des événements sur les champs pour validation en temps réel
+   
     inputEmail.addEventListener("keyup", validateForm);
     inputPassword.addEventListener("keyup", validateForm);
 

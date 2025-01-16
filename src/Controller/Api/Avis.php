@@ -77,19 +77,29 @@ class Avis
     public function list(): array
 {
     try {
-        // Récupérer uniquement les avis validés
         $avis = $this->collection->find(['is_validated' => true], ['sort' => ['date_created' => -1]])->toArray();
+
+        // Conversion des objets BSON en tableau PHP
+        $avis = array_map(function ($item) {
+            $item['_id'] = (string) $item['_id']; // Convertit ObjectId en chaîne
+            $item['date_created'] = $item['date_created']->toDateTime()->format('Y-m-d H:i:s'); // Convertit UTCDateTime
+            return $item;
+        }, $avis);
+
         return [
             'success' => true,
             'data' => $avis
         ];
     } catch (\Exception $e) {
+        error_log('Erreur MongoDB : ' . $e->getMessage());
         return [
             'success' => false,
             'message' => 'Erreur lors de la récupération des avis : ' . $e->getMessage()
         ];
     }
 }
+
+
 
     
     

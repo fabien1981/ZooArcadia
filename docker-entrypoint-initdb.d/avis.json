@@ -1,0 +1,42 @@
+[
+  {
+    "_id": {"$oid": "677aef6ad3a3f32ba7083312"},
+    "pseudo": "fabien",
+    "avis": "Magnifique!!!",
+    "rating": 5,
+    "date_created": {"$date": "2025-01-05T20:45:30.791Z"},
+    "is_validated": true
+  },
+  {
+    "_id": {"$oid": "677aefbd08f6a9cf0b09dcd2"},
+    "pseudo": "Sophie",
+    "avis": "Les lions sont terrifiants !",
+    "rating": 4,
+    "date_created": {"$date": "2025-01-05T20:46:53.295Z"},
+    "is_validated": true
+  },
+  {
+    "_id": {"$oid": "677aefd9d3a3f32ba7083313"},
+    "pseudo": "Elise",
+    "avis": "Un havre de paix pour ces animaux",
+    "rating": 5,
+    "date_created": {"$date": "2025-01-05T20:47:21.124Z"},
+    "is_validated": true
+  },
+  {
+    "_id": {"$oid": "677aeff2f996af03020228d2"},
+    "pseudo": "Emma",
+    "avis": "Enfin un zoo éco-responsable!",
+    "rating": 5,
+    "date_created": {"$date": "2025-01-05T20:47:46.847Z"},
+    "is_validated": true
+  },
+  {
+    "_id": {"$oid": "678131fb2819157b46090922"},
+    "pseudo": "Marc",
+    "avis": "Nous avons passé une superbe journée dans ce zoo!!",
+    "rating": 5,
+    "date_created": {"$date": "2025-01-10T14:43:07.631Z"},
+    "is_validated": true
+  }
+]
